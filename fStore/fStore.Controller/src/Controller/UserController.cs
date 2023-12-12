@@ -1,10 +1,11 @@
 using fStore.Business;
+using fStore.Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace fStore.Controller.src.Controller
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     public class UserController : ControllerBase
     {
         private IUserService _userService;
@@ -13,6 +14,13 @@ namespace fStore.Controller.src.Controller
         {
             _userService = userService;
         }
+
+        [HttpGet(Name ="GetAllUsers")]
+        public ActionResult<IEnumerable<UserReadDTO>> GetAllUsers([FromQuery] GetAllParams options)
+        {
+            return Ok(_userService.GetAllUsers(options));
+        }
+        
         [HttpPost(Name ="CreateUser")]
         public ActionResult<UserReadDTO> CreateUser(UserCreateDTO userCreateDTO)
         {

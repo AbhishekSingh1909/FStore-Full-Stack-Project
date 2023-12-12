@@ -8,6 +8,7 @@ namespace fStore.Business;
         public MapperProfile()
         {
             CreateMap<User,UserReadDTO>();
+            CreateMap<UserCreateDTO, User>();
         }
         
     }

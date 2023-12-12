@@ -15,11 +15,10 @@ public class UserService : IUserService
         _mapper= mapper;
     }
 
-    public UserReadDTO CreateUser(UserCreateDTO userCreateDTO)
+    public UserReadDTO CreateUser(UserCreateDTO userCreateDto)
     {
-        var user = _mapper.Map<UserCreateDTO,User>(userCreateDTO);
-        var result =_userRepo.CreateUser(user);
-        return _mapper.Map<User,UserReadDTO>(result);
+            var result = _userRepo.CreateUser(_mapper.Map<UserCreateDTO, User>(userCreateDto));
+            return _mapper.Map<User, UserReadDTO>(result);
     }
 
     public IEnumerable<UserReadDTO> GetAllUsers(GetAllParams options)

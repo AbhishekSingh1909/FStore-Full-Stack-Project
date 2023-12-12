@@ -5,26 +5,31 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true); // make urls in lower case
-
 // Add services to the container.
+
+builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
+builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddControllers();// used to add all controllers in WEBAPI project
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 // declare services
-builder.Services.AddScoped<IUserService , UserService>();// tell the program to create insteace of class UserService
+builder.Services.AddScoped<IUserService, UserService>(); // tell the program to create insteace of class UserService
 builder.Services.AddScoped<IUserRepo, UserRepo>();
+// builder.Services.AddTransient()
+// builder.Services.AddSingleton();
+
+//add automapper dependency injection
+// builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddAutoMapper(typeof(UserService).Assembly);
+//builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
+
+// Add database contect service
+
+builder.Services.AddDbContext<DataBaseContext>(options => options.UseNpgsql());
 
 var app = builder.Build();
-
-// add automapper dependency Injection
-//builder.Services.AddAutoMapper(typeof(UserService).Assembly);
-builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
-
-//add database connect service
-builder.Services.AddDbContext<DataBaseContext>(options => options.UseNpgsql());
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -34,6 +39,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.MapControllers();/// used to map all controllers in WEBAPI project
+
+app.UseAuthorization();
+
+app.MapControllers();
+
 app.Run();
 

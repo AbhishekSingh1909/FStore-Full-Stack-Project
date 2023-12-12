@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\fStore.Business\fStore.Business.csproj" />
+    <ProjectReference Include="..\fStore.Controller\fStore.Controller.csproj" />
   </ItemGroup>
 
 </Project>
