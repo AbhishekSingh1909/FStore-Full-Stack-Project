@@ -14,7 +14,7 @@ namespace fStore.WEBAPI.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
-                .Annotation("Npgsql:Enum:role", "admin,customer");
+                .Annotation("Npgsql:Enum:role", "customer,admin");
 
             migrationBuilder.CreateTable(
                 name: "users",

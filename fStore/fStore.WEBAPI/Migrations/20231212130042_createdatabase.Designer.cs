@@ -13,7 +13,7 @@ using fStore.WEBAPI;
 namespace fStore.WEBAPI.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20231212103755_createdatabase")]
+    [Migration("20231212130042_createdatabase")]
     partial class createdatabase
     {
         /// <inheritdoc />
@@ -24,7 +24,7 @@ namespace fStore.WEBAPI.Migrations
                 .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "role", new[] { "admin", "customer" });
+            NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "role", new[] { "customer", "admin" });
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("fStore.Core.User", b =>

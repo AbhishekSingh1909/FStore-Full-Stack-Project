@@ -12,5 +12,4 @@ namespace fStore.Core;
         public string? Avatar { get; set; }
         [Required]
         public Role Role {get;set;}
-        
     }
