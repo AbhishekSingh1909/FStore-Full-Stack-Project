@@ -22,8 +22,8 @@ builder.Services.AddScoped<IUserRepo, UserRepo>();
 
 //add automapper dependency injection
 // builder.Services.AddAutoMapper(typeof(Program).Assembly);
-builder.Services.AddAutoMapper(typeof(UserService).Assembly);
-//builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
+//builder.Services.AddAutoMapper(typeof(UserService).Assembly);
+builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
 // Add database contect service
 
