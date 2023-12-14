@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace fStore.Controller.src.Controller
 {
     [ApiController]
-    [Route("api/[controller]s")]
+    [Route("api/v1/[controller]s")]
     public class UserController : ControllerBase
     {
         private IUserService _userService;

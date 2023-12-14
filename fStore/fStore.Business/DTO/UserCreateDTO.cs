@@ -9,5 +9,4 @@ namespace fStore.Business;
         public  string Password {get;set;}
         public string? Avatar {get;set;} 
         public Role? Role {get;set;} = Core.Role.Customer;
-        public DateTime? CreatedAt { get; set; }
     }
