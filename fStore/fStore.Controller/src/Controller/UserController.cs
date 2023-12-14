@@ -15,16 +15,16 @@ namespace fStore.Controller.src.Controller
             _userService = userService;
         }
 
-        [HttpGet(Name ="GetAllUsers")]
+        [HttpGet(Name = "GetAllUsers")]
         public ActionResult<IEnumerable<UserReadDTO>> GetAllUsers([FromQuery] GetAllParams options)
         {
             return Ok(_userService.GetAllUsers(options));
         }
-        
-        [HttpPost(Name ="CreateUser")]
-        public ActionResult<UserReadDTO> CreateUser(UserCreateDTO userCreateDTO)
+
+        [HttpPost(Name = "CreateUser")]
+        public ActionResult<UserReadDTO> CreateUser([FromBody] UserCreateDTO userCreateDTO)
         {
-            return CreatedAtAction(nameof(CreateUser),_userService.CreateUser(userCreateDTO));
+            return CreatedAtAction(nameof(CreateUser), _userService.CreateUser(userCreateDTO));
 
         }
     }
