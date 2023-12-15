@@ -13,7 +13,7 @@ using fStore.WEBAPI;
 namespace fStore.WEBAPI.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20231214190240_createdatabase")]
+    [Migration("20231215124727_createdatabase")]
     partial class createdatabase
     {
         /// <inheritdoc />
@@ -30,12 +30,12 @@ namespace fStore.WEBAPI.Migrations
 
             modelBuilder.Entity("CartItemProduct", b =>
                 {
-                    b.Property<int>("CartItemsId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("CartItemsId")
+                        .HasColumnType("uuid")
                         .HasColumnName("cart_items_id");
 
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("ProductsId")
+                        .HasColumnType("uuid")
                         .HasColumnName("products_id");
 
                     b.HasKey("CartItemsId", "ProductsId")
@@ -49,13 +49,11 @@ namespace fStore.WEBAPI.Migrations
 
             modelBuilder.Entity("fStore.Core.Address", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("id")
                         .HasColumnOrder(0);
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -85,8 +83,8 @@ namespace fStore.WEBAPI.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
                         .HasColumnName("user_id");
 
                     b.HasKey("Id")
@@ -101,21 +99,15 @@ namespace fStore.WEBAPI.Migrations
 
             modelBuilder.Entity("fStore.Core.CartItem", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("id")
                         .HasColumnOrder(0);
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer")
-                        .HasColumnName("product_id");
 
                     b.Property<int>("Quntity")
                         .HasColumnType("integer")
@@ -125,8 +117,8 @@ namespace fStore.WEBAPI.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
                         .HasColumnName("user_id");
 
                     b.HasKey("Id")
@@ -143,13 +135,11 @@ namespace fStore.WEBAPI.Migrations
 
             modelBuilder.Entity("fStore.Core.Category", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("id")
                         .HasColumnOrder(0);
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("timestamp without time zone")
@@ -176,19 +166,17 @@ namespace fStore.WEBAPI.Migrations
 
             modelBuilder.Entity("fStore.Core.Order", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("id")
                         .HasColumnOrder(0);
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
-                    b.Property<int>("OrderStatus")
+                    b.Property<OrderStatus>("OrderStatus")
                         .HasColumnType("order_status")
                         .HasColumnName("order_status");
 
@@ -196,8 +184,8 @@ namespace fStore.WEBAPI.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
                         .HasColumnName("user_id");
 
                     b.HasKey("Id")
@@ -211,12 +199,12 @@ namespace fStore.WEBAPI.Migrations
 
             modelBuilder.Entity("fStore.Core.OrderProduct", b =>
                 {
-                    b.Property<int>("OrderId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uuid")
                         .HasColumnName("order_id");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid")
                         .HasColumnName("product_id");
 
                     b.Property<int>("Quntity")
@@ -243,16 +231,14 @@ namespace fStore.WEBAPI.Migrations
 
             modelBuilder.Entity("fStore.Core.Product", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("id")
                         .HasColumnOrder(0);
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uuid")
                         .HasColumnName("category_id");
 
                     b.Property<DateTime?>("CreatedAt")
@@ -301,20 +287,18 @@ namespace fStore.WEBAPI.Migrations
 
             modelBuilder.Entity("fStore.Core.Review", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("id")
                         .HasColumnOrder(0);
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid")
                         .HasColumnName("product_id");
 
                     b.Property<int>("Rating")
@@ -329,8 +313,8 @@ namespace fStore.WEBAPI.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("updated_at");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer")
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
                         .HasColumnName("user_id");
 
                     b.HasKey("Id")
@@ -347,13 +331,11 @@ namespace fStore.WEBAPI.Migrations
 
             modelBuilder.Entity("fStore.Core.User", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
+                        .HasColumnType("uuid")
                         .HasColumnName("id")
                         .HasColumnOrder(0);
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Avatar")
                         .HasColumnType("text")

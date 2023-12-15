@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using fStore.Core;
 
 #nullable disable
@@ -21,8 +20,7 @@ namespace fStore.WEBAPI.Migrations
                 name: "categories",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
                     name = table.Column<string>(type: "text", nullable: false),
                     image_url = table.Column<string>(type: "text", nullable: true),
                     created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
@@ -37,8 +35,7 @@ namespace fStore.WEBAPI.Migrations
                 name: "users",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
                     name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     email = table.Column<string>(type: "text", nullable: false),
                     password = table.Column<string>(type: "text", nullable: false),
@@ -59,14 +56,13 @@ namespace fStore.WEBAPI.Migrations
                 name: "products",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
                     title = table.Column<string>(type: "text", nullable: false),
                     description = table.Column<string>(type: "text", nullable: false),
                     price = table.Column<decimal>(type: "numeric", nullable: false),
                     inventory = table.Column<int>(type: "integer", nullable: false),
                     images = table.Column<string[]>(type: "text[]", nullable: true),
-                    category_id = table.Column<int>(type: "integer", nullable: false),
+                    category_id = table.Column<Guid>(type: "uuid", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -87,13 +83,12 @@ namespace fStore.WEBAPI.Migrations
                 name: "addresses",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
                     street = table.Column<string>(type: "text", nullable: false),
                     post_code = table.Column<string>(type: "text", nullable: false),
                     city = table.Column<string>(type: "text", nullable: false),
                     country = table.Column<string>(type: "text", nullable: false),
-                    user_id = table.Column<int>(type: "integer", nullable: false),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -112,10 +107,8 @@ namespace fStore.WEBAPI.Migrations
                 name: "cart_items",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    user_id = table.Column<int>(type: "integer", nullable: false),
-                    product_id = table.Column<int>(type: "integer", nullable: false),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
                     quntity = table.Column<int>(type: "integer", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
@@ -136,10 +129,9 @@ namespace fStore.WEBAPI.Migrations
                 name: "orders",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    user_id = table.Column<int>(type: "integer", nullable: false),
-                    order_status = table.Column<int>(type: "order_status", nullable: false),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    order_status = table.Column<OrderStatus>(type: "order_status", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -158,10 +150,9 @@ namespace fStore.WEBAPI.Migrations
                 name: "reviews",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    user_id = table.Column<int>(type: "integer", nullable: false),
-                    product_id = table.Column<int>(type: "integer", nullable: false),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    product_id = table.Column<Guid>(type: "uuid", nullable: false),
                     review_text = table.Column<string>(type: "text", nullable: true),
                     rating = table.Column<int>(type: "integer", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
@@ -188,8 +179,8 @@ namespace fStore.WEBAPI.Migrations
                 name: "cart_item_product",
                 columns: table => new
                 {
-                    cart_items_id = table.Column<int>(type: "integer", nullable: false),
-                    products_id = table.Column<int>(type: "integer", nullable: false)
+                    cart_items_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    products_id = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -212,8 +203,8 @@ namespace fStore.WEBAPI.Migrations
                 name: "orders_products",
                 columns: table => new
                 {
-                    product_id = table.Column<int>(type: "integer", nullable: false),
-                    order_id = table.Column<int>(type: "integer", nullable: false),
+                    product_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    order_id = table.Column<Guid>(type: "uuid", nullable: false),
                     quntity = table.Column<int>(type: "integer", nullable: false),
                     total_price = table.Column<decimal>(type: "numeric", nullable: false)
                 },

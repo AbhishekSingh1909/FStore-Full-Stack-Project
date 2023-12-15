@@ -33,6 +33,7 @@ public class DataBaseContext : DbContext // builder pattern
     {
         var dataSourceBuilder = new NpgsqlDataSourceBuilder(_config.GetConnectionString("LocalDb"));
         dataSourceBuilder.MapEnum<Role>();
+        dataSourceBuilder.MapEnum<OrderStatus>();
         var dataSource = dataSourceBuilder.Build();
         optionsBuilder
             .UseNpgsql(dataSource)

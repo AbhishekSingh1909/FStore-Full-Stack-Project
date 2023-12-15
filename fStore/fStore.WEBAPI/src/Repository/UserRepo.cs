@@ -12,7 +12,7 @@ public class UserRepo : IUserRepo
     {
         _users = context.Users;
         _dbContext = context;
-         // if this is external database (postgresql) -> only make a query
+        // if this is external database (postgresql) -> only make a query
     }
     public User CreateUser(User user)
     {
@@ -23,7 +23,7 @@ public class UserRepo : IUserRepo
 
     public IEnumerable<User> GetAllUsers(GetAllParams options)
     {
-       return _users.Skip(options.OffSet).Take(options.Limit);
+        return _users.Where(u => u.Name.Contains(options.Search)).Skip(options.Offset).Take(options.Limit);
     }
 
     public User GetUserById(Guid id)

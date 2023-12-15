@@ -25,11 +25,15 @@ builder.Services.AddScoped<IUserRepo, UserRepo>();
 //builder.Services.AddAutoMapper(typeof(UserService).Assembly);
 builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
-// Add database contect service
+// Add Error handler Middleware
+builder.Services.AddTransient<ExceptionHandlerMiddleware>();
 
+// Add database contect service
 builder.Services.AddDbContext<DataBaseContext>(options => options.UseNpgsql());
 
 var app = builder.Build();
+
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -39,6 +43,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

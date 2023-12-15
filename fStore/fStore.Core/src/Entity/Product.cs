@@ -13,7 +13,7 @@ public class Product : BaseEntity
     // Navigation Property
     public Category Category { get; set; }
     //Foreign Key
-    public required int CategoryId { get; set; }
+    public required Guid CategoryId { get; set; }
     public IEnumerable<OrderProduct> OrderProducts { get; set; }
     public IEnumerable<CartItem> CartItems { get; set; }
     public IEnumerable<Review> Reviews { get; set; }
