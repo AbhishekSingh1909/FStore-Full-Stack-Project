@@ -4,28 +4,33 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace fStore.Controller.src.Controller
 {
-    [ApiController]
-    [Route("api/v1/[controller]s")]
-    public class UserController : ControllerBase
+    public class UserController : BaseController<User,UserReadDTO,UserCreateDTO,UserUpdateDTO>
     {
         private IUserService _userService;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService service) : base(service)
         {
-            _userService = userService;
+            _userService = service;
         }
 
-        [HttpGet(Name = "GetAllUsers")]
-        public ActionResult<IEnumerable<UserReadDTO>> GetAllUsers([FromQuery] GetAllParams options)
-        {
-            return Ok(_userService.GetAllUsers(options));
-        }
 
-        [HttpPost(Name = "CreateUser")]
-        public ActionResult<UserReadDTO> CreateUser([FromBody] UserCreateDTO userCreateDTO)
-        {
-            return CreatedAtAction(nameof(CreateUser), _userService.CreateUser(userCreateDTO));
+        //[HttpGet(Name = "GetAllUsers")]
+        //public async Task<ActionResult<IEnumerable<UserReadDTO>>> GetAllUsers([FromQuery] GetAllParams options)
+        //{
+        //    return Ok( await _userService.GetAllAsync(options));
+        //}
 
-        }
+        //[HttpPost(Name = "CreateUser")]
+        //public async Task<ActionResult<UserReadDTO>> CreateUser([FromBody] UserCreateDTO userCreateDTO)
+        //{
+        //    return CreatedAtAction(nameof(CreateUser), await _userService.CreateOneAsync(userCreateDTO));
+
+        //}
+        //[HttpPost(Name = "CreateUser")]
+        //public override async Task<ActionResult<UserReadDTO>> CreateOneAsync([FromBody] UserCreateDTO userCreateDTO)
+        //{
+        //    var user = await _userService.CreateOneAsync(userCreateDTO);
+        //    return CreatedAtAction(nameof(CreateOneAsync),user);
+        //}
     }
 }

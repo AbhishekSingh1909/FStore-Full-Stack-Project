@@ -1,7 +1,11 @@
+using System.Text;
 using fStore.Business;
 using fStore.Core;
 using fStore.WEBAPI;
+using fStore.WEBAPI.src.Service;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +21,8 @@ builder.Services.AddSwaggerGen();
 // declare services
 builder.Services.AddScoped<IUserService, UserService>(); // tell the program to create insteace of class UserService
 builder.Services.AddScoped<IUserRepo, UserRepo>();
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 // builder.Services.AddTransient()
 // builder.Services.AddSingleton();
 
@@ -30,6 +36,23 @@ builder.Services.AddTransient<ExceptionHandlerMiddleware>();
 
 // Add database contect service
 builder.Services.AddDbContext<DataBaseContext>(options => options.UseNpgsql());
+
+// COnfig authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
+    {
+        o.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey
+            (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true
+        };
+    });
+
 
 var app = builder.Build();
 
@@ -45,7 +68,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.MapControllers();

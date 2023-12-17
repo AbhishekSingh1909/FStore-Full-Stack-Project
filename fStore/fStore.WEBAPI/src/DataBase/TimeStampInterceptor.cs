@@ -6,7 +6,7 @@ namespace fStore.WEBAPI;
 
 public class TimeStampInterceptor : SaveChangesInterceptor
 {
-    public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
+    public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
     {
         // give collections of all entities experiencing the changes: Added or Updated, Deleted
         var changedData = eventData.Context?.ChangeTracker.Entries();
@@ -35,7 +35,6 @@ public class TimeStampInterceptor : SaveChangesInterceptor
                 }
             }
         }
-
-        return base.SavingChanges(eventData, result);
+            return base.SavingChangesAsync(eventData, result, cancellationToken);
+        }
     }
-}

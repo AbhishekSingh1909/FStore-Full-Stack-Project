@@ -1,6 +1,9 @@
+using System.Text.Json.Serialization;
+
 namespace fStore.Core;
-    public enum Role
-    {
-        Customer,
-        Admin,
-    }
+[JsonConverter(typeof(JsonStringEnumConverter))]
+public enum Role
+{
+    Customer,
+    Admin,
+}

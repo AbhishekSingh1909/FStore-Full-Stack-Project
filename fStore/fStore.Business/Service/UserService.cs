@@ -3,33 +3,45 @@ using fStore.Core;
 
 namespace fStore.Business;
 
-public class UserService : IUserService
+public class UserService : BaseService<User, UserReadDTO, UserCreateDTO, UserUpdateDTO>, IUserService
 {
-
-    private IUserRepo _userRepo;
-    private IMapper _mapper;
-
-    public UserService(IUserRepo userRepo, IMapper mapper)
+    IUserRepo _userRepo;
+    public UserService(IUserRepo repo, IMapper mapper) : base(repo, mapper)
     {
-        _userRepo = userRepo;
-        _mapper = mapper;
+        _userRepo = repo;
     }
 
-    public UserReadDTO CreateUser(UserCreateDTO userCreateDto)
+    //public async override Task<IEnumerable<UserReadDTO>> GetAllAsync(GetAllParams options)
+    //{
+    //  var users = await _userRepo.GetAllAsync(options);
+    //   var result = _mapper.Map<IEnumerable<User>, IEnumerable<UserReadDTO>>(users);
+    //    return result;
+    //}
+
+    public override async Task<UserReadDTO> CreateOneAsync(UserCreateDTO createObject)
     {
-        var result = _userRepo.CreateUser(_mapper.Map<UserCreateDTO, User>(userCreateDto));
-        return _mapper.Map<User, UserReadDTO>(result);
+        PasswordService.HashPassword(createObject.Password, out string hashedPassword, out byte[] salt);
+        var user = _mapper.Map<UserCreateDTO, User>(createObject);
+        user.Password = hashedPassword;
+        user.Salt = salt;
+        return _mapper.Map<User, UserReadDTO>(await _repo.CreateOneAsync(user));
     }
 
-    public IEnumerable<UserReadDTO> GetAllUsers(GetAllParams options)
+    public async Task<bool> UpdatePasswordAsync(string newPassword, Guid id)
     {
-        var users = _userRepo.GetAllUsers(options);
-        return _mapper.Map<IEnumerable<User>, IEnumerable<UserReadDTO>>(users);
-    }
-
-    public UserReadDTO GetUserById(Guid id)
-    {
-        var user = _userRepo.GetUserById(id);
-        return _mapper.Map<User, UserReadDTO>(user);
+        var foundUser = await _repo.GetByIdAsync(id);
+        if (foundUser is null) 
+        {
+            throw new Exception("User not found");
+        }
+        PasswordService.HashPassword(newPassword, out string hashedPassword, out byte[] salt);
+        foundUser.Password = hashedPassword;
+        foundUser.Salt = salt;
+      var updatedUser = await _repo.UpdateOneAsync(id,foundUser);
+        if(updatedUser is null)
+        {
+            throw new Exception("user password is not updated");
+        }
+        return true;
     }
 }

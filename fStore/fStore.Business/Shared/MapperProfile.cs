@@ -9,6 +9,11 @@ namespace fStore.Business;
         {
             CreateMap<User,UserReadDTO>();
             CreateMap<UserCreateDTO, User>();
+            CreateMap<UserUpdateDTO, User>();
+
+           CreateMap<Address, AddressReadDTO>();
+           CreateMap<AddressCreateDTO, Address>();
+           CreateMap<AddressUpdateDTO, Address>();
         }
         
     }
