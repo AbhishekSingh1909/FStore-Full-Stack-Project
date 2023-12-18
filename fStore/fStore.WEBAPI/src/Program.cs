@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using fStore.Business;
 using fStore.Core;
@@ -21,7 +22,7 @@ builder.Services.AddSwaggerGen();
 // declare services
 builder.Services.AddScoped<IUserService, UserService>(); // tell the program to create insteace of class UserService
 builder.Services.AddScoped<IUserRepo, UserRepo>();
-builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 // builder.Services.AddTransient()
 // builder.Services.AddSingleton();
@@ -52,6 +53,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
             ValidateIssuerSigningKey = true
         };
     });
+
+builder.Services.AddAuthorization(policy =>
+{
+    policy.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
+});
 
 
 var app = builder.Build();

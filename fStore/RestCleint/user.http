@@ -9,15 +9,66 @@ content-type: application/json
   "avatar": "https://picsum.photos/200"
 }
 
-###
+### customer
 POST http://localhost:5216/api/v1/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "nooa@mail.com",
-    "password": "qwerty"
+    "email": "sam1@mail.com",
+    "password": "123456"
 }
 
-###
+### customer/admin
+GET http://localhost:5216/api/v1/users/{eaf71ff2-2b09-447a-8100-b9cb3e642109} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI4YzhmMTRjMS05OTY4LTRkZmMtOWRlOC01YTBjOTNlYzdiNDQiLCJyb2xlIjoiQ3VzdG9tZXIiLCJlbWFpbCI6InNhbTFAbWFpbC5jb20iLCJuYmYiOjE3MDI4OTY2ODQsImV4cCI6MTcwMzA2OTQ4NCwiaWF0IjoxNzAyODk2Njg0LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.ueAbNMg9RadBwLbSSNmfkCyuKJOEKOqGlCvotXNdBpA
 
+### admin
+POST http://localhost:5216/api/v1/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "singh90abhishek@gmail.com",
+    "password": "123456"
+}
+### Admin
 GET http://localhost:5216/api/v1/users HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhMzE1ZWI3NS02YzcyLTRmYjUtYWMxNy1jNWY2MGZkMzM0ZDAiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InNpbmdoOTBhYmhpc2hla0BnbWFpbC5jb20iLCJuYmYiOjE3MDI4NDQwNTMsImV4cCI6MTcwMzAxNjg1MywiaWF0IjoxNzAyODQ0MDUzLCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.lIlkpp-wYmTUSrkrVnNIg8k8RAFR3uvXB6NwaehXUDo
+
+### customer
+DELETE http://localhost:5216/api/v1/users/{eaf71ff2-2b09-447a-8100-b9cb3e642109} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJlYWY3MWZmMi0yYjA5LTQ0N2EtODEwMC1iOWNiM2U2NDIxMDkiLCJyb2xlIjoiQ3VzdG9tZXIiLCJlbWFpbCI6ImphcnJ5QG1haWwuY29tIiwibmJmIjoxNzAyODQ1MzIxLCJleHAiOjE3MDMwMTgxMjEsImlhdCI6MTcwMjg0NTMyMSwiaXNzIjoiQWJoaXNoZWsiLCJhdWQiOiJBYmhpc2hla0VDb21tZXJjZSJ9.tpLPdz70x2zapO4MEV1kkD_mixORupg9nken27-cltM
+
+### Admin
+DELETE http://localhost:5216/api/v1/users/{82e47ba2-0d59-444e-ac52-9061e922ea40} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhMzE1ZWI3NS02YzcyLTRmYjUtYWMxNy1jNWY2MGZkMzM0ZDAiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InNpbmdoOTBhYmhpc2hla0BnbWFpbC5jb20iLCJuYmYiOjE3MDI4NDQwNTMsImV4cCI6MTcwMzAxNjg1MywiaWF0IjoxNzAyODQ0MDUzLCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.lIlkpp-wYmTUSrkrVnNIg8k8RAFR3uvXB6NwaehXUDo
+
+
+### login admin
+POST http://localhost:5216/api/v1/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "singh90abhishek@gmail.com",
+    "password": "123456"
+}
+
+### Admin Update
+Patch http://localhost:5216/api/v1/users/{1def270a-0267-4d32-a9a1-5ca8c65469f5} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhMzE1ZWI3NS02YzcyLTRmYjUtYWMxNy1jNWY2MGZkMzM0ZDAiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InNpbmdoOTBhYmhpc2hla0BnbWFpbC5jb20iLCJuYmYiOjE3MDI4OTY1NTQsImV4cCI6MTcwMzA2OTM1NCwiaWF0IjoxNzAyODk2NTU0LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.kwRRoGG83dIE-Bgbk3reQiwRw3cy1kr8CLsK37V6J_Y
+
+{
+  "name": "john smith",
+  "avatar": "https://i.imgur.com/LDOO4Qs.jpg",
+  "role": "Customer"
+}
+
+### Admin
+GET http://localhost:5216/api/v1/users/{1def270a-0267-4d32-a9a1-5ca8c65469f5} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhMzE1ZWI3NS02YzcyLTRmYjUtYWMxNy1jNWY2MGZkMzM0ZDAiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InNpbmdoOTBhYmhpc2hla0BnbWFpbC5jb20iLCJuYmYiOjE3MDI4OTY1NTQsImV4cCI6MTcwMzA2OTM1NCwiaWF0IjoxNzAyODk2NTU0LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.kwRRoGG83dIE-Bgbk3reQiwRw3cy1kr8CLsK37V6J_Y
+
