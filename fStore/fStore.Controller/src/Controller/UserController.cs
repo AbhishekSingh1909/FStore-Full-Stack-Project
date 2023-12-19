@@ -1,36 +1,67 @@
+using System.Security.Claims;
 using fStore.Business;
 using fStore.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace fStore.Controller.src.Controller
+namespace fStore.Controller;
+
+[ApiController]
+[Route("api/v1/[controller]s")]
+public class UserController : BaseController<User, UserReadDTO, UserCreateDTO, UserUpdateDTO>
 {
-    public class UserController : BaseController<User,UserReadDTO,UserCreateDTO,UserUpdateDTO>
+    private IUserService _userService;
+
+    public UserController(IUserService service) : base(service)
     {
-        private IUserService _userService;
+        _userService = service;
+    }
 
-        public UserController(IUserService service) : base(service)
-        {
-            _userService = service;
-        }
+    [Authorize]
+    [HttpGet("Profile")]
+    public async Task<ActionResult<UserReadDTO>> GetUserProfile()
+    {
+        var authenticatedClaims = HttpContext.User;
+        var value = authenticatedClaims.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)!.Value;
+        var id = Guid.Parse(value);
+        return Ok(await _baseServie.GetByIdAsync(id));
+    }
 
+    [AllowAnonymous]
+    [HttpPost("Profile")]
+    public async Task<ActionResult<UserReadDTO>> CreateUserProfile([FromBody] UserCreateDTO userCreateDTO)
+    {
+        var user = await _baseServie.CreateOneAsync(userCreateDTO);
+        return CreatedAtAction(nameof(CreateUserProfile), user);
+    }
 
-        //[HttpGet(Name = "GetAllUsers")]
-        //public async Task<ActionResult<IEnumerable<UserReadDTO>>> GetAllUsers([FromQuery] GetAllParams options)
-        //{
-        //    return Ok( await _userService.GetAllAsync(options));
-        //}
+    [Authorize]
+    [HttpDelete("Profile")]
+    public async Task<ActionResult<bool>> DeleteUserProfile()
+    {
+        var authenticatedClaims = HttpContext.User;
+        var value = authenticatedClaims.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        var id = Guid.Parse(value);
+        return Ok(await _baseServie.DeleteByIdAsync(id));
+    }
 
-        //[HttpPost(Name = "CreateUser")]
-        //public async Task<ActionResult<UserReadDTO>> CreateUser([FromBody] UserCreateDTO userCreateDTO)
-        //{
-        //    return CreatedAtAction(nameof(CreateUser), await _userService.CreateOneAsync(userCreateDTO));
+    [Authorize]
+    [HttpPatch("Profile")]
+    public async Task<ActionResult<UserReadDTO>> UpdateUserProfile([FromBody] UserUpdateDTO updateObject)
+    {
+        var authenticatedClaims = HttpContext.User;
+        var value = authenticatedClaims.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        var id = Guid.Parse(value);
+        return Ok(await _baseServie.UpdateOneAsync(id, updateObject));
+    }
 
-        //}
-        //[HttpPost(Name = "CreateUser")]
-        //public override async Task<ActionResult<UserReadDTO>> CreateOneAsync([FromBody] UserCreateDTO userCreateDTO)
-        //{
-        //    var user = await _userService.CreateOneAsync(userCreateDTO);
-        //    return CreatedAtAction(nameof(CreateOneAsync),user);
-        //}
+    [Authorize]
+    [HttpPatch("ChangePassword")]
+    public async Task<ActionResult<bool>> ChangePassword([FromBody] UpdateUserPasswordDTO user)
+    {
+        var authenticatedClaims = HttpContext.User;
+        var value = authenticatedClaims.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        var id = Guid.Parse(value);
+        return Ok(await _userService.UpdatePasswordAsync(user.Password, id));
     }
 }

@@ -11,13 +11,6 @@ public class UserService : BaseService<User, UserReadDTO, UserCreateDTO, UserUpd
         _userRepo = repo;
     }
 
-    //public async override Task<IEnumerable<UserReadDTO>> GetAllAsync(GetAllParams options)
-    //{
-    //  var users = await _userRepo.GetAllAsync(options);
-    //   var result = _mapper.Map<IEnumerable<User>, IEnumerable<UserReadDTO>>(users);
-    //    return result;
-    //}
-
     public override async Task<UserReadDTO> CreateOneAsync(UserCreateDTO createObject)
     {
         PasswordService.HashPassword(createObject.Password, out string hashedPassword, out byte[] salt);
@@ -27,18 +20,23 @@ public class UserService : BaseService<User, UserReadDTO, UserCreateDTO, UserUpd
         return _mapper.Map<User, UserReadDTO>(await _repo.CreateOneAsync(user));
     }
 
+    public async Task<bool> IsEmailAvailable(string email)
+    {
+        return await _userRepo.IsEmailAvailable(email);
+    }
+
     public async Task<bool> UpdatePasswordAsync(string newPassword, Guid id)
     {
         var foundUser = await _repo.GetByIdAsync(id);
-        if (foundUser is null) 
+        if (foundUser is null)
         {
             throw new Exception("User not found");
         }
         PasswordService.HashPassword(newPassword, out string hashedPassword, out byte[] salt);
         foundUser.Password = hashedPassword;
         foundUser.Salt = salt;
-      var updatedUser = await _repo.UpdateOneAsync(id,foundUser);
-        if(updatedUser is null)
+        var updatedUser = await _repo.UpdateOneAsync(id, foundUser);
+        if (updatedUser is null)
         {
             throw new Exception("user password is not updated");
         }

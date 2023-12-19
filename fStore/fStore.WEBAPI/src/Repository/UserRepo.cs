@@ -51,4 +51,14 @@ public class UserRepo : BaseRepo<User>, IUserRepo
         await _dbContext.SaveChangesAsync();
         return user;
     }
+
+    public async Task<bool> IsEmailAvailable(string email)
+    {
+        var result = await _data.FindAsync(email);
+        if (result is null)
+        {
+            return false;
+        }
+        return true;
+    }
 }

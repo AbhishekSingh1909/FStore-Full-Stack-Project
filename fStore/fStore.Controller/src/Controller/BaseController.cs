@@ -25,7 +25,7 @@ public class BaseController<T, TReadDTO, TCreateDTO, TUpdateDTO> : ControllerBas
     [HttpGet("{id:Guid}")]
     public virtual async Task<ActionResult<TReadDTO>> GetById([FromRoute] Guid id)
     {
-        return await _baseServie.GetByIdAsync(id);
+        return Ok(await _baseServie.GetByIdAsync(id));
     }
 
     [Authorize(Roles = "Admin")]
@@ -47,14 +47,14 @@ public class BaseController<T, TReadDTO, TCreateDTO, TUpdateDTO> : ControllerBas
     [HttpDelete("{id:Guid}")] // users/:userid
     public virtual async Task<ActionResult<bool>> DeleteById([FromRoute] Guid id)
     {
-        return await _baseServie.DeleteByIdAsync(id);
+        return Ok(await _baseServie.DeleteByIdAsync(id));
     }
 
     [Authorize(Roles = "Admin")]
     [HttpPatch("{id:Guid}")]
     public virtual async Task<ActionResult<TReadDTO>> UpdateOne([FromRoute] Guid id, [FromBody] TUpdateDTO updateObject)
     {
-        return await _baseServie.UpdateOneAsync(id, updateObject);
+        return Ok(await _baseServie.UpdateOneAsync(id, updateObject));
     }
 
 }
