@@ -39,6 +39,10 @@ public class UserRepo : BaseRepo<User>, IUserRepo
         {
             user.Role = updateObject.Role;
         }
+        if (updateObject.Email is not null && user.Email != updateObject.Email)
+        {
+            user.Email = updateObject.Email;
+        }
         if (updateObject.Password is not null && updateObject.Password != user.Password)
         {
             user.Password = updateObject.Password;

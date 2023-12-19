@@ -13,8 +13,8 @@ using fStore.WEBAPI;
 namespace fStore.WEBAPI.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20231215124727_createdatabase")]
-    partial class createdatabase
+    [Migration("20231219195236_createdatabseagain")]
+    partial class createdatabseagain
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -381,8 +381,9 @@ namespace fStore.WEBAPI.Migrations
                     b.HasKey("Id")
                         .HasName("pk_users");
 
-                    b.HasAlternateKey("Email")
-                        .HasName("ak_users_email");
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasDatabaseName("ix_users_email");
 
                     b.ToTable("users", (string)null);
                 });

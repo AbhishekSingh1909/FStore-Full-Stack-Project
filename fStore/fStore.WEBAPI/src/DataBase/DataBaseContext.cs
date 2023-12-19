@@ -47,7 +47,7 @@ public class DataBaseContext : DbContext // builder pattern
         //user role
         modelBuilder.HasPostgresEnum<Role>();
         modelBuilder.Entity<User>(entity => entity.Property(e => e.Role).HasColumnType("role"));
-        modelBuilder.Entity<User>().HasAlternateKey(u => u.Email);
+        modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
 
         //order status
         modelBuilder.HasPostgresEnum<OrderStatus>();

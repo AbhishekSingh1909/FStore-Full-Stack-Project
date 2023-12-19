@@ -7,7 +7,7 @@ using fStore.Core;
 namespace fStore.WEBAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class createdatabase : Migration
+    public partial class createdatabseagain : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,7 +49,6 @@ namespace fStore.WEBAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_users", x => x.id);
-                    table.UniqueConstraint("ak_users_email", x => x.email);
                 });
 
             migrationBuilder.CreateTable(
@@ -267,6 +266,12 @@ namespace fStore.WEBAPI.Migrations
                 name: "ix_reviews_user_id",
                 table: "reviews",
                 column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "ix_users_email",
+                table: "users",
+                column: "email",
+                unique: true);
         }
 
         /// <inheritdoc />
