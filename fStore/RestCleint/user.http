@@ -1,10 +1,11 @@
 ###
 POST http://localhost:5216/api/v1/users HTTP/1.1
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhMzE1ZWI3NS02YzcyLTRmYjUtYWMxNy1jNWY2MGZkMzM0ZDAiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InNpbmdoOTBhYmhpc2hla0BnbWFpbC5jb20iLCJuYmYiOjE3MDI4OTY1NTQsImV4cCI6MTcwMzA2OTM1NCwiaWF0IjoxNzAyODk2NTU0LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.kwRRoGG83dIE-Bgbk3reQiwRw3cy1kr8CLsK37V6J_Y
 
 {
   "name": "Maija",
-  "email": "maija@mail.com",
+  "email": "maija1@mail.com",
   "password": "12345",
   "avatar": "https://picsum.photos/200"
 }
@@ -42,9 +43,9 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJlYWY3MWZmMi0yYjA5LTQ0N2EtODEwMC1iOWNiM2U2NDIxMDkiLCJyb2xlIjoiQ3VzdG9tZXIiLCJlbWFpbCI6ImphcnJ5QG1haWwuY29tIiwibmJmIjoxNzAyODQ1MzIxLCJleHAiOjE3MDMwMTgxMjEsImlhdCI6MTcwMjg0NTMyMSwiaXNzIjoiQWJoaXNoZWsiLCJhdWQiOiJBYmhpc2hla0VDb21tZXJjZSJ9.tpLPdz70x2zapO4MEV1kkD_mixORupg9nken27-cltM
 
 ### Admin
-DELETE http://localhost:5216/api/v1/users/{82e47ba2-0d59-444e-ac52-9061e922ea40} HTTP/1.1
+DELETE http://localhost:5216/api/v1/users/{c561c3c2-ba99-41f2-a735-2cc4f0854a30} HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhMzE1ZWI3NS02YzcyLTRmYjUtYWMxNy1jNWY2MGZkMzM0ZDAiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InNpbmdoOTBhYmhpc2hla0BnbWFpbC5jb20iLCJuYmYiOjE3MDI4NDQwNTMsImV4cCI6MTcwMzAxNjg1MywiaWF0IjoxNzAyODQ0MDUzLCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.lIlkpp-wYmTUSrkrVnNIg8k8RAFR3uvXB6NwaehXUDo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhMzE1ZWI3NS02YzcyLTRmYjUtYWMxNy1jNWY2MGZkMzM0ZDAiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InNpbmdoOTBhYmhpc2hla0BnbWFpbC5jb20iLCJuYmYiOjE3MDI4OTY1NTQsImV4cCI6MTcwMzA2OTM1NCwiaWF0IjoxNzAyODk2NTU0LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.kwRRoGG83dIE-Bgbk3reQiwRw3cy1kr8CLsK37V6J_Y
 
 
 ### login admin
@@ -57,12 +58,12 @@ Content-Type: application/json
 }
 
 ### Admin Update
-Patch http://localhost:5216/api/v1/users/{1def270a-0267-4d32-a9a1-5ca8c65469f5} HTTP/1.1
+Patch http://localhost:5216/api/v1/users/{c561c3c2-ba99-41f2-a735-2cc4f0854a30} HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhMzE1ZWI3NS02YzcyLTRmYjUtYWMxNy1jNWY2MGZkMzM0ZDAiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InNpbmdoOTBhYmhpc2hla0BnbWFpbC5jb20iLCJuYmYiOjE3MDI4OTY1NTQsImV4cCI6MTcwMzA2OTM1NCwiaWF0IjoxNzAyODk2NTU0LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.kwRRoGG83dIE-Bgbk3reQiwRw3cy1kr8CLsK37V6J_Y
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhMzE1ZWI3NS02YzcyLTRmYjUtYWMxNy1jNWY2MGZkMzM0ZDAiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6InNpbmdoOTBhYmhpc2hla0BnbWFpbC5jb20iLCJuYmYiOjE3MDMwMDM0ODUsImV4cCI6MTcwMzE3NjI4NSwiaWF0IjoxNzAzMDAzNDg1LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.yg62CrUIP1RD-NP6k5k58vHS7nJ3f8xZOP-1N8m51Nc
 
 {
-  "name": "john smith",
+  "name": "Maija1",
   "avatar": "https://i.imgur.com/LDOO4Qs.jpg",
   "role": "Customer"
 }
