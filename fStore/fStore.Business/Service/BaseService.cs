@@ -7,11 +7,13 @@ public class BaseService<T, TReadDTO, TCreateDTO, TUpdateDTO> : IBaseService<T, 
 {
     protected IBaseRepo<T> _repo;
     protected IMapper _mapper;
+
     public BaseService(IBaseRepo<T> repo, IMapper mapper)
     {
         _repo = repo;
         _mapper = mapper;
     }
+
     public virtual async Task<TReadDTO> CreateOneAsync(TCreateDTO createObject)
     {
         var record = _mapper.Map<TCreateDTO, T>(createObject);
@@ -21,12 +23,12 @@ public class BaseService<T, TReadDTO, TCreateDTO, TUpdateDTO> : IBaseService<T, 
 
     public virtual async Task<bool> DeleteByIdAsync(Guid Id)
     {
-        var foundUser = await _repo.GetByIdAsync(Id);
-        if (foundUser is null)
+        var record = await _repo.GetByIdAsync(Id);
+        if (record is null)
         {
-            throw new Exception("User is not found");
+            throw CustomException.NotFoundException();
         }
-        return await _repo.DeleteByIdAsync(foundUser);
+        return await _repo.DeleteByIdAsync(record);
     }
 
     public virtual async Task<IEnumerable<TReadDTO>> GetAllAsync(GetAllParams options)
@@ -44,9 +46,9 @@ public class BaseService<T, TReadDTO, TCreateDTO, TUpdateDTO> : IBaseService<T, 
 
     public virtual async Task<TReadDTO> UpdateOneAsync(Guid id, TUpdateDTO updateObject)
     {
-        var user = _mapper.Map<TUpdateDTO, T>(updateObject);
-        
-        var updatedUser = await _repo.UpdateOneAsync(id, user);
+        var record = _mapper.Map<TUpdateDTO, T>(updateObject);
+
+        var updatedUser = await _repo.UpdateOneAsync(id, record);
         return _mapper.Map<T, TReadDTO>(updatedUser);
     }
 }

@@ -22,7 +22,7 @@ public class UserService : BaseService<User, UserReadDTO, UserCreateDTO, UserUpd
 
     public async Task<bool> IsEmailAvailable(string email)
     {
-        return await _userRepo.IsEmailAvailable(email);
+        return await _userRepo.IsEmailAvailableAsync(email);
     }
 
     public async Task<bool> UpdatePasswordAsync(string newPassword, Guid id)
@@ -30,7 +30,7 @@ public class UserService : BaseService<User, UserReadDTO, UserCreateDTO, UserUpd
         var foundUser = await _repo.GetByIdAsync(id);
         if (foundUser is null)
         {
-            throw new Exception("User not found");
+            throw CustomException.NotFoundException(string.Format($"User {id} does not exit"));
         }
         PasswordService.HashPassword(newPassword, out string hashedPassword, out byte[] salt);
         foundUser.Password = hashedPassword;
@@ -38,7 +38,7 @@ public class UserService : BaseService<User, UserReadDTO, UserCreateDTO, UserUpd
         var updatedUser = await _repo.UpdateOneAsync(id, foundUser);
         if (updatedUser is null)
         {
-            throw new Exception("user password is not updated");
+            throw CustomException.NotFoundException(string.Format($"User {id} does not exit"));
         }
         return true;
     }

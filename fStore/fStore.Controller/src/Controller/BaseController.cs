@@ -30,12 +30,12 @@ public class BaseController<T, TReadDTO, TCreateDTO, TUpdateDTO> : ControllerBas
 
     [Authorize(Roles = "Admin")]
     [HttpPost(Name = "Crerate")]
-    public virtual async Task<ActionResult<TReadDTO>> CreateOne([FromBody] TCreateDTO userCreateDTO)
+    public virtual async Task<ActionResult<TReadDTO>> CreateOne([FromBody] TCreateDTO createObject)
     {
         try
         {
-            var user = await _baseServie.CreateOneAsync(userCreateDTO);
-            return CreatedAtAction(nameof(CreateOne), user);
+            var result = await _baseServie.CreateOneAsync(createObject);
+            return CreatedAtAction(nameof(CreateOne), result);
         }
         catch (Exception e)
         {

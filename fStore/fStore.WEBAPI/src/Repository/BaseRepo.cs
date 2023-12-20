@@ -12,14 +12,14 @@ public abstract class BaseRepo<T> : IBaseRepo<T> where T : BaseEntity
         _dbContext = dataBaseContext;
         _data = _dbContext.Set<T>();
     }
-    public async Task<T> CreateOneAsync(T createObject)
+    public virtual async Task<T> CreateOneAsync(T createObject)
     {
         await _data.AddAsync(createObject);
         await _dbContext.SaveChangesAsync();
         return createObject;
     }
 
-    public async Task<bool> DeleteByIdAsync(T deleteObject)
+    public virtual async Task<bool> DeleteByIdAsync(T deleteObject)
     {
         var result = await _data.FindAsync(deleteObject.Id);
         if (result is null)
@@ -37,7 +37,7 @@ public abstract class BaseRepo<T> : IBaseRepo<T> where T : BaseEntity
         return result;
     }
 
-    public async Task<T?> GetByIdAsync(Guid id)
+    public virtual async Task<T?> GetByIdAsync(Guid id)
     {
         var result = await _data.FindAsync(id);
         return result;

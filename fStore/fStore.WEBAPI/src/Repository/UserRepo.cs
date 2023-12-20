@@ -11,8 +11,15 @@ public class UserRepo : BaseRepo<User>, IUserRepo
 
     public override async Task<IEnumerable<User>> GetAllAsync(GetAllParams options)
     {
-        var users = await _data.AsNoTracking().Where(u => u.Name.Contains(options.Search)).Skip(options.Offset).Take(options.Limit).ToListAsync();// Task.WhenAll(Task.Run(()=> _users.Skip(options.Offset).Take(options.Limit)));
+        var users = await _data.AsNoTracking().Include(u => u.Address).Where(u => u.Name.Contains(options.Search)).Skip(options.Offset).Take(options.Limit).ToListAsync();// Task.WhenAll(Task.Run(()=> _users.Skip(options.Offset).Take(options.Limit)));
         return users;
+    }
+
+    public override async Task<User?> GetByIdAsync(Guid id)
+    {
+        var user = await _data.AsNoTracking().Include(u => u.Address).FirstOrDefaultAsync(u => u.Id == id);
+        Console.WriteLine("Addess {0}", user?.Address.Country);
+        return user;
     }
 
     public Task<User?> FindByEmailAsync(string email)
@@ -56,7 +63,7 @@ public class UserRepo : BaseRepo<User>, IUserRepo
         return user;
     }
 
-    public async Task<bool> IsEmailAvailable(string email)
+    public async Task<bool> IsEmailAvailableAsync(string email)
     {
         var result = await _data.FindAsync(email);
         if (result is null)
@@ -64,5 +71,25 @@ public class UserRepo : BaseRepo<User>, IUserRepo
             return false;
         }
         return true;
+    }
+
+    public Task<User?> CreateUserAddreesAsync(Address address)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<User?> GetUserAddressAsync(Guid id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<User?> UpdateUserAddreesAsync(Address address)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> DeleteUserAddressAsync(Guid id)
+    {
+        throw new NotImplementedException();
     }
 }

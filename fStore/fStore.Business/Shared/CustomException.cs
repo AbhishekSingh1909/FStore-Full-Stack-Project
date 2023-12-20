@@ -13,4 +13,19 @@ public class CustomException : Exception
     {
         return new CustomException(404, msg);
     }
+
+    public static CustomException WrongCredentialsException(string msg = "Wrong User's credentials")
+    {
+        return new CustomException(401, msg);
+    }
+
+    public static CustomException EmailAvailable(string msg = "This Eamil is exist")
+    {
+        return new CustomException(400, msg);
+    }
+
+    public static CustomException TokenNotCreated(string msg = "Unable to create token")
+    {
+        return new CustomException(500, msg);
+    }
 }
