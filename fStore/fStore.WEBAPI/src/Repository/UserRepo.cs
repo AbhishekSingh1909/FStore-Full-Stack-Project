@@ -72,24 +72,4 @@ public class UserRepo : BaseRepo<User>, IUserRepo
         }
         return true;
     }
-
-    public Task<User?> CreateUserAddreesAsync(Address address)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<User?> GetUserAddressAsync(Guid id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<User?> UpdateUserAddreesAsync(Address address)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<bool> DeleteUserAddressAsync(Guid id)
-    {
-        throw new NotImplementedException();
-    }
 }

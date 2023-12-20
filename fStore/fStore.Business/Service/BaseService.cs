@@ -34,7 +34,6 @@ public class BaseService<T, TReadDTO, TCreateDTO, TUpdateDTO> : IBaseService<T, 
     public virtual async Task<IEnumerable<TReadDTO>> GetAllAsync(GetAllParams options)
     {
         var records = await _repo.GetAllAsync(options);
-        Console.WriteLine("Records :{0}", records);
         return _mapper.Map<IEnumerable<T>, IEnumerable<TReadDTO>>(records);
     }
 

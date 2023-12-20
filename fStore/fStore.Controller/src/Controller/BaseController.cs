@@ -14,6 +14,7 @@ public class BaseController<T, TReadDTO, TCreateDTO, TUpdateDTO> : ControllerBas
     {
         _baseServie = service;
     }
+
     [Authorize(Policy = "Admin")]
     [HttpGet()] // users? limit =20&offset=0
     public async Task<ActionResult<IEnumerable<TReadDTO>>> GetAll([FromQuery] GetAllParams options)
@@ -29,7 +30,7 @@ public class BaseController<T, TReadDTO, TCreateDTO, TUpdateDTO> : ControllerBas
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpPost(Name = "Crerate")]
+    [HttpPost()]
     public virtual async Task<ActionResult<TReadDTO>> CreateOne([FromBody] TCreateDTO createObject)
     {
         try

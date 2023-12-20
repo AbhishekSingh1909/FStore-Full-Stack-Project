@@ -21,11 +21,6 @@ public abstract class BaseRepo<T> : IBaseRepo<T> where T : BaseEntity
 
     public virtual async Task<bool> DeleteByIdAsync(T deleteObject)
     {
-        var result = await _data.FindAsync(deleteObject.Id);
-        if (result is null)
-        {
-            return false;
-        }
         _data.Remove(deleteObject);
         await _dbContext.SaveChangesAsync();
         return true;
