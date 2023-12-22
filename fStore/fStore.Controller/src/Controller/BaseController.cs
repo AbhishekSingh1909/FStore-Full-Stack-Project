@@ -17,9 +17,10 @@ public class BaseController<T, TReadDTO, TCreateDTO, TUpdateDTO> : ControllerBas
 
     [Authorize(Policy = "Admin")]
     [HttpGet()] // users? limit =20&offset=0
-    public async Task<ActionResult<IEnumerable<TReadDTO>>> GetAll([FromQuery] GetAllParams options)
+    public virtual async Task<ActionResult<IEnumerable<TReadDTO>>> GetAll([FromQuery] GetAllParams options)
     {
-        return Ok(await _baseServie.GetAllAsync(options));
+        var records = await _baseServie.GetAllAsync(options);
+        return Ok(records);
     }
 
     [Authorize(Roles = "Admin")]
@@ -29,7 +30,7 @@ public class BaseController<T, TReadDTO, TCreateDTO, TUpdateDTO> : ControllerBas
         return Ok(await _baseServie.GetByIdAsync(id));
     }
 
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [HttpPost()]
     public virtual async Task<ActionResult<TReadDTO>> CreateOne([FromBody] TCreateDTO createObject)
     {
@@ -51,7 +52,7 @@ public class BaseController<T, TReadDTO, TCreateDTO, TUpdateDTO> : ControllerBas
         return Ok(await _baseServie.DeleteByIdAsync(id));
     }
 
-    [Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Admin")]
     [HttpPatch("{id:Guid}")]
     public virtual async Task<ActionResult<TReadDTO>> UpdateOne([FromRoute] Guid id, [FromBody] TUpdateDTO updateObject)
     {

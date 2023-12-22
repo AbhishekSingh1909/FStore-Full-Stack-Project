@@ -34,13 +34,31 @@ public class BaseService<T, TReadDTO, TCreateDTO, TUpdateDTO> : IBaseService<T, 
     public virtual async Task<IEnumerable<TReadDTO>> GetAllAsync(GetAllParams options)
     {
         var records = await _repo.GetAllAsync(options);
-        return _mapper.Map<IEnumerable<T>, IEnumerable<TReadDTO>>(records);
+        if (records is null)
+        {
+            throw CustomException.NotFoundException(string.Format($"records not found {nameof(records)}"));
+        }
+        var results = _mapper.Map<IEnumerable<T>, IEnumerable<TReadDTO>>(records);
+        if (results is null)
+        {
+            throw CustomException.UnableToMap(string.Format($"Unable to Map {nameof(results)}"));
+        }
+        return results;
     }
 
     public virtual async Task<TReadDTO> GetByIdAsync(Guid Id)
     {
-        var user = await _repo.GetByIdAsync(Id);
-        return _mapper.Map<T, TReadDTO>(user);
+        var record = await _repo.GetByIdAsync(Id);
+        if (record is null)
+        {
+            throw CustomException.NotFoundException(string.Format($"records not found {nameof(record)}"));
+        }
+        var result =_mapper.Map<T, TReadDTO>(record);
+        if (result is null)
+        {
+            throw CustomException.UnableToMap(string.Format($"Unable to Map {nameof(result)}"));
+        }
+        return result;
     }
 
     public virtual async Task<TReadDTO> UpdateOneAsync(Guid id, TUpdateDTO updateObject)

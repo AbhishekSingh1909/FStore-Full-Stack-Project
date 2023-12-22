@@ -9,6 +9,12 @@ public class AddressRepo : BaseRepo<Address>, IAddressRepo
     {
     }
 
+    public async Task<Address> GetAddreess(Guid id)
+    {
+        var address = await _data.AsNoTracking().FirstOrDefaultAsync(u => u.UserId == id);
+        return address;
+    }
+
     public override async Task<IEnumerable<Address>> GetAllAsync(GetAllParams options)
     {
         var address = await _data.AsNoTracking().Where(a => a.Country.Contains(options.Search) || a.City.Contains(options.Search) ||
@@ -16,6 +22,7 @@ public class AddressRepo : BaseRepo<Address>, IAddressRepo
         .Skip(options.Offset).Take(options.Limit).ToListAsync();
         return address;
     }
+
     public override async Task<Address> UpdateOneAsync(Guid id, Address updateObject)
     {
         var userAddress = await _data.FindAsync(id);

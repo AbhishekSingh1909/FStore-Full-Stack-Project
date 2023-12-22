@@ -17,9 +17,10 @@ public class AddressController : ControllerBase
     }
 
     [Authorize]
-    [HttpGet("{id:Guid}")]
-    public async Task<ActionResult<AddressReadDTO>> GetUserAddress([FromRoute] Guid id)
+    [HttpGet("profile")]
+    public async Task<ActionResult<AddressReadDTO>> GetUserAddress()
     {
+        var id = GetUserId();
         return Ok(await _addressService.GetByIdAsync(id));
     }
 
@@ -27,15 +28,12 @@ public class AddressController : ControllerBase
     [HttpPost()]
     public async Task<ActionResult<AddressReadDTO>> CreateUserAddress([FromBody] AddressCreateDTO addressCreateDTO)
     {
-        try
-        {
-            var address = await _addressService.CreateOneAsync(addressCreateDTO);
-            return CreatedAtAction(nameof(CreateUserAddress), address);
-        }
-        catch (Exception e)
-        {
-            throw new Exception(e.Message);
-        }
+        var authenticatedClaims = HttpContext.User;
+        var value = authenticatedClaims.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        addressCreateDTO.UserId = Guid.Parse(value);
+        var address = await _addressService.CreateOneAsync(addressCreateDTO);
+        return CreatedAtAction(nameof(CreateUserAddress), address);
+
     }
 
     [Authorize]
@@ -50,5 +48,13 @@ public class AddressController : ControllerBase
     public virtual async Task<ActionResult<AddressReadDTO>> UpdateOne([FromRoute] Guid id, [FromBody] AddressUpdateDTO updateObject)
     {
         return Ok(await _addressService.UpdateOneAsync(id, updateObject));
+    }
+
+    private Guid GetUserId()
+    {
+        var authenticatedClaims = HttpContext.User;
+        var value = authenticatedClaims.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+        var id = Guid.Parse(value);
+        return id;
     }
 }

@@ -29,6 +29,12 @@ builder.Services.AddScoped<IAddressService, AddressService>();
 builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+builder.Services.AddScoped<IProductRepo, ProductRepo>();
+builder.Services.AddScoped<IProductService, ProductService>();
+
+builder.Services.AddScoped<IImageRepo, ImageRepo>();
+builder.Services.AddScoped<IImageService, ImageService>();
+
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 // builder.Services.AddTransient()

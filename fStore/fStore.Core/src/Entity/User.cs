@@ -15,6 +15,5 @@ public class User : BaseEntity
     public required Role Role { get; set; }
     public Address Address { get; set; }
     public IEnumerable<Order> Orders { get; set; }
-    public IEnumerable<CartItem> CartItems { get; set; }
     public IEnumerable<Review> Reviews { get; set; }
 }

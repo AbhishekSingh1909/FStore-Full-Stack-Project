@@ -7,7 +7,7 @@ using fStore.Core;
 namespace fStore.WEBAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class createdatabseagain : Migration
+    public partial class createdatabse : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -60,7 +60,6 @@ namespace fStore.WEBAPI.Migrations
                     description = table.Column<string>(type: "text", nullable: false),
                     price = table.Column<decimal>(type: "numeric", nullable: false),
                     inventory = table.Column<int>(type: "integer", nullable: false),
-                    images = table.Column<string[]>(type: "text[]", nullable: true),
                     category_id = table.Column<Guid>(type: "uuid", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
@@ -83,6 +82,7 @@ namespace fStore.WEBAPI.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
+                    house_number = table.Column<string>(type: "text", nullable: false),
                     street = table.Column<string>(type: "text", nullable: false),
                     post_code = table.Column<string>(type: "text", nullable: false),
                     city = table.Column<string>(type: "text", nullable: false),
@@ -96,28 +96,6 @@ namespace fStore.WEBAPI.Migrations
                     table.PrimaryKey("pk_addresses", x => x.id);
                     table.ForeignKey(
                         name: "fk_addresses_users_user_id",
-                        column: x => x.user_id,
-                        principalTable: "users",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "cart_items",
-                columns: table => new
-                {
-                    id = table.Column<Guid>(type: "uuid", nullable: false),
-                    user_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    quntity = table.Column<int>(type: "integer", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
-                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_cart_items", x => x.id);
-                    table.CheckConstraint("CK_CartItem_Quntity_Positive", "quntity>=0");
-                    table.ForeignKey(
-                        name: "fk_cart_items_users_user_id",
                         column: x => x.user_id,
                         principalTable: "users",
                         principalColumn: "id",
@@ -141,6 +119,27 @@ namespace fStore.WEBAPI.Migrations
                         name: "fk_orders_users_user_id",
                         column: x => x.user_id,
                         principalTable: "users",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "images",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    image_url = table.Column<string>(type: "text", nullable: false),
+                    product_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("pk_images", x => x.id);
+                    table.ForeignKey(
+                        name: "fk_images_products_product_id",
+                        column: x => x.product_id,
+                        principalTable: "products",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -175,37 +174,15 @@ namespace fStore.WEBAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "cart_item_product",
-                columns: table => new
-                {
-                    cart_items_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    products_id = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("pk_cart_item_product", x => new { x.cart_items_id, x.products_id });
-                    table.ForeignKey(
-                        name: "fk_cart_item_product_cart_items_cart_items_id",
-                        column: x => x.cart_items_id,
-                        principalTable: "cart_items",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "fk_cart_item_product_products_products_id",
-                        column: x => x.products_id,
-                        principalTable: "products",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "orders_products",
                 columns: table => new
                 {
                     product_id = table.Column<Guid>(type: "uuid", nullable: false),
                     order_id = table.Column<Guid>(type: "uuid", nullable: false),
                     quntity = table.Column<int>(type: "integer", nullable: false),
-                    total_price = table.Column<decimal>(type: "numeric", nullable: false)
+                    total_price = table.Column<decimal>(type: "numeric", nullable: false),
+                    created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -233,14 +210,9 @@ namespace fStore.WEBAPI.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "ix_cart_item_product_products_id",
-                table: "cart_item_product",
-                column: "products_id");
-
-            migrationBuilder.CreateIndex(
-                name: "ix_cart_items_user_id",
-                table: "cart_items",
-                column: "user_id");
+                name: "ix_images_product_id",
+                table: "images",
+                column: "product_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_orders_user_id",
@@ -281,16 +253,13 @@ namespace fStore.WEBAPI.Migrations
                 name: "addresses");
 
             migrationBuilder.DropTable(
-                name: "cart_item_product");
+                name: "images");
 
             migrationBuilder.DropTable(
                 name: "orders_products");
 
             migrationBuilder.DropTable(
                 name: "reviews");
-
-            migrationBuilder.DropTable(
-                name: "cart_items");
 
             migrationBuilder.DropTable(
                 name: "orders");

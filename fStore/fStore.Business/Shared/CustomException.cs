@@ -28,4 +28,9 @@ public class CustomException : Exception
     {
         return new CustomException(500, msg);
     }
+
+    public static CustomException UnableToMap(string msg = "Unable to map")
+    {
+        return new CustomException(500, msg);
+    }
 }

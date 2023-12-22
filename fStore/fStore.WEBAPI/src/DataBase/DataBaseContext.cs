@@ -13,9 +13,9 @@ public class DataBaseContext : DbContext // builder pattern
     public DbSet<Product> Products { get; set; }
     public DbSet<Address> Addresses { get; set; }
     public DbSet<Order> Orders { get; set; }
-    public DbSet<CartItem> CartItems { get; set; }
     public DbSet<Review> Reviews { get; set; }
     public DbSet<OrderProduct> Orders_Products { get; set; }
+    public DbSet<Image> Images { get; set; }
 
     // To avoid time zone error when using TimeStampInterceptor
     // without time zone
@@ -62,9 +62,6 @@ public class DataBaseContext : DbContext // builder pattern
         modelBuilder.Entity<OrderProduct>().HasKey(e => new { e.OrderId, e.ProductId });
         modelBuilder.Entity<OrderProduct>().ToTable(p => p.HasCheckConstraint("CK_OrderProduct_Quntity_Positive", "quntity>=0"));
         modelBuilder.Entity<OrderProduct>().ToTable(p => p.HasCheckConstraint("CK_OrderProduct_TotalPrice_Positive", "total_price>=0"));
-
-        //Cart Items
-        modelBuilder.Entity<CartItem>().ToTable(p => p.HasCheckConstraint("CK_CartItem_Quntity_Positive", "quntity>=0"));
 
         base.OnModelCreating(modelBuilder);
     }

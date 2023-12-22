@@ -20,6 +20,15 @@ public class MapperProfile : Profile
         CreateMap<CategoryCreateDTO, Category>();
         CreateMap<CategoryUpdateDTO, Category>();
 
+        CreateMap<Product, ProductReadDTO>();
+        CreateMap<ProductCreateDTO, Product>();
+        CreateMap<ProductUpdateDTO, Product>();
+
+        CreateMap<Image, ImageReadDTO>();
+        // I need help on this line
+        CreateMap<ImageCreateDTO, Image>().ForMember(dest => dest.Product, opt => opt.MapFrom(src => new Product());
+        CreateMap<ImageUpdateDTO, Image>();
+
 
     }
 

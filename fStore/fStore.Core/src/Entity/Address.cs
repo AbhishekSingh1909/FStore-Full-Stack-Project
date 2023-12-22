@@ -8,6 +8,7 @@ namespace fStore.Core;
 
 public class Address : BaseEntity
 {
+    public required string HouseNumber { get; set; }
     public required string Street { get; set; }
     public required string PostCode { get; set; }
     public required string City { get; set; }

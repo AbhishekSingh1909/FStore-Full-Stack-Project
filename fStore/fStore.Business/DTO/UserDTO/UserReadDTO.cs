@@ -9,5 +9,5 @@ public class UserReadDTO
     public string Email { get; set; }
     public string Avatar { get; set; }
     public Role Role { get; set; }
-    public Address Address { get; set; }
+    public AddressReadDTO Address { get; set; }
 }

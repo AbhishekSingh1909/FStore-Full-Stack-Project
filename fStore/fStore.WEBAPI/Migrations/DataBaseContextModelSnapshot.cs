@@ -25,25 +25,6 @@ namespace fStore.WEBAPI.Migrations
             NpgsqlModelBuilderExtensions.HasPostgresEnum(modelBuilder, "role", new[] { "customer", "admin" });
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("CartItemProduct", b =>
-                {
-                    b.Property<Guid>("CartItemsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("cart_items_id");
-
-                    b.Property<Guid>("ProductsId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("products_id");
-
-                    b.HasKey("CartItemsId", "ProductsId")
-                        .HasName("pk_cart_item_product");
-
-                    b.HasIndex("ProductsId")
-                        .HasDatabaseName("ix_cart_item_product_products_id");
-
-                    b.ToTable("cart_item_product", (string)null);
-                });
-
             modelBuilder.Entity("fStore.Core.Address", b =>
                 {
                     b.Property<Guid>("Id")
@@ -65,6 +46,11 @@ namespace fStore.WEBAPI.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
+
+                    b.Property<string>("HouseNumber")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("house_number");
 
                     b.Property<string>("PostCode")
                         .IsRequired()
@@ -92,42 +78,6 @@ namespace fStore.WEBAPI.Migrations
                         .HasDatabaseName("ix_addresses_user_id");
 
                     b.ToTable("addresses", (string)null);
-                });
-
-            modelBuilder.Entity("fStore.Core.CartItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id")
-                        .HasColumnOrder(0);
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<int>("Quntity")
-                        .HasColumnType("integer")
-                        .HasColumnName("quntity");
-
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("updated_at");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("user_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_cart_items");
-
-                    b.HasIndex("UserId")
-                        .HasDatabaseName("ix_cart_items_user_id");
-
-                    b.ToTable("cart_items", null, t =>
-                        {
-                            t.HasCheckConstraint("CK_CartItem_Quntity_Positive", "quntity>=0");
-                        });
                 });
 
             modelBuilder.Entity("fStore.Core.Category", b =>
@@ -159,6 +109,40 @@ namespace fStore.WEBAPI.Migrations
                         .HasName("pk_categories");
 
                     b.ToTable("categories", (string)null);
+                });
+
+            modelBuilder.Entity("fStore.Core.Image", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id")
+                        .HasColumnOrder(0);
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("image_url");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("product_id");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("updated_at");
+
+                    b.HasKey("Id")
+                        .HasName("pk_images");
+
+                    b.HasIndex("ProductId")
+                        .HasDatabaseName("ix_images_product_id");
+
+                    b.ToTable("images", (string)null);
                 });
 
             modelBuilder.Entity("fStore.Core.Order", b =>
@@ -204,6 +188,10 @@ namespace fStore.WEBAPI.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("product_id");
 
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_at");
+
                     b.Property<int>("Quntity")
                         .HasColumnType("integer")
                         .HasColumnName("quntity");
@@ -211,6 +199,10 @@ namespace fStore.WEBAPI.Migrations
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("numeric")
                         .HasColumnName("total_price");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("updated_at");
 
                     b.HasKey("OrderId", "ProductId")
                         .HasName("pk_orders_products");
@@ -246,10 +238,6 @@ namespace fStore.WEBAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("description");
-
-                    b.Property<string[]>("Images")
-                        .HasColumnType("text[]")
-                        .HasColumnName("images");
 
                     b.Property<int>("Inventory")
                         .HasColumnType("integer")
@@ -385,23 +373,6 @@ namespace fStore.WEBAPI.Migrations
                     b.ToTable("users", (string)null);
                 });
 
-            modelBuilder.Entity("CartItemProduct", b =>
-                {
-                    b.HasOne("fStore.Core.CartItem", null)
-                        .WithMany()
-                        .HasForeignKey("CartItemsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_cart_item_product_cart_items_cart_items_id");
-
-                    b.HasOne("fStore.Core.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("fk_cart_item_product_products_products_id");
-                });
-
             modelBuilder.Entity("fStore.Core.Address", b =>
                 {
                     b.HasOne("fStore.Core.User", null)
@@ -412,14 +383,16 @@ namespace fStore.WEBAPI.Migrations
                         .HasConstraintName("fk_addresses_users_user_id");
                 });
 
-            modelBuilder.Entity("fStore.Core.CartItem", b =>
+            modelBuilder.Entity("fStore.Core.Image", b =>
                 {
-                    b.HasOne("fStore.Core.User", null)
-                        .WithMany("CartItems")
-                        .HasForeignKey("UserId")
+                    b.HasOne("fStore.Core.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasConstraintName("fk_cart_items_users_user_id");
+                        .HasConstraintName("fk_images_products_product_id");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("fStore.Core.Order", b =>
@@ -436,19 +409,23 @@ namespace fStore.WEBAPI.Migrations
 
             modelBuilder.Entity("fStore.Core.OrderProduct", b =>
                 {
-                    b.HasOne("fStore.Core.Order", null)
+                    b.HasOne("fStore.Core.Order", "Order")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_orders_products_orders_order_id");
 
-                    b.HasOne("fStore.Core.Product", null)
+                    b.HasOne("fStore.Core.Product", "Product")
                         .WithMany("OrderProducts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_orders_products_products_product_id");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("fStore.Core.Product", b =>
@@ -496,6 +473,8 @@ namespace fStore.WEBAPI.Migrations
 
             modelBuilder.Entity("fStore.Core.Product", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("OrderProducts");
 
                     b.Navigation("Reviews");
@@ -505,8 +484,6 @@ namespace fStore.WEBAPI.Migrations
                 {
                     b.Navigation("Address")
                         .IsRequired();
-
-                    b.Navigation("CartItems");
 
                     b.Navigation("Orders");
 
