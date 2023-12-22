@@ -23,35 +23,35 @@ public class ProductRepo : BaseRepo<Product>, IProductRepo
 
     public override async Task<Product> UpdateOneAsync(Guid id, Product updateObject)
     {
-        var product = await _data.FindAsync(id);
-        if (product is null)
-        {
-            return null;
-        }
+        //var product = await _data.FindAsync(id);
+        //if (product is null)
+        //{
+        //    return null;
+        //}
 
-        if (updateObject.Inventory != product.Inventory)
-        {
-            product.Inventory = updateObject.Inventory;
-        }
-        if (updateObject.CategoryId != product.CategoryId)
-        {
-            product.CategoryId = updateObject.CategoryId;
-        }
-        if (updateObject.Title is not null)
-        {
-            product.Title = updateObject.Title;
-        }
-        if (updateObject.Description is not null)
-        {
-            product.Description = updateObject.Description;
-        }
+        //if (updateObject.Inventory != product.Inventory)
+        //{
+        //    product.Inventory = updateObject.Inventory;
+        //}
+        //if (updateObject.CategoryId != product.CategoryId)
+        //{
+        //    product.CategoryId = updateObject.CategoryId;
+        //}
+        //if (updateObject.Title is not null)
+        //{
+        //    product.Title = updateObject.Title;
+        //}
+        //if (updateObject.Description is not null)
+        //{
+        //    product.Description = updateObject.Description;
+        //}
 
-        if (updateObject.Price != product.Price && updateObject.Price > 0)
-        {
-            product.Price = updateObject.Price;
-        }
-        _data.Update(product);
+        //if (updateObject.Price != product.Price && updateObject.Price > 0)
+        //{
+        //    product.Price = updateObject.Price;
+        //}
+        _data.Update(updateObject);
         await _dbContext.SaveChangesAsync();
-        return product;
+        return updateObject;
     }
 }

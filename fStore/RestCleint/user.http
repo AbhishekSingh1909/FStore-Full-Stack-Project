@@ -134,7 +134,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2N2QyY
 ### Customer
 POST http://localhost:5216/api/v1/addresses HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI5NjFjNDM2MS1hNTQzLTQyZTUtOWE3ZS02N2JlMTVmZjZmMzgiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzNEBtYWlsLmNvbSIsIm5iZiI6MTcwMzE3OTA0NiwiZXhwIjoxNzAzMzUxODQ2LCJpYXQiOjE3MDMxNzkwNDYsImlzcyI6IkFiaGlzaGVrIiwiYXVkIjoiQWJoaXNoZWtFQ29tbWVyY2UifQ.KE622jVAKxtF3NcB3pfYaQeLX1MZ9arar_40OiApqZ0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyZDkyOTM2OC02MjA4LTQyYzEtODhmMy1mMGE3MGExMTMyNmEiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzNEBtYWlsLmNvbSIsIm5iZiI6MTcwMzI0NjExOCwiZXhwIjoxNzAzNDE4OTE4LCJpYXQiOjE3MDMyNDYxMTgsImlzcyI6IkFiaGlzaGVrIiwiYXVkIjoiQWJoaXNoZWtFQ29tbWVyY2UifQ.DoUGSwRHtFEXYT__d3_li_qDA8U3sQ7IrHE3cCRTXjM
 
 {
   "HouseNumber" :"A 1",
@@ -163,49 +163,7 @@ DELETE http://localhost:5216/api/v1/addresses/{46cbb6c5-b51a-4fc2-85a8-848ea57df
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2N2QyYTBjZC04Mjc0LTQyMDUtYjNlOS1jNjk4MDYxMzQ3OTAiLCJyb2xlIjoiQ3VzdG9tZXIiLCJlbWFpbCI6Im1haWphMTIzMDFAbWFpbC5jb20iLCJuYmYiOjE3MDMwNzg2NDAsImV4cCI6MTcwMzI1MTQ0MCwiaWF0IjoxNzAzMDc4NjQwLCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.43xcB79qNEh4wl7WlmtVBmYVCUNHThOVUXI5aNZZhgo
 
-### Admin
-POST http://localhost:5216/api/v1/auth/login HTTP/1.1
-Content-Type: application/json
 
-{
-    "email": "maija12301@mail.com",
-    "password": "12345"
-}
-
-### Admin
-POST http://localhost:5216/api/v1/categories HTTP/1.1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI5NjFjNDM2MS1hNTQzLTQyZTUtOWE3ZS02N2JlMTVmZjZmMzgiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzNEBtYWlsLmNvbSIsIm5iZiI6MTcwMzE3OTA0NiwiZXhwIjoxNzAzMzUxODQ2LCJpYXQiOjE3MDMxNzkwNDYsImlzcyI6IkFiaGlzaGVrIiwiYXVkIjoiQWJoaXNoZWtFQ29tbWVyY2UifQ.KE622jVAKxtF3NcB3pfYaQeLX1MZ9arar_40OiApqZ0
-
-{
-  "name": "Electronics",
-  "imageUrl": "https://placeimg.com/640/480/any?r=0.591926261873231"
-}
-
-### Admin
-GET http://localhost:5216/api/v1/categories HTTP/1.1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhZmQyZjlhZS1iMjk1LTRkNjQtYTYzNC0yM2I4YWJlM2U3ZTUiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzNEBtYWlsLmNvbSIsIm5iZiI6MTcwMzE2NDE5MCwiZXhwIjoxNzAzMzM2OTkwLCJpYXQiOjE3MDMxNjQxOTAsImlzcyI6IkFiaGlzaGVrIiwiYXVkIjoiQWJoaXNoZWtFQ29tbWVyY2UifQ.F_YkM0K0tSR8wV4V7QMJ10EorrbBkx0VEkiBWH6DLzs
-
-###
-GET http://localhost:5216/api/v1/categories/{f13a62c7-52e5-468a-92b3-0fcb7a2dc19a} HTTP/1.1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2N2QyYTBjZC04Mjc0LTQyMDUtYjNlOS1jNjk4MDYxMzQ3OTAiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzMDFAbWFpbC5jb20iLCJuYmYiOjE3MDMwOTUyNTYsImV4cCI6MTcwMzI2ODA1NiwiaWF0IjoxNzAzMDk1MjU2LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.65k0Ij6UFG5Hn_Hf1Jcw-CaV9zbbti9f_sBwMxMenqM
-
-###
-PATCH  http://localhost:5216/api/v1/categories/{f13a62c7-52e5-468a-92b3-0fcb7a2dc19a} HTTP/1.1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2N2QyYTBjZC04Mjc0LTQyMDUtYjNlOS1jNjk4MDYxMzQ3OTAiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzMDFAbWFpbC5jb20iLCJuYmYiOjE3MDMwOTUyNTYsImV4cCI6MTcwMzI2ODA1NiwiaWF0IjoxNzAzMDk1MjU2LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.65k0Ij6UFG5Hn_Hf1Jcw-CaV9zbbti9f_sBwMxMenqM
-
-{
-  "name": "Clothes",
-  "imageUrl": "https://i.imgur.com/QkIa5tT.jpeg"
-}
-
-###
-DELETE http://localhost:5216/api/v1/categories/{f13a62c7-52e5-468a-92b3-0fcb7a2dc19a} HTTP/1.1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2N2QyYTBjZC04Mjc0LTQyMDUtYjNlOS1jNjk4MDYxMzQ3OTAiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzMDFAbWFpbC5jb20iLCJuYmYiOjE3MDMwOTUyNTYsImV4cCI6MTcwMzI2ODA1NiwiaWF0IjoxNzAzMDk1MjU2LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.65k0Ij6UFG5Hn_Hf1Jcw-CaV9zbbti9f_sBwMxMenqM
 
 
 

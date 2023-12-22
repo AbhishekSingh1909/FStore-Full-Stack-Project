@@ -24,4 +24,26 @@ public class ProductService : BaseService<Product, ProductReadDTO, ProductCreate
         }
         return await base.CreateOneAsync(createObject);
     }
+
+    public override async Task<ProductReadDTO> UpdateOneAsync(Guid id, ProductUpdateDTO updateObject)
+    {
+        if (updateObject.CategoryId is not null)
+        {
+            var category = await _categoryRepo.GetByIdAsync(updateObject.CategoryId.Value);
+            if (category is null)
+            {
+                throw CustomException.NotFoundException("Could not update product because category is not found");
+            }
+        }
+
+        var entity = await _repo.GetByIdAsync(id);
+        if (entity is null)
+        {
+            throw CustomException.NotFoundException("product not found");
+        }
+        var record = _mapper.Map<ProductUpdateDTO, Product>(updateObject, entity);
+
+        var updatedUser = await _repo.UpdateOneAsync(id, record);
+        return _mapper.Map<Product, ProductReadDTO>(updatedUser);
+    }
 }

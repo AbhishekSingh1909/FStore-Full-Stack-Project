@@ -7,11 +7,40 @@ Content-Type: application/json
     "password": "12345"
 }
 
+
 ###
-Patch http://localhost:5216/api/v1/images/{1267df9f-6c8c-43eb-898d-36082e99e2d5} HTTP/1.1
+Post http://localhost:5216/api/v1/images HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI5NjFjNDM2MS1hNTQzLTQyZTUtOWE3ZS02N2JlMTVmZjZmMzgiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzNEBtYWlsLmNvbSIsIm5iZiI6MTcwMzIxOTQzNCwiZXhwIjoxNzAzMzkyMjM0LCJpYXQiOjE3MDMyMTk0MzQsImlzcyI6IkFiaGlzaGVrIiwiYXVkIjoiQWJoaXNoZWtFQ29tbWVyY2UifQ.6yZk7M-Q0iQyFlWWWDD0NZf5NLc1TfZJCPrEbDvHGDE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyZDkyOTM2OC02MjA4LTQyYzEtODhmMy1mMGE3MGExMTMyNmEiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzNEBtYWlsLmNvbSIsIm5iZiI6MTcwMzI0NjExOCwiZXhwIjoxNzAzNDE4OTE4LCJpYXQiOjE3MDMyNDYxMTgsImlzcyI6IkFiaGlzaGVrIiwiYXVkIjoiQWJoaXNoZWtFQ29tbWVyY2UifQ.DoUGSwRHtFEXYT__d3_li_qDA8U3sQ7IrHE3cCRTXjM
+
+{
+  "imageUrl": "https://picsum.photos/800",
+  "productId": "4e7b97fd-1ffb-46b0-9dc6-602cadb43aca"
+}
+
+###
+GET http://localhost:5216/api/v1/images HTTP/1.1
+Content-Type: application/json
+
+###
+GET http://localhost:5216/api/v1/images/{1fd27cbc-2b7c-43f9-8919-93c5c9ac8704} HTTP/1.1
+Content-Type: application/json
+
+
+###
+GET http://localhost:5216/api/v1/images/product/{4e7b97fd-1ffb-46b0-9dc6-602cadb43aca} HTTP/1.1
+Content-Type: application/json
+
+###
+Patch http://localhost:5216/api/v1/images/{19fbed70-d1b1-4286-b8bb-c6290f53c51a} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyZDkyOTM2OC02MjA4LTQyYzEtODhmMy1mMGE3MGExMTMyNmEiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzNEBtYWlsLmNvbSIsIm5iZiI6MTcwMzI0NjExOCwiZXhwIjoxNzAzNDE4OTE4LCJpYXQiOjE3MDMyNDYxMTgsImlzcyI6IkFiaGlzaGVrIiwiYXVkIjoiQWJoaXNoZWtFQ29tbWVyY2UifQ.DoUGSwRHtFEXYT__d3_li_qDA8U3sQ7IrHE3cCRTXjM
 
 {
   "imageUrl": "string"
 }
+
+###
+DELETE  http://localhost:5216/api/v1/images/{1fd27cbc-2b7c-43f9-8919-93c5c9ac8704} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyZDkyOTM2OC02MjA4LTQyYzEtODhmMy1mMGE3MGExMTMyNmEiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzNEBtYWlsLmNvbSIsIm5iZiI6MTcwMzI0NjExOCwiZXhwIjoxNzAzNDE4OTE4LCJpYXQiOjE3MDMyNDYxMTgsImlzcyI6IkFiaGlzaGVrIiwiYXVkIjoiQWJoaXNoZWtFQ29tbWVyY2UifQ.DoUGSwRHtFEXYT__d3_li_qDA8U3sQ7IrHE3cCRTXjM

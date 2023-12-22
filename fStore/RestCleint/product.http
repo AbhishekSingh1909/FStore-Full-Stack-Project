@@ -10,13 +10,13 @@ Content-Type: application/json
 ### Anonymous
 POST http://localhost:5216/api/v1/products HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI5NjFjNDM2MS1hNTQzLTQyZTUtOWE3ZS02N2JlMTVmZjZmMzgiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzNEBtYWlsLmNvbSIsIm5iZiI6MTcwMzIxNjI5MiwiZXhwIjoxNzAzMzg5MDkyLCJpYXQiOjE3MDMyMTYyOTIsImlzcyI6IkFiaGlzaGVrIiwiYXVkIjoiQWJoaXNoZWtFQ29tbWVyY2UifQ.zEmqy5TZH1FMo2hq4iuSuX_mtNqpeCkEmx5JNEdnyHw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyZDkyOTM2OC02MjA4LTQyYzEtODhmMy1mMGE3MGExMTMyNmEiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzNEBtYWlsLmNvbSIsIm5iZiI6MTcwMzI1MzYyNywiZXhwIjoxNzAzNDI2NDI3LCJpYXQiOjE3MDMyNTM2MjcsImlzcyI6IkFiaGlzaGVrIiwiYXVkIjoiQWJoaXNoZWtFQ29tbWVyY2UifQ.xZkmfSSHdzQeO6nNSjr-oZmN-RloASTVjcauEaEnI6E
 
 {
-  "title": "Fresh",
-  "description": "Andbooady shoes are designed to keeping in...",
+  "title": "New Product1",
+  "description": "New Product1 are designed to keeping in...",
   "price": 200,
-  "inventory": 20,
+  "inventory": 21,
   "images": [
     {
       "imageUrl": "https://placeimg.com/640/480/any?r=0.8807778235430017"
@@ -25,30 +25,29 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI5NjFjN
       "imageUrl":"https://placeimg.com/640/480/any?r=0.9300320592588625"
     }
   ],
-  "categoryId": "293c9783-c66d-41c1-87fa-4fc270561b76"
+  "categoryId": "391778af-dae9-407f-8e63-00ef153169ae"
 }
 
 ###
 GET http://localhost:5216/api/v1/products HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI5NjFjNDM2MS1hNTQzLTQyZTUtOWE3ZS02N2JlMTVmZjZmMzgiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzNEBtYWlsLmNvbSIsIm5iZiI6MTcwMzE3OTA0NiwiZXhwIjoxNzAzMzUxODQ2LCJpYXQiOjE3MDMxNzkwNDYsImlzcyI6IkFiaGlzaGVrIiwiYXVkIjoiQWJoaXNoZWtFQ29tbWVyY2UifQ.KE622jVAKxtF3NcB3pfYaQeLX1MZ9arar_40OiApqZ0
 
 ###
-GET http://localhost:5216/api/v1/products/{0789b25e-c92c-4dd5-8b67-815f47a4410a} HTTP/1.1
+GET http://localhost:5216/api/v1/products/{4e7b97fd-1ffb-46b0-9dc6-602cadb43aca} HTTP/1.1
 Content-Type: application/json
 
 
 ###
-Patch http://localhost:5216/api/v1/products/{d8c29fbd-9d97-4053-967b-93b45be7fded} HTTP/1.1
+Patch http://localhost:5216/api/v1/products/{4e7b97fd-1ffb-46b0-9dc6-602cadb43aca} HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI5NjFjNDM2MS1hNTQzLTQyZTUtOWE3ZS02N2JlMTVmZjZmMzgiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzNEBtYWlsLmNvbSIsIm5iZiI6MTcwMzIxNjI5MiwiZXhwIjoxNzAzMzg5MDkyLCJpYXQiOjE3MDMyMTYyOTIsImlzcyI6IkFiaGlzaGVrIiwiYXVkIjoiQWJoaXNoZWtFQ29tbWVyY2UifQ.zEmqy5TZH1FMo2hq4iuSuX_mtNqpeCkEmx5JNEdnyHw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyZDkyOTM2OC02MjA4LTQyYzEtODhmMy1mMGE3MGExMTMyNmEiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzNEBtYWlsLmNvbSIsIm5iZiI6MTcwMzI1MzYyNywiZXhwIjoxNzAzNDI2NDI3LCJpYXQiOjE3MDMyNTM2MjcsImlzcyI6IkFiaGlzaGVrIiwiYXVkIjoiQWJoaXNoZWtFQ29tbWVyY2UifQ.xZkmfSSHdzQeO6nNSjr-oZmN-RloASTVjcauEaEnI6E
 
 {
-  "title": "Fresh Table123",
+  "title": "Fresh Table1230",
   "description": "Andbooady cloths are designed to keeping in...",
   "price": 400,
   "inventory": 20,
-  "categoryId": "293c9783-c66d-41c1-87fa-4fc270561b76"
+  "categoryId": "71a9a2eb-9b16-4dde-b4c8-a05c9e3b3df4"
 }
 
 ###

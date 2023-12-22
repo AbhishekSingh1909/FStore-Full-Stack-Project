@@ -13,7 +13,7 @@ using fStore.WEBAPI;
 namespace fStore.WEBAPI.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20231221170945_createdatabse")]
+    [Migration("20231222115059_createdatabse")]
     partial class createdatabse
     {
         /// <inheritdoc />

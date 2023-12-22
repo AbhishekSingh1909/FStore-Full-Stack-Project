@@ -25,16 +25,6 @@ public class ImageRepo : BaseRepo<Image>, IImageRepo
 
     public override async Task<Image> UpdateOneAsync(Guid id, Image updateObject)
     {
-        var image = await _data.FindAsync(id);
-        if (image is null)
-        {
-            return null;
-        }
-        if (updateObject.ImageUrl is not null)
-        {
-            image.ImageUrl = updateObject.ImageUrl;
-        }
-        
         _data.Update(updateObject);
         await _dbContext.SaveChangesAsync();
         return updateObject;

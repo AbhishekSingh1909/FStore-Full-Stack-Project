@@ -53,7 +53,7 @@ public class BaseService<T, TReadDTO, TCreateDTO, TUpdateDTO> : IBaseService<T, 
         {
             throw CustomException.NotFoundException(string.Format($"records not found {nameof(record)}"));
         }
-        var result =_mapper.Map<T, TReadDTO>(record);
+        var result = _mapper.Map<T, TReadDTO>(record);
         if (result is null)
         {
             throw CustomException.UnableToMap(string.Format($"Unable to Map {nameof(result)}"));
@@ -63,7 +63,12 @@ public class BaseService<T, TReadDTO, TCreateDTO, TUpdateDTO> : IBaseService<T, 
 
     public virtual async Task<TReadDTO> UpdateOneAsync(Guid id, TUpdateDTO updateObject)
     {
-        var record = _mapper.Map<TUpdateDTO, T>(updateObject);
+        T entity = await _repo.GetByIdAsync(id);
+        if (entity is null)
+        {
+            throw CustomException.NotFoundException("entity not found");
+        }
+        T record = _mapper.Map<TUpdateDTO, T>(updateObject, entity);
 
         var updatedUser = await _repo.UpdateOneAsync(id, record);
         return _mapper.Map<T, TReadDTO>(updatedUser);

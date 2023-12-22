@@ -19,16 +19,14 @@ public class ImageController : BaseController<Image, ImageReadDTO, ImageCreateDT
     [HttpGet()]
     public override async Task<ActionResult<IEnumerable<ImageReadDTO>>> GetAll([FromQuery] GetAllParams options)
     {
-        var images = await base.GetAll(options);
-
-        return Ok(images.Result);
+        return await base.GetAll(options);
     }
 
     [AllowAnonymous]
     [HttpGet("{id:Guid}")]
     public override async Task<ActionResult<ImageReadDTO>> GetById([FromRoute] Guid id)
     {
-        return Ok(await base.GetById(id));
+        return await base.GetById(id);
     }
 
     [AllowAnonymous]
@@ -38,9 +36,11 @@ public class ImageController : BaseController<Image, ImageReadDTO, ImageCreateDT
         return Ok(await _service.GetImagesByProductId(productId));
     }
 
-    public override Task<ActionResult<ImageReadDTO>> CreateOne([FromBody] ImageCreateDTO createObject)
+    public override async Task<ActionResult<ImageReadDTO>> CreateOne([FromBody] ImageCreateDTO createObject)
     {
-        return base.CreateOne(createObject);
+        return await base.CreateOne(createObject);
+        // return CreatedAtAction(nameof(CreateOne), result);
+
     }
 
 
