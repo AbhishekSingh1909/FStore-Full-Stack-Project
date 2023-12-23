@@ -15,8 +15,8 @@ public class BaseController<T, TReadDTO, TCreateDTO, TUpdateDTO> : ControllerBas
         _baseServie = service;
     }
 
-    [Authorize(Policy = "Admin")]
-    [HttpGet()] // users? limit =20&offset=0
+    [Authorize(Roles = "Admin")]
+    [HttpGet()]
     public virtual async Task<ActionResult<IEnumerable<TReadDTO>>> GetAll([FromQuery] GetAllParams options)
     {
         var records = await _baseServie.GetAllAsync(options);
@@ -36,7 +36,7 @@ public class BaseController<T, TReadDTO, TCreateDTO, TUpdateDTO> : ControllerBas
     {
         try
         {
-            var result = await _baseServie.CreateOneAsync(createObject);
+            var result = await _baseServie.CreateOneAsync(new Guid(), createObject);
             return CreatedAtAction(nameof(CreateOne), result);
         }
         catch (Exception e)
@@ -46,7 +46,7 @@ public class BaseController<T, TReadDTO, TCreateDTO, TUpdateDTO> : ControllerBas
     }
 
     [Authorize(Roles = "Admin")]
-    [HttpDelete("{id:Guid}")] // users/:userid
+    [HttpDelete("{id:Guid}")]
     public virtual async Task<ActionResult<bool>> DeleteById([FromRoute] Guid id)
     {
         return Ok(await _baseServie.DeleteByIdAsync(id));

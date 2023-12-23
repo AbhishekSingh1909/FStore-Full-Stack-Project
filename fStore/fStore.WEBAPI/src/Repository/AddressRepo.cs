@@ -25,30 +25,9 @@ public class AddressRepo : BaseRepo<Address>, IAddressRepo
 
     public override async Task<Address> UpdateOneAsync(Guid id, Address updateObject)
     {
-        var userAddress = await _data.FindAsync(id);
-        if (userAddress is null)
-        {
-            return null;
-        }
 
-        if (updateObject.Street is not null)
-        {
-            userAddress.Street = updateObject.Street;
-        }
-        if (updateObject.PostCode is not null)
-        {
-            userAddress.PostCode = updateObject.PostCode;
-        }
-        if (updateObject.City is not null)
-        {
-            userAddress.City = updateObject.City;
-        }
-        if (updateObject.Country is not null)
-        {
-            userAddress.Country = updateObject.Country;
-        }
-        _data.Update(userAddress);
+        _data.Update(updateObject);
         await _dbContext.SaveChangesAsync();
-        return userAddress;
+        return updateObject;
     }
 }

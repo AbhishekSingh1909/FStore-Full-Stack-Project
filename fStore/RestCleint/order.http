@@ -1,0 +1,65 @@
+### login customer
+POST http://localhost:5216/api/v1/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "Abhishek@mail.com",
+    "password": "12345"
+}
+
+### login admin
+POST http://localhost:5216/api/v1/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "maija1234@mail.com",
+    "password": "12345"
+}
+
+### Anonymous
+POST http://localhost:5216/api/v1/orders HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJhZmU0N2Q0YS1jY2UzLTQwYTgtODQzOC05MTFjZjAxOGExMTUiLCJyb2xlIjoiQ3VzdG9tZXIiLCJuYmYiOjE3MDMzMzY4NTcsImV4cCI6MTcwMzUwOTY1NywiaWF0IjoxNzAzMzM2ODU3LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.5Va6x1cb9F_1dpnVYlq1Y2lJLt8ne8CppMBZTBRYr7Y
+
+{
+  "orderProducts": [
+    {
+      "productId": "2fc46ea3-c770-49fd-a61e-2186c8f7a404",
+      "quntity": 2
+    },
+    {
+      "productId": "bd9ef8e9-2102-4ae8-a7ad-ded2da071b46",
+      "quntity": 3
+    }
+  ]
+}
+
+### Anonymous
+GET http://localhost:5216/api/v1/orders/{e6637734-c6c8-4ad2-80b6-0b8f33cad95b} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2Y2JhNmY0ZS0yYWJmLTQ0MDMtYWUyMi1lNThkMmZkY2QxNTgiLCJyb2xlIjoiQ3VzdG9tZXIiLCJuYmYiOjE3MDMzMzgyNTEsImV4cCI6MTcwMzUxMTA1MSwiaWF0IjoxNzAzMzM4MjUxLCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.vTErJStE_HE1bZOLWQQHP9OYyQDhxhIkYyxJjXYyO5M
+
+### Anonymous
+GET http://localhost:5216/api/v1/orders HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2Y2JhNmY0ZS0yYWJmLTQ0MDMtYWUyMi1lNThkMmZkY2QxNTgiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE3MDMzMjIzNjEsImV4cCI6MTcwMzQ5NTE2MSwiaWF0IjoxNzAzMzIyMzYxLCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.2PdQI3BUy4bacK9PeFouzEGvGHI2bcqHFOqtv8pF5SA
+
+### Anonymous
+GET http://localhost:5216/api/v1/orders/user HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2Y2JhNmY0ZS0yYWJmLTQ0MDMtYWUyMi1lNThkMmZkY2QxNTgiLCJyb2xlIjoiQ3VzdG9tZXIiLCJuYmYiOjE3MDMzNDIzNzgsImV4cCI6MTcwMzUxNTE3OCwiaWF0IjoxNzAzMzQyMzc4LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.WZDQiHI3cik0g6XGw1g6un3yVg9JrvuuqJI5yphOTTE
+
+###
+Patch http://localhost:5216/api/v1/orders/{e0f06b92-35a6-499f-8f98-cf0efa5f6be3} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0YzFmODU4ZS1lNDRlLTRjZDYtOWMwZi01YzVlOGU5Y2U2OWQiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE3MDMzNDAyMTYsImV4cCI6MTcwMzUxMzAxNiwiaWF0IjoxNzAzMzQwMjE2LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.Pw2_XjwbEUakCJRNsFYVYIJ6dbq6JMrv1fug_hIueLE
+
+{
+  "status": "Cancelled"
+}
+
+###
+DELETE http://localhost:5216/api/v1/orders/{e6637734-c6c8-4ad2-80b6-0b8f33cad95b} HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0YzFmODU4ZS1lNDRlLTRjZDYtOWMwZi01YzVlOGU5Y2U2OWQiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE3MDMzNDAyMTYsImV4cCI6MTcwMzUxMzAxNiwiaWF0IjoxNzAzMzQwMjE2LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.Pw2_XjwbEUakCJRNsFYVYIJ6dbq6JMrv1fug_hIueLE
+

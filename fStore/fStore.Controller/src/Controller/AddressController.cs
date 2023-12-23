@@ -17,11 +17,11 @@ public class AddressController : ControllerBase
     }
 
     [Authorize]
-    [HttpGet("profile")]
+    [HttpGet()]
     public async Task<ActionResult<AddressReadDTO>> GetUserAddress()
     {
         var id = GetUserId();
-        return Ok(await _addressService.GetByIdAsync(id));
+        return Ok(await _addressService.GetAddreess(id));
     }
 
     [Authorize]
@@ -30,8 +30,8 @@ public class AddressController : ControllerBase
     {
         var authenticatedClaims = HttpContext.User;
         var value = authenticatedClaims.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
-        addressCreateDTO.UserId = Guid.Parse(value);
-        var address = await _addressService.CreateOneAsync(addressCreateDTO);
+        var userId = Guid.Parse(value);
+        var address = await _addressService.CreateOneAsync(userId, addressCreateDTO);
         return CreatedAtAction(nameof(CreateUserAddress), address);
 
     }

@@ -25,22 +25,9 @@ public class CategoryRepo : BaseRepo<Category>, ICategoryRepo
 
     public override async Task<Category> UpdateOneAsync(Guid id, Category updateObject)
     {
-        var category = await _data.FindAsync(id);
-        if (category is null)
-        {
-            return null;
-        }
 
-        if (updateObject.Name is not null)
-        {
-            category.Name = updateObject.Name;
-        }
-        if (updateObject.ImageUrl is not null)
-        {
-            category.ImageUrl = updateObject.ImageUrl;
-        }
-        _data.Update(category);
+        _data.Update(updateObject);
         await _dbContext.SaveChangesAsync();
-        return category;
+        return updateObject;
     }
 }

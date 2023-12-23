@@ -11,7 +11,7 @@ public class UserService : BaseService<User, UserReadDTO, UserCreateDTO, UserUpd
         _userRepo = repo;
     }
 
-    public override async Task<UserReadDTO> CreateOneAsync(UserCreateDTO createObject)
+    public override async Task<UserReadDTO> CreateOneAsync(Guid id, UserCreateDTO createObject)
     {
         PasswordService.HashPassword(createObject.Password, out string hashedPassword, out byte[] salt);
         var user = _mapper.Map<UserCreateDTO, User>(createObject);

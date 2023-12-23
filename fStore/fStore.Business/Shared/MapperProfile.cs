@@ -38,8 +38,17 @@ public class MapperProfile : Profile
 
         CreateMap<Image, ImageReadDTO>();
         CreateMap<ImageCreateDTO, Image>();
-        CreateMap<ImageUpdateDTO, Image>().ForAllMembers(opt => opt.Condition((src, dest, value) => value != null)
-            );
+        CreateMap<ImageUpdateDTO, Image>().ForAllMembers(opt => opt.Condition((src, dest, value) => value != null));
+
+        CreateMap<Order, OrderReadDTO>().ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.OrderDetails))
+                                        .ForMember(dest => dest.Status, opt=> opt.MapFrom(src=> src.OrderStatus));
+        CreateMap<OrderCreateDTO, Order>()
+            .ForMember(dest => dest.OrderDetails,
+                opt => opt.MapFrom(src => src.OrderProducts));
+        CreateMap<OrderUpdateDTO, Order>().ForMember(dest=> dest.OrderStatus,opt=> opt.MapFrom(src=> src.Status)).ForAllMembers(opt => opt.Condition((src, dest, value) => value != null));
+
+        CreateMap<OrderProduct, OrderProductReadDTO>();
+        CreateMap<OrderProductCreateDTO, OrderProduct>();
 
 
     }

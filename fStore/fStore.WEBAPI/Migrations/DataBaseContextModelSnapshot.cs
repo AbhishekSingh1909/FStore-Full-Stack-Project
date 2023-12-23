@@ -192,13 +192,13 @@ namespace fStore.WEBAPI.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("created_at");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric")
+                        .HasColumnName("price");
+
                     b.Property<int>("Quntity")
                         .HasColumnType("integer")
                         .HasColumnName("quntity");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("numeric")
-                        .HasColumnName("total_price");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp without time zone")
@@ -214,7 +214,7 @@ namespace fStore.WEBAPI.Migrations
                         {
                             t.HasCheckConstraint("CK_OrderProduct_Quntity_Positive", "quntity>=0");
 
-                            t.HasCheckConstraint("CK_OrderProduct_TotalPrice_Positive", "total_price>=0");
+                            t.HasCheckConstraint("CK_OrderProduct_TotalPrice_Positive", "price>=0");
                         });
                 });
 

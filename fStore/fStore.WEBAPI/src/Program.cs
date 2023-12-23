@@ -5,6 +5,7 @@ using fStore.Core;
 using fStore.WEBAPI;
 using fStore.WEBAPI.src.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -35,14 +36,41 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IImageRepo, ImageRepo>();
 builder.Services.AddScoped<IImageService, ImageService>();
 
+builder.Services.AddScoped<IOrderRepo, OrderRepo>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
-// builder.Services.AddTransient()
-// builder.Services.AddSingleton();
 
-//add automapper dependency injection
-// builder.Services.AddAutoMapper(typeof(Program).Assembly);
-//builder.Services.AddAutoMapper(typeof(UserService).Assembly);
+builder.Services.AddSingleton<IAuthorizationHandler, AdminOrOwnerHandler>();
+
+
+
+// COnfig authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+    options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true
+        };
+    }
+);
+
+builder.Services.AddAuthorization(policy =>
+{
+    policy.AddPolicy("AdminOrOwner", policy => policy.Requirements.Add(new AdminOrOwnerRequirement()));
+    policy.AddPolicy("SuperAdmin", policy => policy.RequireClaim(ClaimTypes.Email, "maija1234@mail.com"));
+    policy.AddPolicy("Admin", policy => policy.RequireRole(ClaimTypes.Role, "Admin"));
+    policy.AddPolicy("Customer", policy => policy.RequireRole(ClaimTypes.Role, "Customer"));
+});
+
 builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 
 // Add Error handler Middleware
@@ -50,27 +78,6 @@ builder.Services.AddTransient<ExceptionHandlerMiddleware>();
 
 // Add database contect service
 builder.Services.AddDbContext<DataBaseContext>(options => options.UseNpgsql());
-
-// COnfig authentication
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(o =>
-    {
-        o.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey
-            (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true
-        };
-    });
-
-builder.Services.AddAuthorization(policy =>
-{
-    policy.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "Admin"));
-});
 
 
 var app = builder.Build();

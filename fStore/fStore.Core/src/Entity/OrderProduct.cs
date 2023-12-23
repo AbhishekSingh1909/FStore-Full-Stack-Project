@@ -10,5 +10,5 @@ public class OrderProduct : TimeStamp
     public Order Order { get; set; }
     [Range(1, 1000)]
     public int Quntity { get; set; }
-    public decimal TotalPrice { get; set; }
+    public decimal Price { get; set; }
 }

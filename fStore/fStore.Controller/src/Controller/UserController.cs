@@ -28,11 +28,9 @@ public class UserController : BaseController<User, UserReadDTO, UserCreateDTO, U
     }
 
     [AllowAnonymous]
-    [HttpPost("Profile")]
-    public async Task<ActionResult<UserReadDTO>> CreateUserProfile([FromBody] UserCreateDTO userCreateDTO)
+    public override Task<ActionResult<UserReadDTO>> CreateOne([FromBody] UserCreateDTO createObject)
     {
-        var user = await _baseServie.CreateOneAsync(userCreateDTO);
-        return CreatedAtAction(nameof(CreateUserProfile), user);
+        return base.CreateOne(createObject);
     }
 
     [Authorize]

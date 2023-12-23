@@ -3,14 +3,14 @@ POST http://localhost:5216/api/v1/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "email": "maija12301@mail.com",
+    "email": "maija1234@mail.com",
     "password": "12345"
 }
 
 ### Admin
 POST http://localhost:5216/api/v1/categories HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyZDkyOTM2OC02MjA4LTQyYzEtODhmMy1mMGE3MGExMTMyNmEiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzNEBtYWlsLmNvbSIsIm5iZiI6MTcwMzI0NjExOCwiZXhwIjoxNzAzNDE4OTE4LCJpYXQiOjE3MDMyNDYxMTgsImlzcyI6IkFiaGlzaGVrIiwiYXVkIjoiQWJoaXNoZWtFQ29tbWVyY2UifQ.DoUGSwRHtFEXYT__d3_li_qDA8U3sQ7IrHE3cCRTXjM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2Y2JhNmY0ZS0yYWJmLTQ0MDMtYWUyMi1lNThkMmZkY2QxNTgiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzNEBtYWlsLmNvbSIsIm5iZiI6MTcwMzMxMDUxOCwiZXhwIjoxNzAzNDgzMzE4LCJpYXQiOjE3MDMzMTA1MTgsImlzcyI6IkFiaGlzaGVrIiwiYXVkIjoiQWJoaXNoZWtFQ29tbWVyY2UifQ.ap2Bio5kSsJbaRCYDSmsWNGr4nOVCO3iRMIZoKp0ORc
 
 {
   "name": "Cloths",
@@ -28,12 +28,12 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2N2QyYTBjZC04Mjc0LTQyMDUtYjNlOS1jNjk4MDYxMzQ3OTAiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzMDFAbWFpbC5jb20iLCJuYmYiOjE3MDMwOTUyNTYsImV4cCI6MTcwMzI2ODA1NiwiaWF0IjoxNzAzMDk1MjU2LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.65k0Ij6UFG5Hn_Hf1Jcw-CaV9zbbti9f_sBwMxMenqM
 
 ###
-PATCH  http://localhost:5216/api/v1/categories/{f13a62c7-52e5-468a-92b3-0fcb7a2dc19a} HTTP/1.1
+PATCH  http://localhost:5216/api/v1/categories/{dda82bd3-30c2-4298-ac34-edefa3410764} HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2N2QyYTBjZC04Mjc0LTQyMDUtYjNlOS1jNjk4MDYxMzQ3OTAiLCJyb2xlIjoiQWRtaW4iLCJlbWFpbCI6Im1haWphMTIzMDFAbWFpbC5jb20iLCJuYmYiOjE3MDMwOTUyNTYsImV4cCI6MTcwMzI2ODA1NiwiaWF0IjoxNzAzMDk1MjU2LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.65k0Ij6UFG5Hn_Hf1Jcw-CaV9zbbti9f_sBwMxMenqM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI0YzFmODU4ZS1lNDRlLTRjZDYtOWMwZi01YzVlOGU5Y2U2OWQiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE3MDMzNDAyMTYsImV4cCI6MTcwMzUxMzAxNiwiaWF0IjoxNzAzMzQwMjE2LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.Pw2_XjwbEUakCJRNsFYVYIJ6dbq6JMrv1fug_hIueLE
 
 {
-  "name": "Clothes",
+  "name": "Electronics",
   "imageUrl": "https://i.imgur.com/QkIa5tT.jpeg"
 }
 

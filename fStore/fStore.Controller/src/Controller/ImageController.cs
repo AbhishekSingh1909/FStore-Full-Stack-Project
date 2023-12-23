@@ -39,8 +39,6 @@ public class ImageController : BaseController<Image, ImageReadDTO, ImageCreateDT
     public override async Task<ActionResult<ImageReadDTO>> CreateOne([FromBody] ImageCreateDTO createObject)
     {
         return await base.CreateOne(createObject);
-        // return CreatedAtAction(nameof(CreateOne), result);
-
     }
 
 

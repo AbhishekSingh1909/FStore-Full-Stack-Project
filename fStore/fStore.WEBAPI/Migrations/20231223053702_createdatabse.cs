@@ -180,7 +180,7 @@ namespace fStore.WEBAPI.Migrations
                     product_id = table.Column<Guid>(type: "uuid", nullable: false),
                     order_id = table.Column<Guid>(type: "uuid", nullable: false),
                     quntity = table.Column<int>(type: "integer", nullable: false),
-                    total_price = table.Column<decimal>(type: "numeric", nullable: false),
+                    price = table.Column<decimal>(type: "numeric", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
                     updated_at = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -188,7 +188,7 @@ namespace fStore.WEBAPI.Migrations
                 {
                     table.PrimaryKey("pk_orders_products", x => new { x.order_id, x.product_id });
                     table.CheckConstraint("CK_OrderProduct_Quntity_Positive", "quntity>=0");
-                    table.CheckConstraint("CK_OrderProduct_TotalPrice_Positive", "total_price>=0");
+                    table.CheckConstraint("CK_OrderProduct_TotalPrice_Positive", "price>=0");
                     table.ForeignKey(
                         name: "fk_orders_products_orders_order_id",
                         column: x => x.order_id,

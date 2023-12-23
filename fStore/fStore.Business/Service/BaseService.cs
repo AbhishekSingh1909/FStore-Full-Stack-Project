@@ -14,7 +14,7 @@ public class BaseService<T, TReadDTO, TCreateDTO, TUpdateDTO> : IBaseService<T, 
         _mapper = mapper;
     }
 
-    public virtual async Task<TReadDTO> CreateOneAsync(TCreateDTO createObject)
+    public virtual async Task<TReadDTO> CreateOneAsync(Guid id, TCreateDTO createObject)
     {
         var record = _mapper.Map<TCreateDTO, T>(createObject);
         var recordCreated = await _repo.CreateOneAsync(record);
@@ -26,7 +26,7 @@ public class BaseService<T, TReadDTO, TCreateDTO, TUpdateDTO> : IBaseService<T, 
         var record = await _repo.GetByIdAsync(Id);
         if (record is null)
         {
-            throw CustomException.NotFoundException();
+            throw CustomException.NotFoundException("records not found");
         }
         return await _repo.DeleteByIdAsync(record);
     }
@@ -51,7 +51,7 @@ public class BaseService<T, TReadDTO, TCreateDTO, TUpdateDTO> : IBaseService<T, 
         var record = await _repo.GetByIdAsync(Id);
         if (record is null)
         {
-            throw CustomException.NotFoundException(string.Format($"records not found {nameof(record)}"));
+            throw CustomException.NotFoundException(string.Format($"records not found"));
         }
         var result = _mapper.Map<T, TReadDTO>(record);
         if (result is null)

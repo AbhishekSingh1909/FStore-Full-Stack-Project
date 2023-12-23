@@ -20,10 +20,11 @@ namespace fStore.WEBAPI.src.Service
         {
             var issuer = _config.GetSection("Jwt:Issuer").Value;
             var claims = new List<Claim>{
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Role, user.Role.ToString()),
-                new Claim(ClaimTypes.Email, user.Email.ToString())
-            };
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Role, user.Role.ToString())
+        };
+            Console.WriteLine("Login User {0}", user.Id.ToString());
+            Console.WriteLine("Login User Role {0}", user.Role.ToString());
             var audience = _config.GetSection("Jwt:Audience").Value;
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("Jwt:Key").Value!));

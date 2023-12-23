@@ -18,7 +18,6 @@ public class UserRepo : BaseRepo<User>, IUserRepo
     public override async Task<User?> GetByIdAsync(Guid id)
     {
         var user = await _data.AsNoTracking().Include(u => u.Address).FirstOrDefaultAsync(u => u.Id == id);
-        Console.WriteLine("Addess {0}", user?.Address.Country);
         return user;
     }
 
@@ -29,38 +28,10 @@ public class UserRepo : BaseRepo<User>, IUserRepo
 
     public override async Task<User> UpdateOneAsync(Guid id, User updateObject)
     {
-        var user = await _data.FindAsync(id);
-        if (user is null)
-        {
-            return null;
-        }
-        if (updateObject.Name is not null)
-        {
-            user.Name = updateObject.Name;
-        }
-        if (updateObject.Avatar is not null)
-        {
-            user.Avatar = updateObject.Avatar;
-        }
-        if (updateObject.Role != user.Role)
-        {
-            user.Role = updateObject.Role;
-        }
-        if (updateObject.Email is not null && user.Email != updateObject.Email)
-        {
-            user.Email = updateObject.Email;
-        }
-        if (updateObject.Password is not null && updateObject.Password != user.Password)
-        {
-            user.Password = updateObject.Password;
-        }
-        if (updateObject.Salt is not null && updateObject.Salt != user.Salt)
-        {
-            user.Salt = updateObject.Salt;
-        }
-        _data.Update(user);
+
+        _data.Update(updateObject);
         await _dbContext.SaveChangesAsync();
-        return user;
+        return updateObject;
     }
 
     public async Task<bool> IsEmailAvailableAsync(string email)

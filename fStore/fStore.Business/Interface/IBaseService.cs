@@ -6,7 +6,7 @@ public interface IBaseService<T, TReadDTO, TCreateDTO, TUpdateDTO> where T : Bas
 {
     Task<IEnumerable<TReadDTO>> GetAllAsync(GetAllParams options);
     Task<TReadDTO> GetByIdAsync(Guid Id);
-    Task<TReadDTO> CreateOneAsync(TCreateDTO createObject);
+    Task<TReadDTO> CreateOneAsync(Guid Id, TCreateDTO createObject);
     Task<TReadDTO> UpdateOneAsync(Guid id, TUpdateDTO updateObject);
     Task<bool> DeleteByIdAsync(Guid Id);
 }

@@ -61,7 +61,7 @@ public class DataBaseContext : DbContext // builder pattern
         // OrderProduct composit primary key
         modelBuilder.Entity<OrderProduct>().HasKey(e => new { e.OrderId, e.ProductId });
         modelBuilder.Entity<OrderProduct>().ToTable(p => p.HasCheckConstraint("CK_OrderProduct_Quntity_Positive", "quntity>=0"));
-        modelBuilder.Entity<OrderProduct>().ToTable(p => p.HasCheckConstraint("CK_OrderProduct_TotalPrice_Positive", "total_price>=0"));
+        modelBuilder.Entity<OrderProduct>().ToTable(p => p.HasCheckConstraint("CK_OrderProduct_TotalPrice_Positive", "price>=0"));
 
         base.OnModelCreating(modelBuilder);
     }

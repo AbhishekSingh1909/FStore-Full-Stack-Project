@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -15,14 +16,14 @@ public class ProductService : BaseService<Product, ProductReadDTO, ProductCreate
         _categoryRepo = categoryRepo;
     }
 
-    public override async Task<ProductReadDTO> CreateOneAsync(ProductCreateDTO createObject)
+    public override async Task<ProductReadDTO> CreateOneAsync(Guid id, ProductCreateDTO createObject)
     {
         var category = await _categoryRepo.GetByIdAsync(createObject.CategoryId);
         if (category is null)
         {
             throw CustomException.NotFoundException("Could not create product because category is not found");
         }
-        return await base.CreateOneAsync(createObject);
+        return await base.CreateOneAsync(id, createObject);
     }
 
     public override async Task<ProductReadDTO> UpdateOneAsync(Guid id, ProductUpdateDTO updateObject)
