@@ -47,7 +47,23 @@ public class DataBaseContext : DbContext // builder pattern
         //user role
         modelBuilder.HasPostgresEnum<Role>();
         modelBuilder.Entity<User>(entity => entity.Property(e => e.Role).HasColumnType("role"));
-        modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+        modelBuilder.Entity<User>(e =>
+        {
+            e.HasIndex(u => u.Email).IsUnique();
+            e.HasData(SeedingData.GetUser());
+        });
+
+        //Address Seed Data
+        modelBuilder.Entity<Category>(e =>
+        {
+            e.HasData(SeedingData.GetCategories());
+        });
+
+        //Address Seed Data
+        modelBuilder.Entity<Address>(e =>
+        {
+            e.HasData(SeedingData.GetAddresses());
+        });
 
         //order status
         modelBuilder.HasPostgresEnum<OrderStatus>();
@@ -56,6 +72,16 @@ public class DataBaseContext : DbContext // builder pattern
         //product
         modelBuilder.Entity<Product>().ToTable(p => p.HasCheckConstraint("CK_Product_Price_Positive", "price>=0"));
         modelBuilder.Entity<Product>().ToTable(p => p.HasCheckConstraint("CK_Product_Inventory_Positive", "inventory>=0"));
+        modelBuilder.Entity<Product>(e =>
+        {
+            e.HasData(SeedingData.GetProducts());
+        });
+
+        //Image Seed Data
+        modelBuilder.Entity<Image>(e =>
+        {
+            e.HasData(SeedingData.GetImages());
+        });
 
         // OrderProduct
         // OrderProduct composit primary key

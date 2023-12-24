@@ -66,7 +66,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
 builder.Services.AddAuthorization(policy =>
 {
     policy.AddPolicy("AdminOrOwner", policy => policy.Requirements.Add(new AdminOrOwnerRequirement()));
-    policy.AddPolicy("SuperAdmin", policy => policy.RequireClaim(ClaimTypes.Email, "maija1234@mail.com"));
+    policy.AddPolicy("SuperAdmin", policy => policy.RequireClaim(ClaimTypes.Email, "admin@mail.com"));
     policy.AddPolicy("Admin", policy => policy.RequireRole(ClaimTypes.Role, "Admin"));
     policy.AddPolicy("Customer", policy => policy.RequireRole(ClaimTypes.Role, "Customer"));
 });
