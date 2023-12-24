@@ -2,11 +2,6 @@ using AutoMapper;
 using fStore.Business;
 using fStore.Core;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace fStore.Test;
 
@@ -14,7 +9,7 @@ public class AddressServiceTest
 {
     public AddressServiceTest()
     {
-        
+
     }
     private static IMapper GetMapper()
     {
@@ -80,7 +75,7 @@ public class AddressServiceTest
     {
         Mock<IAddressRepo> repo = new Mock<IAddressRepo>();
         Mock<IUserRepo> userRepo = new Mock<IUserRepo>();
-        repo.Setup(repo => repo.UpdateOneAsync(It.IsAny<Guid>(),It.IsAny<Address>())).Returns(Task.FromResult(response));
+        repo.Setup(repo => repo.UpdateOneAsync(It.IsAny<Guid>(), It.IsAny<Address>())).Returns(Task.FromResult(response));
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).Returns(Task.FromResult(foundAddress));
         AddressService service = new AddressService(repo.Object, GetMapper());
 
@@ -94,7 +89,7 @@ public class AddressServiceTest
             Assert.Equivalent(expected, result);
         }
     }
-    
+
     [Theory]
     [ClassData(typeof(DeleteAddressData))]
     public async void DeleteOne_ShouldReturn_ValidResponse(Address? foundResponse, bool repoResponse, bool? expected, Type? exceptionType)
@@ -104,7 +99,7 @@ public class AddressServiceTest
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(foundResponse);
         repo.Setup(repo => repo.DeleteByIdAsync(It.IsAny<Address>())).Returns(Task.FromResult(repoResponse));
         AddressService service = new AddressService(repo.Object, GetMapper());
-        
+
         if (exceptionType is not null)
         {
             await Assert.ThrowsAsync(exceptionType, () => service.DeleteByIdAsync(It.IsAny<Guid>()));
@@ -124,9 +119,9 @@ public class AddressServiceTest
         Mock<IUserRepo> userRepo = new Mock<IUserRepo>();
         repo.Setup(repo => repo.GetAddreess(It.IsAny<Guid>())).Returns(Task.FromResult(response));
         AddressService service = new AddressService(repo.Object, GetMapper());
-        
-            AddressReadDTO result = await service.GetAddreess(It.IsAny<Guid>());
-            Assert.Equivalent(expected, result);
+
+        AddressReadDTO result = await service.GetAddreess(It.IsAny<Guid>());
+        Assert.Equivalent(expected, result);
     }
 
     public class UserAddressData : TheoryData<Address?, AddressReadDTO>
@@ -192,13 +187,13 @@ public class AddressServiceTest
         }
     }
 
-    public class GetOneByIdData : TheoryData<Address, AddressReadDTO,Type>
+    public class GetOneByIdData : TheoryData<Address, AddressReadDTO, Type>
     {
         public GetOneByIdData()
         {
             Address address = new Address() { City = "Some city", Country = "Some country", PostCode = "12345", Street = "Street 3", HouseNumber = "A1", UserId = new Guid() };
-            Add(address, GetMapper().Map<Address, AddressReadDTO>(address),null);
-            Add(null, null,typeof(CustomException));
+            Add(address, GetMapper().Map<Address, AddressReadDTO>(address), null);
+            Add(null, null, typeof(CustomException));
         }
     }
 
@@ -206,7 +201,7 @@ public class AddressServiceTest
     {
         public GetAllAddressesData()
         {
-            Address address = new Address() { City = "Some city", Country = "Some country", PostCode = "12345", Street = "Street 3" ,HouseNumber = "A1",UserId = new Guid()};
+            Address address = new Address() { City = "Some city", Country = "Some country", PostCode = "12345", Street = "Street 3", HouseNumber = "A1", UserId = new Guid() };
             IEnumerable<Address> addresses = new List<Address>() { address };
             Add(addresses, GetMapper().Map<IEnumerable<Address>, IEnumerable<AddressReadDTO>>(addresses));
         }

@@ -1,12 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using fStore.Business;
 using fStore.Core;
 using Moq;
-using Xunit;
 
 namespace fStore.Test;
 public class UserServiceTests

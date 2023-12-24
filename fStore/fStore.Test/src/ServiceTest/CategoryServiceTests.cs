@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoMapper;
 using fStore.Business;
 using fStore.Business.DTO;
 using fStore.Core;
 using Moq;
-using Xunit;
 
 namespace fStore.Test;
 public class CategoryServiceTests
@@ -96,7 +91,7 @@ public class CategoryServiceTests
         var categoryService = new CategoryService(repo.Object, GetMapper());
         CategoryCreateDTO dto = new CategoryCreateDTO() { Name = "Air plants", ImageUrl = "https://picsum.photos/200" };
 
-        await categoryService.CreateOneAsync(new Guid(),dto);
+        await categoryService.CreateOneAsync(new Guid(), dto);
 
         repo.Verify(repo => repo.CreateOneAsync(It.IsAny<Category>()), Times.Once);
     }
@@ -112,7 +107,7 @@ public class CategoryServiceTests
 
         if (exceptionType is not null)
         {
-            await Assert.ThrowsAsync(exceptionType, () => categoryService.CreateOneAsync(new Guid(),dto));
+            await Assert.ThrowsAsync(exceptionType, () => categoryService.CreateOneAsync(new Guid(), dto));
         }
         else
         {
@@ -169,7 +164,7 @@ public class CategoryServiceTests
 
         await categoryService.UpdateOneAsync(It.IsAny<Guid>(), updates);
 
-        repo.Verify(repo => repo.UpdateOneAsync(It.IsAny<Guid>(),It.IsAny<Category>()), Times.Once);
+        repo.Verify(repo => repo.UpdateOneAsync(It.IsAny<Guid>(), It.IsAny<Category>()), Times.Once);
     }
 
     [Theory]
@@ -178,7 +173,7 @@ public class CategoryServiceTests
     {
         var repo = new Mock<ICategoryRepo>();
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(foundResponse);
-        repo.Setup(repo => repo.UpdateOneAsync(It.IsAny<Guid>(),It.IsAny<Category>())).ReturnsAsync(repoResponse);
+        repo.Setup(repo => repo.UpdateOneAsync(It.IsAny<Guid>(), It.IsAny<Category>())).ReturnsAsync(repoResponse);
         var categoryService = new CategoryService(repo.Object, GetMapper());
         CategoryUpdateDTO updates = new CategoryUpdateDTO() { Name = "Tillandsia", ImageUrl = "https://i.imgur.com/LDOO4Qs.jpg" };
 
@@ -194,19 +189,19 @@ public class CategoryServiceTests
         }
     }
 
-    public class UpdateCategoryData : TheoryData<Category,Category, CategoryReadDTO, Type?>
+    public class UpdateCategoryData : TheoryData<Category, Category, CategoryReadDTO, Type?>
     {
         public UpdateCategoryData()
         {
             Category category = new Category { Name = "Tillandsia", ImageUrl = "https://picsum.photos/300" };
-            Category updatesCategory = new Category { Name = "Tillandsia",ImageUrl = "https://i.imgur.com/LDOO4Qs.jpg" };
+            Category updatesCategory = new Category { Name = "Tillandsia", ImageUrl = "https://i.imgur.com/LDOO4Qs.jpg" };
             CategoryReadDTO customerReadDto = GetMapper().Map<Category, CategoryReadDTO>(updatesCategory);
             Add(category, updatesCategory, customerReadDto, null);
-            Add(null, null,null, typeof(CustomException));
+            Add(null, null, null, typeof(CustomException));
         }
     }
 
-   public class DeleteCategoryData : TheoryData<Category?, bool, bool?, Type?>
+    public class DeleteCategoryData : TheoryData<Category?, bool, bool?, Type?>
     {
         public DeleteCategoryData()
         {

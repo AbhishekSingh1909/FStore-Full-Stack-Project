@@ -2,11 +2,6 @@ using AutoMapper;
 using fStore.Business;
 using fStore.Core;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace fStore.Test;
 
@@ -52,7 +47,7 @@ public class ProductServiceTest
 
         if (exceptionType is not null)
         {
-            await Assert.ThrowsAsync(exceptionType, () =>  service.GetByIdAsync(It.IsAny<Guid>()));
+            await Assert.ThrowsAsync(exceptionType, () => service.GetByIdAsync(It.IsAny<Guid>()));
         }
         else
         {
@@ -85,7 +80,7 @@ public class ProductServiceTest
         var categoryRepo = new Mock<ICategoryRepo>();
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(foundResponse);
         repo.Setup(repo => repo.DeleteByIdAsync(It.IsAny<Product>())).ReturnsAsync(repoResponse);
-        var productService = new ProductService(repo.Object, categoryRepo.Object,GetMapper());
+        var productService = new ProductService(repo.Object, categoryRepo.Object, GetMapper());
 
         if (exceptionType is not null)
         {
@@ -106,13 +101,13 @@ public class ProductServiceTest
     {
         Mock<IProductRepo> repo = new Mock<IProductRepo>();
         Mock<ICategoryRepo> categoryRepo = new Mock<ICategoryRepo>();
-        repo.Setup(repo => repo.UpdateOneAsync(It.IsAny<Guid>(),It.IsAny<Product>())).Returns(Task.FromResult(response));
+        repo.Setup(repo => repo.UpdateOneAsync(It.IsAny<Guid>(), It.IsAny<Product>())).Returns(Task.FromResult(response));
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).Returns(Task.FromResult(foundCategory));
         ProductService service = new ProductService(repo.Object, categoryRepo.Object, GetMapper());
 
         if (exception is not null)
         {
-           await Assert.ThrowsAsync(exception, () => service.UpdateOneAsync(It.IsAny<Guid>(), input));
+            await Assert.ThrowsAsync(exception, () => service.UpdateOneAsync(It.IsAny<Guid>(), input));
         }
         else
         {
@@ -155,13 +150,13 @@ public class ProductServiceTest
                 Reviews = new List<Review>(),
                 OrderProducts = new List<OrderProduct>()
             };
-            Add(productInput, product, updatedproduct, GetMapper().Map<Product, ProductReadDTO>(updatedproduct),null);
+            Add(productInput, product, updatedproduct, GetMapper().Map<Product, ProductReadDTO>(updatedproduct), null);
             Add(productInput, null, null, null, typeof(CustomException));
         }
     }
 
 
-public class DeleteProductData : TheoryData<Product?, bool, bool?, Type?>
+    public class DeleteProductData : TheoryData<Product?, bool, bool?, Type?>
     {
         public DeleteProductData()
         {
@@ -217,7 +212,7 @@ public class DeleteProductData : TheoryData<Product?, bool, bool?, Type?>
                 Reviews = new List<Review>(),
                 OrderProducts = new List<OrderProduct>()
             };
-            Add(product, GetMapper().Map<Product, ProductReadDTO>(product),null);
+            Add(product, GetMapper().Map<Product, ProductReadDTO>(product), null);
             Add(null, null, typeof(CustomException));
         }
     }
