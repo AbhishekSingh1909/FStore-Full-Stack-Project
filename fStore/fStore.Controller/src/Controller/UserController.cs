@@ -28,9 +28,9 @@ public class UserController : BaseController<User, UserReadDTO, UserCreateDTO, U
     }
 
     [AllowAnonymous]
-    public override Task<ActionResult<UserReadDTO>> CreateOne([FromBody] UserCreateDTO createObject)
+    public override async Task<ActionResult<UserReadDTO>> CreateOne([FromBody] UserCreateDTO createObject)
     {
-        return base.CreateOne(createObject);
+        return await base.CreateOne(createObject);
     }
 
     [Authorize]

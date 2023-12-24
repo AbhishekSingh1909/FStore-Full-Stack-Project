@@ -13,6 +13,11 @@ public class UserService : BaseService<User, UserReadDTO, UserCreateDTO, UserUpd
 
     public override async Task<UserReadDTO> CreateOneAsync(Guid id, UserCreateDTO createObject)
     {
+        var isEmailAvaialble = await _userRepo.IsEmailAvailableAsync(createObject.Email);
+        if (isEmailAvaialble)
+        {
+            throw CustomException.EmailAvailable($"Email {createObject.Email} is available in system.");
+        }
         PasswordService.HashPassword(createObject.Password, out string hashedPassword, out byte[] salt);
         var user = _mapper.Map<UserCreateDTO, User>(createObject);
         user.Password = hashedPassword;

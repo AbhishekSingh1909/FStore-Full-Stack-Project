@@ -36,7 +36,7 @@ public class UserRepo : BaseRepo<User>, IUserRepo
 
     public async Task<bool> IsEmailAvailableAsync(string email)
     {
-        var result = await _data.FindAsync(email);
+        var result = await _data.AsNoTracking().FirstOrDefaultAsync(u=> u.Email == email);
         if (result is null)
         {
             return false;
