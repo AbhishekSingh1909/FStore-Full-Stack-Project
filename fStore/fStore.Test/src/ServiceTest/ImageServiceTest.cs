@@ -2,7 +2,6 @@ using AutoMapper;
 using fStore.Business;
 using fStore.Core;
 using Moq;
-using System;
 
 namespace fStore.Test;
 
@@ -79,7 +78,7 @@ public class ImageServiceTest
     {
         Mock<IImageRepo> repo = new Mock<IImageRepo>();
         Mock<IProductRepo> productRepo = new Mock<IProductRepo>();
-        repo.Setup(repo => repo.UpdateOneAsync(It.IsAny<Guid>(),It.IsAny<Image>())).Returns(Task.FromResult(response));
+        repo.Setup(repo => repo.UpdateOneAsync(It.IsAny<Guid>(), It.IsAny<Image>())).Returns(Task.FromResult(response));
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).Returns(Task.FromResult(foundImage));
         ImageService service = new ImageService(repo.Object, productRepo.Object, GetMapper());
 
@@ -111,7 +110,7 @@ public class ImageServiceTest
         else
         {
             bool result = await service.DeleteByIdAsync(It.IsAny<Guid>());
-            Assert.Equal(expected, result); ;
+            Assert.Equal(expected, result);
         }
     }
 
@@ -144,7 +143,7 @@ public class ImageServiceTest
     }
 
 
-public class CreateOneImageData : TheoryData<ImageCreateDTO, Image, ImageReadDTO>
+    public class CreateOneImageData : TheoryData<ImageCreateDTO, Image, ImageReadDTO>
     {
         public CreateOneImageData()
         {
@@ -165,7 +164,7 @@ public class CreateOneImageData : TheoryData<ImageCreateDTO, Image, ImageReadDTO
                 ImageUrl = "https://picsum.photos/200",
                 ProductId = It.IsAny<Guid>()
             };
-            Add(image, GetMapper().Map<Image, ImageReadDTO>(image),null);
+            Add(image, GetMapper().Map<Image, ImageReadDTO>(image), null);
             Add(null, null, typeof(CustomException));
         }
     }
