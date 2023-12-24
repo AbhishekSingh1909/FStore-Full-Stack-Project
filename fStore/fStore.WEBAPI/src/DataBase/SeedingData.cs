@@ -1439,7 +1439,7 @@ public class SeedingData
         Title = GetRandomProductTitle(),
         Description = GetRandomProductDescription(),
         Inventory = new Random().Next(1, 100),
-        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        Price = new Random().Next(100, 1000),
         CategoryId = categoryGuid6,
         CreatedAt = DateTime.Now,
         UpdatedAt = DateTime.Now

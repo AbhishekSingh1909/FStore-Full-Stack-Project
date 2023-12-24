@@ -31,13 +31,15 @@ public class DataBaseContext : DbContext // builder pattern
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var dataSourceBuilder = new NpgsqlDataSourceBuilder(_config.GetConnectionString("LocalDb"));
+        var dataSourceBuilder = new NpgsqlDataSourceBuilder(_config.GetConnectionString("MyStoreDb"));
         dataSourceBuilder.MapEnum<Role>();
         dataSourceBuilder.MapEnum<OrderStatus>();
         var dataSource = dataSourceBuilder.Build();
         optionsBuilder
             .UseNpgsql(dataSource)
             .UseSnakeCaseNamingConvention()
+            .EnableSensitiveDataLogging()
+            .EnableDetailedErrors()
             .AddInterceptors(new TimeStampInterceptor());
         base.OnConfiguring(optionsBuilder);
     }
