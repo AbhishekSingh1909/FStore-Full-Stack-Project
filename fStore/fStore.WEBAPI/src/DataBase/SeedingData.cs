@@ -1037,12 +1037,489 @@ public class SeedingData
         CreatedAt = DateTime.Now,
         UpdatedAt = DateTime.Now
     };
+    private static Product product73 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid6,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product74 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product75 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product76 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product77 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product78 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product79 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product80 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product81 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product82 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product83 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product84 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product85 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product86 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid3,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product87 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product88 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid6,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product89 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid6,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product90 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product91 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product92 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product93 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid10,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product94 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product95 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product96 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid9,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product97 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid8,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product98 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid8,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product99 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product100 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid3,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product101 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid4,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product102 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid2,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product103 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid2,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product104 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid1,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product105 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid1,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product106 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid4,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product107 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid2,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product108 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid5,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product109 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid6,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
+    private static Product product110 = new Product
+    {
+        Id = Guid.NewGuid(),
+        Title = GetRandomProductTitle(),
+        Description = GetRandomProductDescription(),
+        Inventory = new Random().Next(1, 100),
+        Price = Math.Round((decimal)new Random().NextDouble() * 100, 2),
+        CategoryId = categoryGuid7,
+        CreatedAt = DateTime.Now,
+        UpdatedAt = DateTime.Now
+    };
 
     // Add logic to generate random or realistic product titles
     private static string GetRandomProductTitle()
     {
 
-        string[] productTitles = { "Laptop", "Smartphone", "TV", "Coffee Maker", "Running Shoes", "Bookshelf", "Headphones", "Digital Camera", "Backpack", "Gaming Console" };
+        string[] productTitles =
+        {
+            "Laptop", "Smartphone", "Coffee Maker",
+            "Running Shoes",
+            "Bookshelf",
+            "Headphones",
+            "Digital Camera",
+            "Backpack",
+            "Gaming Console",
+        "UltraBook Pro X",
+        "Quantum SmartPhone 12",
+         "Visionary 4K TV",
+"Espresso Deluxe Coffee Maker",
+"Velocity Running Shoes",
+"Modern Oak Bookshelf",
+"Harmony Noise-Canceling Headphones",
+"PixelMaster Digital Camera",
+"Adventure Backpack XL",
+"Quantum Gaming Console X",
+"Sapphire Fitness Tracker",
+"Nebula Projector Plus",
+"Gourmet Blender Pro",
+"Luna Nightstand Lamp",
+"ZenBook Air Laptop",
+"AeroMax Pro Fitness Band",
+"Echo Harmony Smart Speaker",
+"Stealth Gaming Mouse",
+"QuantumView 27-inch Monitor",
+"Galactic VR Headset",
+"Solaris Outdoor Grill",
+"AeroFlex Pro Exercise Bike",
+"QuantumBook E-Reader",
+"OmniStation Wireless Charger",
+"AquaFit Waterproof Earbuds",
+"QuantumBlast External SSD",
+"Celestial Desk Organizer",
+"PowerMax Electric Scooter",
+"TerraGuard Home Security System",
+"AquaWave Smart Water Bottle",
+"QuantumLink Dual Router",
+"ZenAir Meditation Pillow",
+"LunaWave Sleep Aid",
+"QuantumDesk Adjustable Standing Desk",
+"NebulaStar Galaxy Projector",
+"ZenLife Wellness Journal",
+"QuantumDrive Portable SSD",
+"AeroGlide Folding Treadmill",
+"SolarFlare Outdoor Lantern",
+"QuantumMind Brain Booster",
+"Infinity Ergonomic Chair",
+"QuantumPod Charging Station",
+"CelestialSky Star Map",
+"FlexFit Resistance Bands Set",
+"AeroCruise Electric Skateboard",
+"QuantumBeam Smart Flashlight",
+"AquaRelax Bath Bombs Set",
+"LunarGlow Night Light",
+"PowerFlex Yoga Mat",
+"QuantumPulse Massage Gun"
+ };
         return productTitles[new Random().Next(productTitles.Length)];
     }
 
@@ -1066,7 +1543,8 @@ public class SeedingData
     }
     public static List<Product> GetProducts()
     {
-        return new List<Product> {
+        return new List<Product>
+         {
             product1,product2,product3,product4,product5,product6,product7,
             product8,product9,product10,product11,product12,product13,product14,
             product15,product16,product17,product18,product19,product20,product21,
@@ -1076,7 +1554,13 @@ public class SeedingData
             product44,product45,product46,product47,product48,product49,product50,
             product51,product52,product53,product54,product55,product56,product57,
             product58,product59,product60,product61,product62,product63,product64,
-            product65,product67,product68,product69,product70,product71,product72
+            product65,product67,product68,product69,product70,product71,product72,
+            product73,product74,product75,product76,product77,product78,product79,product80,
+            product81,product82,product83,product84,product85,product86,product87,
+            product88,product89,product90,product91,product92,product93,product94,
+            product95,product96,product97,product98,product99,product100,product101,
+            product102,product103,product104,product105,product106,product107,product108,
+            product109,product110
         };
     }
 
