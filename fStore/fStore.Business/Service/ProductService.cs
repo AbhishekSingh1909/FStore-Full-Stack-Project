@@ -28,7 +28,7 @@ public class ProductService : BaseService<Product, ProductReadDTO, ProductCreate
 
     public override async Task<ProductReadDTO> UpdateOneAsync(Guid id, ProductUpdateDTO updateObject)
     {
-        if (updateObject.CategoryId is not null)
+        if (updateObject?.CategoryId is not null)
         {
             var category = await _categoryRepo.GetByIdAsync(updateObject.CategoryId.Value);
             if (category is null)
