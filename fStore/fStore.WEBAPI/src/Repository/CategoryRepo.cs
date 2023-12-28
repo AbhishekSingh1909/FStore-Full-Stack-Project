@@ -1,20 +1,26 @@
 using fStore.Core;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace fStore.WEBAPI;
 
 public class CategoryRepo : BaseRepo<Category>, ICategoryRepo
 {
+    private readonly DbSet<Product> _product;
     public CategoryRepo(DataBaseContext dataBaseContext) : base(dataBaseContext)
     {
+        _product = dataBaseContext.Products;
     }
 
     public override async Task<IEnumerable<Category>> GetAllAsync(GetAllParams options)
     {
-        var categories = await _data.AsNoTracking()
-        .Where(c => c.Name.Contains(options.Search)).Skip(options.Offset)
-        .Take(options.Limit).ToListAsync();
-        return categories;
+        var query = _data.AsNoTracking().Where(c => c.Name.ToLower().Contains(options.Search.ToLower()));
+        if (options.Limit > 0 && options.Offset >= 0)
+        {
+          return await query.Skip(options.Offset).Take(options.Limit).ToListAsync();
+        }
+          return await query.ToListAsync();
+       
     }
 
     public override async Task<Category?> GetByIdAsync(Guid id)
@@ -29,5 +35,13 @@ public class CategoryRepo : BaseRepo<Category>, ICategoryRepo
         _data.Update(updateObject);
         await _dbContext.SaveChangesAsync();
         return updateObject;
+    }
+    public async Task<IEnumerable<Product>> GetProductsByCategory(Guid id)
+    {
+        var product =  _product.Include(p => p.Category).Include(p => p.Images).Where(p=> p.CategoryId == id).AsQueryable();
+        //var query = _product.AsNoTracking().Include(p => p.Category).Include(p => p.Images).Select(p=> p).AsQueryable(); ;
+        //query = query.Where(p => p.Category.Id == id);
+        var  products = await product.ToListAsync();
+        return products;
     }
 }

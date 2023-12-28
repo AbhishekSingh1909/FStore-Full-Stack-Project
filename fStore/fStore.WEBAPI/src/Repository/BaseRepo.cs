@@ -28,7 +28,8 @@ public abstract class BaseRepo<T> : IBaseRepo<T> where T : BaseEntity
 
     public virtual async Task<IEnumerable<T>> GetAllAsync(GetAllParams options)
     {
-        var result = await _data.AsNoTracking().Skip(options.Offset).Take(options.Limit).ToListAsync();
+        //var result = await _data.AsNoTracking().Skip(options.Offset).Take(options.Limit).ToListAsync();
+        var result = await _data.AsNoTracking().ToListAsync();
         return result;
     }
 

@@ -9,8 +9,10 @@ namespace fStore.Controller;
 [Route("api/v1/categories")]
 public class CategoryController : BaseController<Category, CategoryReadDTO, CategoryCreateDTO, CategoryUpdateDTO>
 {
+    ICategoryService _categoryService;
     public CategoryController(ICategoryService service) : base(service)
     {
+        _categoryService = service;
     }
 
     [AllowAnonymous]
@@ -24,5 +26,13 @@ public class CategoryController : BaseController<Category, CategoryReadDTO, Cate
     public override Task<ActionResult<CategoryReadDTO>> GetById([FromRoute] Guid id)
     {
         return base.GetById(id);
+    }
+
+    [AllowAnonymous]
+    [HttpGet("{id:Guid}/products")]
+    public async Task<ActionResult<IEnumerable<ProductReadDTO>>> GetAllProductByCategory([FromRoute] Guid id)
+    {
+        var products = await _categoryService.GetProductsByCategory(id);
+        return Ok(products);
     }
 }

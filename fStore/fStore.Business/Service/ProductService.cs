@@ -11,9 +11,11 @@ namespace fStore.Business;
 public class ProductService : BaseService<Product, ProductReadDTO, ProductCreateDTO, ProductUpdateDTO>, IProductService
 {
     ICategoryRepo _categoryRepo;
+    IProductRepo _productRepo;
     public ProductService(IProductRepo repo, ICategoryRepo categoryRepo, IMapper mapper) : base(repo, mapper)
     {
         _categoryRepo = categoryRepo;
+        IProductRepo productRepo = repo;
     }
 
     public override async Task<ProductReadDTO> CreateOneAsync(Guid id, ProductCreateDTO createObject)
@@ -25,6 +27,8 @@ public class ProductService : BaseService<Product, ProductReadDTO, ProductCreate
         }
         return await base.CreateOneAsync(id, createObject);
     }
+
+    
 
     public override async Task<ProductReadDTO> UpdateOneAsync(Guid id, ProductUpdateDTO updateObject)
     {

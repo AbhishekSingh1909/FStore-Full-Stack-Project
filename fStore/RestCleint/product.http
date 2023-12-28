@@ -10,7 +10,7 @@ Content-Type: application/json
 ### Anonymous
 POST http://localhost:5216/api/v1/products HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2Y2JhNmY0ZS0yYWJmLTQ0MDMtYWUyMi1lNThkMmZkY2QxNTgiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE3MDMzMjM0MDgsImV4cCI6MTcwMzQ5NjIwOCwiaWF0IjoxNzAzMzIzNDA4LCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.Il0R9xBulHq8NjmwS7_Ni4gctGquasl8bm4ha63_Xno
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJmMWVkN2MwNi04NGRiLTRmY2EtYjI5OS0wYWQ3YWE4ZWQ2NDMiLCJyb2xlIjoiQWRtaW4iLCJuYmYiOjE3MDM0OTY5MzMsImV4cCI6MTcwMzY2OTczMywiaWF0IjoxNzAzNDk2OTMzLCJpc3MiOiJBYmhpc2hlayIsImF1ZCI6IkFiaGlzaGVrRUNvbW1lcmNlIn0.LRRatYF8RIZ6O5fswGM3DIbtOOeZiX6-ZVO4o0V5IEk
 
 {
   "title": "Product123",
@@ -25,11 +25,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI2Y2JhN
       "imageUrl":"https://placeimg.com/640/480/any?r=0.9300320592588625"
     }
   ],
-  "categoryId": "70652839-3d29-4aec-a4a0-df5094ebd734"
+  "categoryId": "00ff8bf6-192f-455b-a8cd-14ab4d81f7bc"
 }
 
 ###
 GET http://localhost:5216/api/v1/products HTTP/1.1
+Content-Type: application/json
+
+###
+GET http://localhost:5216/api/v1/products?Id=08b76f82-87bf-4bea-9de7-d2725dfb05cf HTTP/1.1
 Content-Type: application/json
 
 ###

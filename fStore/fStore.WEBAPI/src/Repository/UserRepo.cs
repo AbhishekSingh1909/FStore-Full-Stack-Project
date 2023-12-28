@@ -1,5 +1,6 @@
 using fStore.Core;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace fStore.WEBAPI;
 
@@ -11,8 +12,13 @@ public class UserRepo : BaseRepo<User>, IUserRepo
 
     public override async Task<IEnumerable<User>> GetAllAsync(GetAllParams options)
     {
-        var users = await _data.AsNoTracking().Include(u => u.Address).Where(u => u.Name.Contains(options.Search)).Skip(options.Offset).Take(options.Limit).ToListAsync();// Task.WhenAll(Task.Run(()=> _users.Skip(options.Offset).Take(options.Limit)));
-        return users;
+        //var users = await _data.AsNoTracking().Include(u => u.Address).Where(u => u.Name.Contains(options.Search)).Skip(options.Offset).Take(options.Limit).ToListAsync();// Task.WhenAll(Task.Run(()=> _users.Skip(options.Offset).Take(options.Limit)));
+        var query = _data.AsNoTracking().Include(u => u.Address).Where(u => u.Name.ToLower().Contains(options.Search.ToLower())).AsQueryable();
+        if (options.Limit > 0 && options.Offset >= 0)
+        {
+            return await query.Skip(options.Offset).Take(options.Limit).ToListAsync();
+        }
+            return await query.ToListAsync();
     }
 
     public override async Task<User?> GetByIdAsync(Guid id)
@@ -36,11 +42,17 @@ public class UserRepo : BaseRepo<User>, IUserRepo
 
     public async Task<bool> IsEmailAvailableAsync(string email)
     {
-        var result = await _data.AsNoTracking().FirstOrDefaultAsync(u=> u.Email == email);
+        var result = await _data.AsNoTracking().FirstOrDefaultAsync(u => u.Email == email);
         if (result is null)
         {
             return false;
         }
         return true;
+    }
+
+    public async Task<int> GetCountAsync()
+    {
+        var count = await _data.CountAsync();
+        return count;
     }
 }

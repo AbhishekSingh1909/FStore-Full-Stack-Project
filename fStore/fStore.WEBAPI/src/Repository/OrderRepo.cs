@@ -16,13 +16,23 @@ public class OrderRepo : BaseRepo<Order>, IOrderRepo
 
     public override async Task<IEnumerable<Order>> GetAllAsync(GetAllParams options)
     {
-        var orders = await _data.AsNoTracking().Include(o => o.OrderDetails).Skip(options.Offset).Take(options.Limit).ToArrayAsync();
-        return orders;
+        var query = _data.AsNoTracking().Include(o => o.OrderDetails).Include(o=> o.User).AsQueryable();
+
+        if (!string.IsNullOrEmpty(options.Search))
+        {
+            query = query.Where(o => o.OrderStatus.ToString() == options.Search.ToLower());
+        }
+
+        if (options.Limit > 0 && options.Offset >= 0)
+        {
+            return await query.Skip(options.Offset).Take(options.Limit).ToListAsync();
+        }
+            return await query.ToListAsync();
     }
 
     public override async Task<Order?> GetByIdAsync(Guid id)
     {
-        var order = await _data.AsNoTracking().Include(o => o.OrderDetails).FirstOrDefaultAsync(o => o.Id == id);
+        var order = await _data.AsNoTracking().Include(o => o.OrderDetails).Include(o => o.User).FirstOrDefaultAsync(o => o.Id == id);
         return order;
     }
 
@@ -79,7 +89,7 @@ public class OrderRepo : BaseRepo<Order>, IOrderRepo
         {
             try
             {
-                var orders = await _data.AsNoTracking().Include(o => o.OrderDetails).Where(o => o.UserId == id).ToArrayAsync();
+                var orders = await _data.AsNoTracking().Include(o => o.OrderDetails).Include(o => o.User).Where(o => o.UserId == id).ToArrayAsync();
                 await transaction.CommitAsync();
                 return orders;
             }

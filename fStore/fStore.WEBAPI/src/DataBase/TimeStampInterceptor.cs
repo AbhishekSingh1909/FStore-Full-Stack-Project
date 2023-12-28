@@ -6,6 +6,7 @@ namespace fStore.WEBAPI;
 
 public class TimeStampInterceptor : SaveChangesInterceptor
 {
+    //public static TimeStampInterceptor Instance => new TimeStampInterceptor();
     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
     {
         // give collections of all entities experiencing the changes: Added or Updated, Deleted

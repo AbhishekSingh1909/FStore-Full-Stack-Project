@@ -23,7 +23,10 @@ public class AddressService : BaseService<Address, AddressReadDTO, AddressCreate
     public async Task<AddressReadDTO> GetAddreess(Guid id)
     {
         var address = await _addressRepo.GetAddreess(id);
-
+        if (address is null)
+        {
+            throw CustomException.NotFoundException("User does not have any address");
+        }
         return _mapper.Map<Address, AddressReadDTO>(address);
     }
 

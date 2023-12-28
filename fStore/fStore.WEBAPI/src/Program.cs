@@ -7,13 +7,29 @@ using fStore.WEBAPI.src.Service;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Npgsql;
 using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder =>
+    {
+        builder.WithOrigins("http://localhost:3000")
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+        builder.WithOrigins("https://e-commerce-website-rho-eight.vercel.app/")
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
 
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 builder.Services.AddControllers();
@@ -55,8 +71,10 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+//builder.Services.AddSingleton<IInterceptor>(_ => new TimeStampInterceptor());
 
-builder.Services.AddSingleton<IAuthorizationHandler, AdminOrOwnerHandler>();
+//builder.Services.AddSingleton<IAuthorizationHandler, AdminOrOwnerHandler>();
+builder.Services.AddScoped<IAuthorizationHandler, AdminOrOwnerHandler>();
 
 
 
@@ -90,8 +108,18 @@ builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 // Add Error handler Middleware
 builder.Services.AddTransient<ExceptionHandlerMiddleware>();
 
+var dataSourceBuilder = new NpgsqlDataSourceBuilder(builder.Configuration.GetConnectionString("LocalDb"));
+dataSourceBuilder.MapEnum<Role>();
+dataSourceBuilder.MapEnum<OrderStatus>();
+var dataSource = dataSourceBuilder.Build();
+
 // Add database contect service
-builder.Services.AddDbContext<DataBaseContext>(options => options.UseNpgsql());
+builder.Services.AddDbContext<DataBaseContext>(options =>
+{
+    options.UseNpgsql(dataSource)
+           .UseSnakeCaseNamingConvention()
+           .AddInterceptors(new TimeStampInterceptor());
+});
 
 
 var app = builder.Build();
@@ -120,6 +148,9 @@ app.UseSwaggerUI(/* opt =>
 } */);
 
 app.UseHttpsRedirection();
+
+// Use CORS with the defined policy
+app.UseCors("CorsPolicy");
 
 app.UseAuthentication();
 app.UseAuthorization();

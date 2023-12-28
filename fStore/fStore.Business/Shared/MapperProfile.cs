@@ -1,6 +1,7 @@
 using AutoMapper;
 using fStore.Business.DTO;
 using fStore.Core;
+using System.Formats.Tar;
 
 namespace fStore.Business;
 
@@ -21,9 +22,11 @@ public class MapperProfile : Profile
         CreateMap<CategoryUpdateDTO, Category>().ForAllMembers(opt => opt.Condition((src, dest, value) => value != null));
 
         CreateMap<Product, ProductReadDTO>()
-           .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category))
-           .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images
-               .Select(img => new ImageReadDTO { ImageUrl = img.ImageUrl, Id = img.Id, ProductId = img.ProductId })));
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(m => m.ImageUrl)))
+           .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category));
+           //.ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images
+           //    .Select(img => new ImageReadDTO { ImageUrl = img.ImageUrl, Id = img.Id, ProductId = img.ProductId })));
 
         CreateMap<ProductCreateDTO, Product>()
             .ForMember(dest => dest.Category, opt => opt.Ignore())

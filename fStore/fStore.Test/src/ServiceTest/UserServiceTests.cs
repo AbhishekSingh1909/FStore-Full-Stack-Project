@@ -27,8 +27,8 @@ public class UserServiceTests
         var repo = new Mock<IUserRepo>();
         var mapper = new Mock<IMapper>();
         var userService = new UserService(repo.Object, GetMapper());
-        GetAllParams options = new GetAllParams() { Limit = 10, Offset = 0 };
-
+        //GetAllParams options = new GetAllParams() { Limit = 10, Offset = 0 };
+        GetAllParams options = new GetAllParams() { };
         await userService.GetAllAsync(options);
 
         repo.Verify(repo => repo.GetAllAsync(options), Times.Once);
@@ -39,7 +39,8 @@ public class UserServiceTests
     public async void GetAllAsync_ShouldReturn_Response_ListOfUsers(IEnumerable<User> repoResponse, IEnumerable<UserReadDTO> expected)
     {
         var repo = new Mock<IUserRepo>();
-        GetAllParams options = new GetAllParams() { Limit = 10, Offset = 0 };
+        //GetAllParams options = new GetAllParams() { Limit = 10, Offset = 0 };
+        GetAllParams options = new GetAllParams() { };
         repo.Setup(repo => repo.GetAllAsync(options)).Returns(Task.FromResult(repoResponse));
         var userService = new UserService(repo.Object, GetMapper());
 

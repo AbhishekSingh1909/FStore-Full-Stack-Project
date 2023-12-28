@@ -21,7 +21,8 @@ public class AddressController : ControllerBase
     public async Task<ActionResult<AddressReadDTO>> GetUserAddress()
     {
         var id = GetUserId();
-        return Ok(await _addressService.GetAddreess(id));
+        var address =await _addressService.GetAddreess(id);
+        return Ok(address);
     }
 
     [Authorize]

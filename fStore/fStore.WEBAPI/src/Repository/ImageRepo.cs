@@ -10,7 +10,12 @@ public class ImageRepo : BaseRepo<Image>, IImageRepo
 
     public override async Task<IEnumerable<Image>> GetAllAsync(GetAllParams options)
     {
-        return await _data.AsNoTracking().Skip(options.Offset).Take(options.Limit).ToArrayAsync();
+        var query = _data.AsNoTracking().Where(p => p.ImageUrl.ToLower().Contains(options.Search.ToLower())).AsQueryable();
+        if (options.Limit > 0 && options.Offset >= 0)
+        { 
+            return await query.Skip(options.Offset).Take(options.Limit).ToArrayAsync();
+        }
+            return await query.ToArrayAsync();
     }
 
     public override async Task<Image?> GetByIdAsync(Guid id)

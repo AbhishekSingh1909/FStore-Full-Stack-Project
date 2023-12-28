@@ -25,9 +25,11 @@ public class CategoryServiceTests
     public async void GetAllAsync_ShouldInvokeRepoMethod()
     {
         var repo = new Mock<ICategoryRepo>();
+        Mock<IProductRepo> productRepo = new Mock<IProductRepo>();
         var mapper = new Mock<IMapper>();
-        var categoryService = new CategoryService(repo.Object, GetMapper());
-        GetAllParams options = new GetAllParams() { Limit = 10, Offset = 0 };
+        var categoryService = new CategoryService(repo.Object, productRepo.Object, GetMapper());
+        //GetAllParams options = new GetAllParams() { Limit = 10, Offset = 0 };
+        GetAllParams options = new GetAllParams() { };
 
         await categoryService.GetAllAsync(options);
 
@@ -39,9 +41,11 @@ public class CategoryServiceTests
     public async void GetAllAsync_ShouldReturn_ValidResponse(IEnumerable<Category> repoResponse, IEnumerable<CategoryReadDTO> expected)
     {
         var repo = new Mock<ICategoryRepo>();
-        GetAllParams options = new GetAllParams() { Limit = 10, Offset = 0 };
+        Mock<IProductRepo> productRepo = new Mock<IProductRepo>();
+        //GetAllParams options = new GetAllParams() { Limit = 10, Offset = 0 };
+        GetAllParams options = new GetAllParams() {  };
         repo.Setup(repo => repo.GetAllAsync(options)).ReturnsAsync(repoResponse);
-        var categoryService = new CategoryService(repo.Object, GetMapper());
+        var categoryService = new CategoryService(repo.Object,productRepo.Object, GetMapper());
 
         var response = await categoryService.GetAllAsync(options);
 
@@ -52,10 +56,11 @@ public class CategoryServiceTests
     public async void GetCategoryById_ShouldInvoke_RepoMethod()
     {
         var repo = new Mock<ICategoryRepo>();
+        Mock<IProductRepo> productRepo = new Mock<IProductRepo>();
         Category category1 = new Category() { Name = "Air plants", ImageUrl = "https://picsum.photos/200" };
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(category1);
         var mapper = new Mock<IMapper>();
-        var categoryService = new CategoryService(repo.Object, GetMapper());
+        var categoryService = new CategoryService(repo.Object,productRepo.Object, GetMapper());
 
         await categoryService.GetByIdAsync(It.IsAny<Guid>());
 
@@ -68,8 +73,9 @@ public class CategoryServiceTests
     public async void GetCategoryById_ShouldReturn_ValidResponse(Category? repoResponse, CategoryReadDTO? expected, Type? exceptionType)
     {
         var repo = new Mock<ICategoryRepo>();
+        Mock<IProductRepo> productRepo = new Mock<IProductRepo>();
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).Returns(Task.FromResult(repoResponse));
-        var categoryService = new CategoryService(repo.Object, GetMapper());
+        var categoryService = new CategoryService(repo.Object, productRepo.Object, GetMapper());
 
         if (exceptionType is not null)
         {
@@ -87,8 +93,9 @@ public class CategoryServiceTests
     public async void CreateOneAsync_ShouldInvoke_RepoMethod()
     {
         var repo = new Mock<ICategoryRepo>();
+        Mock<IProductRepo> productRepo = new Mock<IProductRepo>();
         var mapper = new Mock<IMapper>();
-        var categoryService = new CategoryService(repo.Object, GetMapper());
+        var categoryService = new CategoryService(repo.Object,productRepo.Object, GetMapper());
         CategoryCreateDTO dto = new CategoryCreateDTO() { Name = "Air plants", ImageUrl = "https://picsum.photos/200" };
 
         await categoryService.CreateOneAsync(new Guid(), dto);
@@ -101,8 +108,9 @@ public class CategoryServiceTests
     public async void CreateOneAsync_ShouldReturn_ValidResponse(Category repoResponse, CategoryReadDTO expected, Type? exceptionType)
     {
         var repo = new Mock<ICategoryRepo>();
+        Mock<IProductRepo> productRepo = new Mock<IProductRepo>();
         repo.Setup(repo => repo.CreateOneAsync(It.IsAny<Category>())).ReturnsAsync(repoResponse);
-        var categoryService = new CategoryService(repo.Object, GetMapper());
+        var categoryService = new CategoryService(repo.Object,productRepo.Object, GetMapper());
         CategoryCreateDTO dto = new CategoryCreateDTO() { Name = "Air plants", ImageUrl = "https://picsum.photos/200" };
 
         if (exceptionType is not null)
@@ -121,10 +129,11 @@ public class CategoryServiceTests
     public async void DeleteCategoryAsync_ShouldInvoke_RepoMethod()
     {
         var repo = new Mock<ICategoryRepo>();
+        Mock<IProductRepo> productRepo = new Mock<IProductRepo>();
         Category category1 = new Category() { Name = "Air plants", ImageUrl = "https://picsum.photos/200" };
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(category1);
         var mapper = new Mock<IMapper>();
-        var categoryService = new CategoryService(repo.Object, GetMapper());
+        var categoryService = new CategoryService(repo.Object,productRepo.Object, GetMapper());
 
         await categoryService.DeleteByIdAsync(It.IsAny<Guid>());
 
@@ -136,9 +145,10 @@ public class CategoryServiceTests
     public async void DeleteCategoryAsync_ShouldReturn_ValidResponse(Category? foundResponse, bool repoResponse, bool? expected, Type? exceptionType)
     {
         var repo = new Mock<ICategoryRepo>();
+        Mock<IProductRepo> productRepo = new Mock<IProductRepo>();
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(foundResponse);
         repo.Setup(repo => repo.DeleteByIdAsync(It.IsAny<Category>())).ReturnsAsync(repoResponse);
-        var categoryService = new CategoryService(repo.Object, GetMapper());
+        var categoryService = new CategoryService(repo.Object,productRepo.Object, GetMapper());
 
         if (exceptionType is not null)
         {
@@ -156,10 +166,11 @@ public class CategoryServiceTests
     public async void UpdateCategoryAsync_ShouldInvoke_RepoMethod()
     {
         var repo = new Mock<ICategoryRepo>();
+        Mock<IProductRepo> productRepo = new Mock<IProductRepo>();
         Category category1 = new Category() { Name = "Air plants", ImageUrl = "https://picsum.photos/200" };
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(category1);
         var mapper = new Mock<IMapper>();
-        var categoryService = new CategoryService(repo.Object, GetMapper());
+        var categoryService = new CategoryService(repo.Object, productRepo.Object, GetMapper());
         CategoryUpdateDTO updates = new CategoryUpdateDTO() { Name = "Tillandsia", ImageUrl = "https://picsum.photos/300" };
 
         await categoryService.UpdateOneAsync(It.IsAny<Guid>(), updates);
@@ -172,9 +183,10 @@ public class CategoryServiceTests
     public async void UpdateCategoryAsync_ShouldReturn_ValidResponse(Category? foundResponse, Category repoResponse, CategoryReadDTO? expected, Type? exceptionType)
     {
         var repo = new Mock<ICategoryRepo>();
+        Mock<IProductRepo> productRepo = new Mock<IProductRepo>();
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(foundResponse);
         repo.Setup(repo => repo.UpdateOneAsync(It.IsAny<Guid>(), It.IsAny<Category>())).ReturnsAsync(repoResponse);
-        var categoryService = new CategoryService(repo.Object, GetMapper());
+        var categoryService = new CategoryService(repo.Object,productRepo.Object, GetMapper());
         CategoryUpdateDTO updates = new CategoryUpdateDTO() { Name = "Tillandsia", ImageUrl = "https://i.imgur.com/LDOO4Qs.jpg" };
 
         if (exceptionType is not null)
