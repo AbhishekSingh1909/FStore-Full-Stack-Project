@@ -12,13 +12,13 @@ public class AuthService : IAuthService
         _userRepo = userRepo;
         _tokenService = tokenService;
     }
-    public async Task<string> Login(LoginParams loginParams)
+    public async Task<string> LoginAsync(LoginParams loginParams)
     {
         var foundUser = await _userRepo.FindByEmailAsync(loginParams.Email);
 
         if (foundUser is null)
         {
-            throw new Exception("User not found");
+            throw CustomException.NotFoundException("User not found");
         }
 
         var isPasswordMatch = PasswordService.VerifyPassword(loginParams.Password, foundUser.Password, foundUser.Salt);
@@ -28,6 +28,6 @@ public class AuthService : IAuthService
             return _tokenService.GenerateToken(foundUser);
         }
 
-        throw new Exception("User credential is not valid");
+        throw CustomException.WrongCredentialsException("User credential is not valid");
     }
 }

@@ -21,7 +21,7 @@ namespace fStore.Controller.src.Controller
         [HttpPost("login")]
         public async Task<ActionResult<string>> Login([FromBody] LoginParams loginParams)
         {
-            return Ok(await _authService.Login(loginParams));
+            return Ok(await _authService.LoginAsync(loginParams));
         }
     }
 }
