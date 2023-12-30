@@ -1,8 +1,7 @@
-using System.Security.Claims;
 using fStore.Business;
-using fStore.Core;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace fStore.Controller;
 
@@ -21,7 +20,7 @@ public class AddressController : ControllerBase
     public async Task<ActionResult<AddressReadDTO>> GetUserAddress()
     {
         var id = GetUserId();
-        var address =await _addressService.GetAddreess(id);
+        var address = await _addressService.GetAddreess(id);
         return Ok(address);
     }
 
@@ -38,16 +37,18 @@ public class AddressController : ControllerBase
     }
 
     [Authorize]
-    [HttpDelete("{id:Guid}")] // users/:userid
-    public virtual async Task<ActionResult<bool>> DeleteById([FromRoute] Guid id)
+    [HttpDelete()] // users/:userid
+    public virtual async Task<ActionResult<bool>> DeleteById()
     {
+        var id = GetUserId();
         return Ok(await _addressService.DeleteByIdAsync(id));
     }
 
     [Authorize]
-    [HttpPatch("{id:Guid}")]
-    public virtual async Task<ActionResult<AddressReadDTO>> UpdateOne([FromRoute] Guid id, [FromBody] AddressUpdateDTO updateObject)
+    [HttpPatch()]
+    public virtual async Task<ActionResult<AddressReadDTO>> UpdateOne([FromBody] AddressUpdateDTO updateObject)
     {
+        var id = GetUserId();
         return Ok(await _addressService.UpdateOneAsync(id, updateObject));
     }
 

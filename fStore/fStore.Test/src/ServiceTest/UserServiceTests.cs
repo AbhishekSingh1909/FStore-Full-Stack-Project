@@ -66,7 +66,7 @@ public class UserServiceTests
 
     [Theory]
     [ClassData(typeof(GetOneUserData))]
-    public async void GetUserById_ShouldReturnValidResponse(User? repoResponse, UserReadDTO? expected, Type? exceptionType)
+    public async void GetUserById_ShouldReturn_ValidResponse(User? repoResponse, UserReadDTO? expected, Type? exceptionType)
     {
         var repo = new Mock<IUserRepo>();
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).Returns(Task.FromResult(repoResponse));
@@ -159,25 +159,29 @@ public class UserServiceTests
     public async void UpdateUser_ShouldInvoke_RepoMethod()
     {
         var repo = new Mock<IUserRepo>();
+        var mockService = new Mock<IUserService>();
         PasswordService.HashPassword("12345", out string hashedPassword, out byte[] salt);
         User user = new User() { Name = "John Doe", Email = "john@example.com", Password = hashedPassword, Avatar = "https://picsum.photos/200", Role = Role.Customer, Salt = salt };
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(user);
+        repo.Setup(repo => repo.IsEmailAvailableAsync(It.IsAny<string>())).ReturnsAsync(false);
+        var userUpdateDTO = new UserUpdateDTO { Name = "John1 Doe", Email = "john1@example.com", Avatar = "https://i.imgur.com/LDOO4Qs.jpg" };
         var mapper = new Mock<IMapper>();
         var userService = new UserService(repo.Object, GetMapper());
-        await userService.UpdateOneAsync(It.IsAny<Guid>(), It.IsAny<UserUpdateDTO>());
+        await userService.UpdateOneAsync(It.IsAny<Guid>(), userUpdateDTO);
 
+        repo.Verify(repo => repo.IsEmailAvailableAsync(It.IsAny<string>()), Times.Once);
         repo.Verify(repo => repo.UpdateOneAsync(It.IsAny<Guid>(), It.IsAny<User>()), Times.Once);
     }
 
     [Theory]
     [ClassData(typeof(UpdateUserData))]
-    public async void UpdateUserRoleAsync_ShouldReturn_ValidResponse(User? foundResponse, User repoResponse, UserReadDTO? expected, Type? exceptionType)
+    public async void UpdateUserRoleAsync_ShouldReturn_ValidResponse(bool emailAvailableResponse, UserUpdateDTO? userUpdateDTO, User? foundResponse, User repoResponse, UserReadDTO? expected, Type? exceptionType)
     {
         var repo = new Mock<IUserRepo>();
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(foundResponse);
+        repo.Setup(repo => repo.IsEmailAvailableAsync(It.IsAny<string>())).ReturnsAsync(emailAvailableResponse);
         repo.Setup(repo => repo.UpdateOneAsync(It.IsAny<Guid>(), It.IsAny<User>())).ReturnsAsync(repoResponse);
         var userService = new UserService(repo.Object, GetMapper());
-        var userUpdateDTO = new UserUpdateDTO { Name = "John1 Doe", Avatar = "https://i.imgur.com/LDOO4Qs.jpg" };
 
         if (exceptionType is not null)
         {
@@ -232,16 +236,23 @@ public class UserServiceTests
         }
     }
 
-    public class UpdateUserData : TheoryData<User, User, UserReadDTO, Type?>
+    public class UpdateUserData : TheoryData<bool, UserUpdateDTO?, User, User, UserReadDTO, Type?>
     {
         public UpdateUserData()
         {
             PasswordService.HashPassword("12345", out string hashedPassword, out byte[] salt);
             User user = new User() { Name = "John Doe", Email = "john@example.com", Password = hashedPassword, Avatar = "https://picsum.photos/200", Role = Role.Customer, Salt = salt };
             User updatedUser = new User() { Name = "John1 Doe", Email = "john@example.com", Password = hashedPassword, Avatar = "https://i.imgur.com/LDOO4Qs.jpg", Salt = salt, Role = Role.Customer };
+            User updatedUser1 = new User() { Name = "John Doe", Email = "john1@example.com", Password = hashedPassword, Avatar = "https://i.imgur.com/LDOO4Qs.jpg", Salt = salt, Role = Role.Customer };
+            var userUpdateDTO = new UserUpdateDTO { Name = "John1 Doe", Avatar = "https://i.imgur.com/LDOO4Qs.jpg" };
+            var userUpdateDTO1 = new UserUpdateDTO { Name = "John Doe", Email = "john1@example.com", Avatar = "https://i.imgur.com/LDOO4Qs.jpg" };
+            var userUpdateDTO2 = new UserUpdateDTO { Name = "John1 Doe", Email = "john@example.com", Avatar = "https://i.imgur.com/LDOO4Qs.jpg" };
             UserReadDTO customerReadDto = GetMapper().Map<User, UserReadDTO>(updatedUser);
-            Add(user, updatedUser, customerReadDto, null);
-            Add(null, null, null, typeof(CustomException));
+            UserReadDTO customerReadDto1 = GetMapper().Map<User, UserReadDTO>(updatedUser1);
+            Add(false, userUpdateDTO, user, updatedUser, customerReadDto, null);
+            Add(false, userUpdateDTO1, user, updatedUser1, customerReadDto1, null);
+            Add(false, null, null, null, null, typeof(CustomException));
+            Add(true, userUpdateDTO2, user, null, null, typeof(CustomException));
         }
     }
 

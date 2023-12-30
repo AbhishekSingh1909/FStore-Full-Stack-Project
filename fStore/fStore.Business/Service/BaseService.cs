@@ -21,9 +21,9 @@ public class BaseService<T, TReadDTO, TCreateDTO, TUpdateDTO> : IBaseService<T, 
         return _mapper.Map<T, TReadDTO>(recordCreated);
     }
 
-    public virtual async Task<bool> DeleteByIdAsync(Guid Id)
+    public virtual async Task<bool> DeleteByIdAsync(Guid id)
     {
-        var record = await _repo.GetByIdAsync(Id);
+        var record = await _repo.GetByIdAsync(id);
         if (record is null)
         {
             throw CustomException.NotFoundException("records not found");
@@ -70,7 +70,7 @@ public class BaseService<T, TReadDTO, TCreateDTO, TUpdateDTO> : IBaseService<T, 
         }
         T record = _mapper.Map<TUpdateDTO, T>(updateObject, entity);
 
-        var updatedUser = await _repo.UpdateOneAsync(id, record);
-        return _mapper.Map<T, TReadDTO>(updatedUser);
+        var updatedRecord = await _repo.UpdateOneAsync(id, record);
+        return _mapper.Map<T, TReadDTO>(updatedRecord);
     }
 }

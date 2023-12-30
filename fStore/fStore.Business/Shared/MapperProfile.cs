@@ -1,7 +1,6 @@
 using AutoMapper;
 using fStore.Business.DTO;
 using fStore.Core;
-using System.Formats.Tar;
 
 namespace fStore.Business;
 
@@ -11,11 +10,11 @@ public class MapperProfile : Profile
     {
         CreateMap<User, UserReadDTO>();
         CreateMap<UserCreateDTO, User>();
-        CreateMap<UserUpdateDTO, User>();
+        CreateMap<UserUpdateDTO, User>().ForAllMembers(opt => opt.Condition((src, dest, value) => value != null));
 
         CreateMap<Address, AddressReadDTO>();
         CreateMap<AddressCreateDTO, Address>();
-        CreateMap<AddressUpdateDTO, Address>();
+        CreateMap<AddressUpdateDTO, Address>().ForAllMembers(opt => opt.Condition((src, dest, value) => value != null));
 
         CreateMap<Category, CategoryReadDTO>();
         CreateMap<CategoryCreateDTO, Category>();
@@ -25,8 +24,8 @@ public class MapperProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images.Select(m => m.ImageUrl)))
            .ForMember(dest => dest.Category, opt => opt.MapFrom(src => src.Category));
-           //.ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images
-           //    .Select(img => new ImageReadDTO { ImageUrl = img.ImageUrl, Id = img.Id, ProductId = img.ProductId })));
+        //.ForMember(dest => dest.Images, opt => opt.MapFrom(src => src.Images
+        //    .Select(img => new ImageReadDTO { ImageUrl = img.ImageUrl, Id = img.Id, ProductId = img.ProductId })));
 
         CreateMap<ProductCreateDTO, Product>()
             .ForMember(dest => dest.Category, opt => opt.Ignore())
@@ -44,11 +43,11 @@ public class MapperProfile : Profile
         CreateMap<ImageUpdateDTO, Image>().ForAllMembers(opt => opt.Condition((src, dest, value) => value != null));
 
         CreateMap<Order, OrderReadDTO>().ForMember(dest => dest.OrderProducts, opt => opt.MapFrom(src => src.OrderDetails))
-                                        .ForMember(dest => dest.Status, opt=> opt.MapFrom(src=> src.OrderStatus));
+                                        .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.OrderStatus));
         CreateMap<OrderCreateDTO, Order>()
             .ForMember(dest => dest.OrderDetails,
                 opt => opt.MapFrom(src => src.OrderProducts));
-        CreateMap<OrderUpdateDTO, Order>().ForMember(dest=> dest.OrderStatus,opt=> opt.MapFrom(src=> src.Status)).ForAllMembers(opt => opt.Condition((src, dest, value) => value != null));
+        CreateMap<OrderUpdateDTO, Order>().ForMember(dest => dest.OrderStatus, opt => opt.MapFrom(src => src.Status)).ForAllMembers(opt => opt.Condition((src, dest, value) => value != null));
 
         CreateMap<OrderProduct, OrderProductReadDTO>();
         CreateMap<OrderProductCreateDTO, OrderProduct>();

@@ -29,7 +29,7 @@ public class AddressServiceTest
         Mock<IUserRepo> userRepo = new Mock<IUserRepo>();
         GetAllParams options = new GetAllParams();
         repo.Setup(repo => repo.GetAllAsync(options)).Returns(Task.FromResult(response));
-        AddressService service = new AddressService(repo.Object, GetMapper());
+        AddressService service = new AddressService(repo.Object, userRepo.Object, GetMapper());
 
         IEnumerable<AddressReadDTO> result = await service.GetAllAsync(options);
 
@@ -43,7 +43,7 @@ public class AddressServiceTest
         Mock<IAddressRepo> repo = new Mock<IAddressRepo>();
         Mock<IUserRepo> userRepo = new Mock<IUserRepo>();
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).Returns(Task.FromResult(response));
-        AddressService service = new AddressService(repo.Object, GetMapper());
+        AddressService service = new AddressService(repo.Object, userRepo.Object, GetMapper());
         if (exception != null)
         {
             Assert.ThrowsAsync(exception, async () => service.GetByIdAsync(It.IsAny<Guid>()));
@@ -62,7 +62,7 @@ public class AddressServiceTest
         Mock<IAddressRepo> repo = new Mock<IAddressRepo>();
         Mock<IUserRepo> userRepo = new Mock<IUserRepo>();
         repo.Setup(repo => repo.CreateOneAsync(It.IsAny<Address>())).Returns(Task.FromResult(response));
-        AddressService service = new AddressService(repo.Object, GetMapper());
+        AddressService service = new AddressService(repo.Object, userRepo.Object, GetMapper());
 
         AddressReadDTO result = await service.CreateOneAsync(It.IsAny<Guid>(), input);
 
@@ -71,13 +71,14 @@ public class AddressServiceTest
 
     [Theory]
     [ClassData(typeof(UpdateOneAddressData))]
-    public async void UpdateOne_ShouldReturn_ValidResponse(AddressUpdateDTO? input, Address? foundAddress, Address? response, AddressReadDTO? expected, Type? exception)
+    public async void UpdateOne_ShouldReturn_ValidResponse(User? user, AddressUpdateDTO? input, Address? foundAddress, Address? response, AddressReadDTO? expected, Type? exception)
     {
         Mock<IAddressRepo> repo = new Mock<IAddressRepo>();
         Mock<IUserRepo> userRepo = new Mock<IUserRepo>();
+        userRepo.Setup(userRepo => userRepo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(user);
         repo.Setup(repo => repo.UpdateOneAsync(It.IsAny<Guid>(), It.IsAny<Address>())).Returns(Task.FromResult(response));
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).Returns(Task.FromResult(foundAddress));
-        AddressService service = new AddressService(repo.Object, GetMapper());
+        AddressService service = new AddressService(repo.Object, userRepo.Object, GetMapper());
 
         if (exception != null)
         {
@@ -92,13 +93,14 @@ public class AddressServiceTest
 
     [Theory]
     [ClassData(typeof(DeleteAddressData))]
-    public async void DeleteOne_ShouldReturn_ValidResponse(Address? foundResponse, bool repoResponse, bool? expected, Type? exceptionType)
+    public async void DeleteOne_ShouldReturn_ValidResponse(User? user, Address? foundResponse, bool repoResponse, bool? expected, Type? exceptionType)
     {
         Mock<IAddressRepo> repo = new Mock<IAddressRepo>();
         Mock<IUserRepo> userRepo = new Mock<IUserRepo>();
+        userRepo.Setup(userRepo => userRepo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(user);
         repo.Setup(repo => repo.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync(foundResponse);
         repo.Setup(repo => repo.DeleteByIdAsync(It.IsAny<Address>())).Returns(Task.FromResult(repoResponse));
-        AddressService service = new AddressService(repo.Object, GetMapper());
+        AddressService service = new AddressService(repo.Object, userRepo.Object, GetMapper());
 
         if (exceptionType is not null)
         {
@@ -118,7 +120,7 @@ public class AddressServiceTest
         Mock<IAddressRepo> repo = new Mock<IAddressRepo>();
         Mock<IUserRepo> userRepo = new Mock<IUserRepo>();
         repo.Setup(repo => repo.GetAddreess(It.IsAny<Guid>())).Returns(Task.FromResult(response));
-        AddressService service = new AddressService(repo.Object, GetMapper());
+        AddressService service = new AddressService(repo.Object, userRepo.Object, GetMapper());
 
         AddressReadDTO result = await service.GetAddreess(It.IsAny<Guid>());
         Assert.Equivalent(expected, result);
@@ -133,10 +135,12 @@ public class AddressServiceTest
         }
     }
 
-    public class DeleteAddressData : TheoryData<Address?, bool, bool?, Type?>
+    public class DeleteAddressData : TheoryData<User?, Address?, bool, bool?, Type?>
     {
         public DeleteAddressData()
         {
+            PasswordService.HashPassword("12345", out string hashedPassword, out byte[] salt);
+            User user = new User() { Name = "John Doe", Email = "john@example.com", Password = hashedPassword, Avatar = "https://picsum.photos/200", Role = Role.Customer, Salt = salt };
             Address address = new Address()
             {
                 HouseNumber = "A1",
@@ -146,34 +150,55 @@ public class AddressServiceTest
                 Street = "Street 1",
                 UserId = new Guid()
             };
-            Add(address, true, true, null);
-            Add(null, false, null, typeof(CustomException));
+            user.Address = address;
+            User user1 = new User() { Name = "John1 Doe", Email = "john1@example.com", Password = hashedPassword, Avatar = "https://picsum.photos/200", Role = Role.Customer, Salt = salt };
+            Add(user, address, true, true, null);
+            Add(user, null, false, null, typeof(CustomException));
+            Add(null, null, false, null, typeof(CustomException));
+            Add(user1, null, false, null, typeof(CustomException));
         }
     }
 
-    public class UpdateOneAddressData : TheoryData<AddressUpdateDTO?, Address?, Address?, AddressReadDTO?, Type?>
+    public class UpdateOneAddressData : TheoryData<User?, AddressUpdateDTO?, Address?, Address?, AddressReadDTO?, Type?>
     {
         public UpdateOneAddressData()
         {
-            AddressUpdateDTO addressInput = new AddressUpdateDTO()
+            PasswordService.HashPassword("12345", out string hashedPassword, out byte[] salt);
+            User user = new User() { Name = "John Doe", Email = "john@example.com", Password = hashedPassword, Avatar = "https://picsum.photos/200", Role = Role.Customer, Salt = salt };
+            User user1 = new User() { Name = "John1 Doe", Email = "john1@example.com", Password = hashedPassword, Avatar = "https://picsum.photos/200", Role = Role.Customer, Salt = salt };
+            Address address = new Address()
             {
                 HouseNumber = "A1",
+                City = "Some city",
+                Country = "Some country",
+                PostCode = "12345",
+                Street = "Street 1",
+                UserId = new Guid()
+            };
+
+            user.Address = address;
+
+            AddressUpdateDTO addressInput = new AddressUpdateDTO()
+            {
+                HouseNumber = "A7",
                 City = "Some city",
                 Country = "Some country",
                 PostCode = "12345",
                 Street = "Street 1"
             };
-            Address address = new Address()
+            Address updatedaddress = new Address()
             {
-                HouseNumber = "A1",
+                HouseNumber = "A7",
                 City = "Some city",
                 Country = "Some country",
                 PostCode = "12345",
                 Street = "Street 1",
                 UserId = new Guid()
             };
-            Add(addressInput, address, address, GetMapper().Map<Address, AddressReadDTO>(address), null);
-            Add(addressInput, null, null, null, typeof(CustomException));
+            Add(user, addressInput, address, address, GetMapper().Map<Address, AddressReadDTO>(updatedaddress), null);
+            Add(user, addressInput, null, null, null, typeof(CustomException));
+            Add(user1, addressInput, null, null, null, typeof(CustomException));
+            Add(null, addressInput, null, null, null, typeof(CustomException));
         }
     }
 

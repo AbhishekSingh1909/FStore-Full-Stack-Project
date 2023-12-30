@@ -47,4 +47,32 @@ public class UserService : BaseService<User, UserReadDTO, UserCreateDTO, UserUpd
         }
         return true;
     }
+
+    public async override Task<UserReadDTO> UpdateOneAsync(Guid id, UserUpdateDTO updateObject)
+    {
+        User? entity = await _repo.GetByIdAsync(id);
+        if (entity is null)
+        {
+            throw CustomException.NotFoundException("User is not found");
+        }
+        var isEmail = await CheckUserMail(updateObject.Email, entity.Email);
+
+        if (!isEmail)
+        {
+            User record = _mapper.Map<UserUpdateDTO, User>(updateObject, entity);
+            var updatedUser = await _repo.UpdateOneAsync(id, record);
+            return _mapper.Map<User, UserReadDTO>(updatedUser);
+        }
+        throw CustomException.EmailAvailable($"Email {updateObject.Email} is available in system.");
+    }
+
+    private async Task<bool> CheckUserMail(string newEmail, string oldEmail)
+    {
+        if (newEmail != null && newEmail != oldEmail)
+        {
+            var result = await _userRepo.IsEmailAvailableAsync(newEmail);
+            return result;
+        }
+        return false;
+    }
 }
