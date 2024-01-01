@@ -12,7 +12,6 @@ public class UserRepo : BaseRepo<User>, IUserRepo
 
     public override async Task<IEnumerable<User>> GetAllAsync(GetAllParams options)
     {
-        //var users = await _data.AsNoTracking().Include(u => u.Address).Where(u => u.Name.Contains(options.Search)).Skip(options.Offset).Take(options.Limit).ToListAsync();// Task.WhenAll(Task.Run(()=> _users.Skip(options.Offset).Take(options.Limit)));
         var query = _data.AsNoTracking().Include(u => u.Address).Where(u => u.Name.ToLower().Contains(options.Search.ToLower())).AsQueryable();
         if (options.Limit > 0 && options.Offset >= 0)
         {

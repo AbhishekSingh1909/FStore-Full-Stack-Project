@@ -17,9 +17,6 @@ public class AddressRepo : BaseRepo<Address>, IAddressRepo
 
     public override async Task<IEnumerable<Address>> GetAllAsync(GetAllParams options)
     {
-        //var address = await _data.AsNoTracking().Where(a => a.Country.Contains(options.Search) || a.City.Contains(options.Search) ||
-        //a.PostCode.Contains(options.Search) || a.Street.Contains(options.Search))
-        //.Skip(options.Offset).Take(options.Limit).ToListAsync();
         var query =  _data.AsNoTracking().Where(a => a.Country.ToLower().Contains(options.Search.ToLower()) || a.City.ToLower().Contains(options.Search.ToLower()) ||
         a.PostCode.ToLower().Contains(options.Search.ToLower()) || a.Street.ToLower().Contains(options.Search.ToLower())).AsQueryable();
         if (options.Limit > 0 && options.Offset >= 0)

@@ -39,8 +39,6 @@ public class CategoryRepo : BaseRepo<Category>, ICategoryRepo
     public async Task<IEnumerable<Product>> GetProductsByCategory(Guid id)
     {
         var product =  _product.Include(p => p.Category).Include(p => p.Images).Where(p=> p.CategoryId == id).AsQueryable();
-        //var query = _product.AsNoTracking().Include(p => p.Category).Include(p => p.Images).Select(p=> p).AsQueryable(); ;
-        //query = query.Where(p => p.Category.Id == id);
         var  products = await product.ToListAsync();
         return products;
     }

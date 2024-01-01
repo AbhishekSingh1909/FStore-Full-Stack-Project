@@ -34,10 +34,6 @@ public class OrderService : BaseService<Order, OrderReadDTO, OrderCreateDTO, Ord
         var order = _mapper.Map<OrderCreateDTO, Order>(createObject);
         order.UserId = id;
         var createdOrder = await _repo.CreateOneAsync(order);
-        //if (createdOrder is not null && createdOrder.Id != new Guid())
-        //{ 
-        //    createdOrder = await _repo.GetByIdAsync()
-        //}
         return _mapper.Map<Order, OrderReadDTO>(createdOrder);
     }
 

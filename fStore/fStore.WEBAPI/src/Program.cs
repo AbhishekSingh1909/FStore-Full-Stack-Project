@@ -71,9 +71,6 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
-//builder.Services.AddSingleton<IInterceptor>(_ => new TimeStampInterceptor());
-
-//builder.Services.AddSingleton<IAuthorizationHandler, AdminOrOwnerHandler>();
 builder.Services.AddScoped<IAuthorizationHandler, AdminOrOwnerHandler>();
 
 
@@ -108,7 +105,7 @@ builder.Services.AddAutoMapper(typeof(MapperProfile).Assembly);
 // Add Error handler Middleware
 builder.Services.AddTransient<ExceptionHandlerMiddleware>();
 
-var dataSourceBuilder = new NpgsqlDataSourceBuilder(builder.Configuration.GetConnectionString("LocalDb"));
+var dataSourceBuilder = new NpgsqlDataSourceBuilder(builder.Configuration.GetConnectionString("MyStoreDb"));
 dataSourceBuilder.MapEnum<Role>();
 dataSourceBuilder.MapEnum<OrderStatus>();
 var dataSource = dataSourceBuilder.Build();
@@ -125,20 +122,6 @@ builder.Services.AddDbContext<DataBaseContext>(options =>
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionHandlerMiddleware>();
-
-// Configure the HTTP request pipeline.
-// if (app.Environment.IsDevelopment())
-// {
-//     app.UseSwagger();
-//     app.UseSwaggerUI();
-// }
-//swagger in use in production
-// app.UseSwagger();
-// app.UseSwaggerUI(options =>
-// {
-//     options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-//     options.RoutePrefix = string.Empty;
-// });
 
 app.UseSwagger();
 app.UseSwaggerUI(/* opt =>
