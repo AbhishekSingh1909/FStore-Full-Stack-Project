@@ -25,7 +25,6 @@ public class OrderController : ControllerBase
     public async Task<ActionResult<OrderReadDTO>> CreateOrder([FromBody] OrderCreateDTO createObject)
     {
         var id = GetUserId();
-        // createObject.UserId = id;
         var order = await _orderService.CreateOneAsync(id, createObject);
         return CreatedAtAction(nameof(CreateOrder), order);
     }

@@ -1,8 +1,6 @@
-using System.Data.Common;
 using fStore.Business;
 using fStore.Core;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Validations;
 
 namespace fStore.WEBAPI;
 
@@ -16,7 +14,7 @@ public class OrderRepo : BaseRepo<Order>, IOrderRepo
 
     public override async Task<IEnumerable<Order>> GetAllAsync(GetAllParams options)
     {
-        var query = _data.AsNoTracking().Include(o => o.OrderDetails).Include(o=> o.User).AsQueryable();
+        var query = _data.AsNoTracking().Include(o => o.OrderDetails).Include(o => o.User).AsQueryable();
 
         if (!string.IsNullOrEmpty(options.Search))
         {
@@ -27,7 +25,7 @@ public class OrderRepo : BaseRepo<Order>, IOrderRepo
         {
             return await query.Skip(options.Offset).Take(options.Limit).ToListAsync();
         }
-            return await query.ToListAsync();
+        return await query.ToListAsync();
     }
 
     public override async Task<Order?> GetByIdAsync(Guid id)
@@ -67,11 +65,12 @@ public class OrderRepo : BaseRepo<Order>, IOrderRepo
                 await transaction.CommitAsync();
                 return createObject;
             }
+
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 await transaction.RollbackAsync();
-                throw new Exception("can't create order");
+                throw;
             }
         }
     }

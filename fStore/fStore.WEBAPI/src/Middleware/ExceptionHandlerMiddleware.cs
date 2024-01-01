@@ -14,7 +14,7 @@ public class ExceptionHandlerMiddleware : IMiddleware
         catch (CustomException e)
         {
             context.Response.StatusCode = e.StatusCode;
-            await context.Response.WriteAsync(e.Message);
+            await context.Response.WriteAsJsonAsync(e.Message);
         }
         catch (Exception e)
         {
