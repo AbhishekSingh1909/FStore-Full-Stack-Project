@@ -131,7 +131,7 @@ app.UseSwaggerUI(/* opt =>
 app.UseHttpsRedirection();
 
 // Use CORS with the defined policy
-app.UseCors("CorsPolicy");
+app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();
