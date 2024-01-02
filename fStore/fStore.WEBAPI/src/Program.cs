@@ -25,7 +25,7 @@ builder.Services.AddCors(options =>
         builder.WithOrigins("http://localhost:3000")
                .AllowAnyHeader()
                .AllowAnyMethod();
-        builder.WithOrigins("https://e-commerce-website-rho-eight.vercel.app/")
+        builder.WithOrigins("https://fstore-project.vercel.app/")
                .AllowAnyHeader()
                .AllowAnyMethod();
     });
