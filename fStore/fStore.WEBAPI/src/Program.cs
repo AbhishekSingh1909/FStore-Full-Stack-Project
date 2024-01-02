@@ -20,15 +20,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("CorsPolicy", builder =>
-    {
-        builder.WithOrigins("http://localhost:3000")
-               .AllowAnyHeader()
-               .AllowAnyMethod();
-        builder.WithOrigins("https://fstore-project.vercel.app/")
-               .AllowAnyHeader()
-               .AllowAnyMethod();
-    });
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
 });
 
 builder.Services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
