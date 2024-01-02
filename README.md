@@ -8,7 +8,7 @@
 ![EF Core](https://img.shields.io/badge/EF%20Core-v.7-cyan)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-v.14-drakblue)
 
-This is the final project of Integrify Academy which involves creating a Fullstack project with React and Redux in the frontend and ASP.NET Core 8, Entity Framework Core and Postgre SQL  in the backend. This is an e commerce website called fStore which has folowing features 
+This is the final project of Integrify Academy which involves creating a Fullstack project with React and Redux in the frontend and ASP.NET Core 8, Entity Framework Core and Postgre SQL  in the backend. This is an e-commerce website called fStore which has folowing features 
 User functionalities :
 (Registering, Authentication, Browsing through products, Shopping Cart, Order Creation)
 
@@ -46,22 +46,22 @@ Order Management (View List of Oders)
 
 ### User
 
-1. User Management: a user is able to...
-   - register for a user account (not admin account)
+1. User Management: A user is able to...
+   - register an account (not admin account)
    - log in and log out
    - edit their name, email and avatar
    - change their password
-   - unregister
+   - unregister themself
 2. Products: a user is able to...
    - view all available products
    - view a single product
    - search and sort products
+   - filter products by category
 3. Cart: a user is able to...
-   - add products to a shopping cart
-   - manage their shopping cart
+   - add products into shopping cart
+   - manage their shopping cart increase and decrease items  qauntities
    - checkout the shopping cart / place an order
 4. Admin can see all order list
-   user can create an order
 
 ### Admin
 
@@ -119,23 +119,24 @@ The frontend code and documentation are found in [this repository](https://githu
    - UserRepo
 
 ##### Services
-   - AuthService
-   - BaseService
-   - CategoryService
-   - ImageService 
-   - OrderService
-   - ProductService
-   - UserService
+   - Auth Service
+   - Base Service
+   - Category Service
+   - Image Service 
+   - Order Service
+   - Product Service
+   - User Service
+   - Address Service
 
 ##### Controllers
-   - AuthController
+   - Auth Controller
    - Base Controller
-   - CategoryController
-   - ImageController
-   - OrderController
-   - ProductController
-   - UserController
-   -AddressController
+   - Category Controller
+   - Image Controller
+   - Order Controller
+   - Product Controller
+   - User Controller
+   -Address Controller
 
 ##### Middleware
    - authentication: token-based
@@ -157,7 +158,6 @@ The frontend code and documentation are found in [this repository](https://githu
 ### Swagger Link
 [Link to Swagger](https://fakestore.azurewebsites.net/swagger/index.html)
 
-### Running the backend locally
 
 #### Requirements
 - [.NET](https://dotnet.microsoft.com/en-us/download)
@@ -188,7 +188,7 @@ The frontend code and documentation are found in [this repository](https://githu
  #### 
 ```
 - create seed data 
-- initialize database at fStore WEB API with `dotnet ef migrations add {MigrationName}` and `dotnet ef database update`
+- initialize database at fStore.WEBAPI with `dotnet ef migrations add {MigrationName}` and `dotnet ef database update`
 - run the project with `dotnet watch --project fStore.WebAPI`
 - run tests with `dotnet test
 ### Admin Credentials
