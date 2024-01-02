@@ -36,10 +36,10 @@ You can follow the same topics as your backend project or choose the alternative
 
 1. User Management: a user is able to...
    - register for a user account (not admin account)
-   - log in and out
+   - log in and log out
    - edit their name, email and avatar
-   - (backend only: change their password)
-   - (backend only: unregister)
+   - change their password
+   - unregister
 2. Products: a user is able to...
    - view all available products
    - view a single product
@@ -48,9 +48,8 @@ You can follow the same topics as your backend project or choose the alternative
    - add products to a shopping cart
    - manage their shopping cart
    - checkout the shopping cart / place an order
-4. Order Management: a user is able to...
-   - view their order history
-   - (backend only: cancel their order while it is processing)
+4. Admin can see all order list
+   user can create an order
 
 ### Admin
 
@@ -66,13 +65,15 @@ You can follow the same topics as your backend project or choose the alternative
    - delete products
 3. Order Management: an admin is able to...
    - view all orders
-   - update order status
+   
    - (backend only: view order details)
+   -(backend only : update order status)
+   -(backend only : user can cancel order)
    - (backend only: delete an order while it is processing)
 
 ## Frontend
 
-The frontend code and documentation are found in [this repository](https://github.com/miraemilia/evergreen).
+The frontend code and documentation are found in [this repository](https://github.com/AbhishekSingh1909/fs16_CSharp-FullStack.git).
 
 ![Screenshot](readmeImages/frontpage.png)
 
@@ -98,29 +99,31 @@ The frontend code and documentation are found in [this repository](https://githu
 
 
 ##### Repositories
-   - CategoryRepository
-   - ImageRepository (inherits from BaseRepository)
-   - OrderRepository
-   - ProductDetailsRepository (inherits from BaseRepository)
-   - ProductRepository
-   - UserRepository
+   - BaseRepo
+   - CategoryRepo
+   - ImageRepo
+   - OrderRepo
+   - ProductRepo
+   - UserRepo
 
 ##### Services
    - AuthService
+   - BaseService
    - CategoryService
-   - ImageService (inherits from BaseService)
+   - ImageService 
    - OrderService
-   - ProductDetailsService (inherits from BaseService)
    - ProductService
    - UserService
 
 ##### Controllers
    - AuthController
+   - Base Controller
    - CategoryController
    - ImageController
    - OrderController
    - ProductController
    - UserController
+   -AddressController
 
 ##### Middleware
    - authentication: token-based
@@ -129,13 +132,18 @@ The frontend code and documentation are found in [this repository](https://githu
 
 ##### Database
    - code-first
-   - seeded with csv data
+   - seeded data with by program (Manually) in SeedData.cs 
 
 
 
 ### Deployment
 
-[Link to backend deployment](https://evergreenbotanics.azurewebsites.net/)
+[Link to backend deployment](https://fakestore.azurewebsites.net/)
+
+[Link to frontend deployment](https://fstore-project.vercel.app/)
+
+### Swagger Link
+[Link to Swagger](https://fakestore.azurewebsites.net/swagger/index.html)
 
 ### Running the backend locally
 
@@ -156,7 +164,7 @@ The frontend code and documentation are found in [this repository](https://githu
   },
   "AllowedHosts": "*",
   "ConnectionStrings": {
-    "LiveDb": "Host=***;Database=***;Username=***;Password=***;",
+    "MyStoreDb": "Host=***;Database=***;Username=***;Password=***;",
   },
   "Jwt": {
     "Issuer": ***,
@@ -164,8 +172,13 @@ The frontend code and documentation are found in [this repository](https://githu
     "Key": ***
   }
 }
+
+ #### 
 ```
 - create seed data 
 - initialize database at Evergreen.Webapi with `dotnet ef migrations add {MigrationName}` and `dotnet ef database update`
 - run the project with `dotnet watch --project Evergreen.WebAPI`
 - run tests with `dotnet test
+### Admin Credentials
+email - admin@mail.com
+password -admin123
