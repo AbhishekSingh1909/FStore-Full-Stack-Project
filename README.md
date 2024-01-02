@@ -8,12 +8,14 @@
 ![EF Core](https://img.shields.io/badge/EF%20Core-v.7-cyan)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-v.14-drakblue)
 
-This is the final project of Integrify Academy which involves creating a Fullstack project with React and Redux in the frontend and ASP.NET Core 7 in the backend. The result is an indoor plant e-commerce site called Evergreen which features basic user functionalities (registering, authentication, browsing through products, shopping cart, ordering) as well as admin functionalities for managing users, products and orders.
+This is the final project of Integrify Academy which involves creating a Fullstack project with React and Redux in the frontend and ASP.NET Core 8, Entity Framework Core and Postgre SQL  in the backend. This is an e commerce website called fStore which has folowing features 
+User functionalities :
+(Registering, Authentication, Browsing through products, Shopping Cart, Order Creation)
 
-- Frontend: SASS, TypeScript, React, Redux Toolkit
-- Backend: ASP.NET Core, Entity Framework Core, PostgreSQL
-
-You can follow the same topics as your backend project or choose the alternative one, between E-commerce and Library. You can reuse the previous frontend project, with necessary modification to fit your backend server.
+Admin functionalities: 
+User Management (View User , Update User Role, Delete User) 
+Products Management (Create New Product, Update Product, Delete Product)
+Order Management (View List of Oders)
 
 ## Table of Contents
 
@@ -27,8 +29,18 @@ You can follow the same topics as your backend project or choose the alternative
 
 ## Technologies
 
-- Frontend: SASS, TypeScript, React, Redux Toolkit
+- Frontend: SASS, TypeScript, React, Redux Toolkit,Material UI
 - Backend: ASP.NET Core, Entity Framework Core, PostgreSQL
+
+## File Structure
+  - fStore
+  - fStore.Business
+  - fStore.Controller
+  - fStore.Core
+  - fStore.WebAPI
+  - fStore.Test
+  - fStore.sln
+  - README.md
 
 ## Functionalities
 
@@ -63,19 +75,19 @@ You can follow the same topics as your backend project or choose the alternative
    - add products
    - edit products
    - delete products
+
 3. Order Management: an admin is able to...
    - view all orders
    
-   - (backend only: view order details)
-   -(backend only : update order status)
-   -(backend only : user can cancel order)
-   - (backend only: delete an order while it is processing)
+   - (backend Endpoints: view each order details)
+   - (backend Endpoints : update order status)
+   - (backend Endpoints : user can cancel order)
+   - (backend Endpoints: delete an order)
 
 ## Frontend
 
 The frontend code and documentation are found in [this repository](https://github.com/AbhishekSingh1909/fs16_CSharp-FullStack.git).
 
-![Screenshot](readmeImages/frontpage.png)
 
 ## Backend
 
@@ -138,7 +150,7 @@ The frontend code and documentation are found in [this repository](https://githu
 
 ### Deployment
 
-[Link to backend deployment](https://fakestore.azurewebsites.net/)
+[Link to backend deployment](https://fakestore.azurewebsites.net/swagger/index.html)
 
 [Link to frontend deployment](https://fstore-project.vercel.app/)
 
@@ -176,8 +188,8 @@ The frontend code and documentation are found in [this repository](https://githu
  #### 
 ```
 - create seed data 
-- initialize database at Evergreen.Webapi with `dotnet ef migrations add {MigrationName}` and `dotnet ef database update`
-- run the project with `dotnet watch --project Evergreen.WebAPI`
+- initialize database at fStore WEB API with `dotnet ef migrations add {MigrationName}` and `dotnet ef database update`
+- run the project with `dotnet watch --project fStore.WebAPI`
 - run tests with `dotnet test
 ### Admin Credentials
 email - admin@mail.com
