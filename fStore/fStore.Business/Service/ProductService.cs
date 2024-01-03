@@ -28,7 +28,7 @@ public class ProductService : BaseService<Product, ProductReadDTO, ProductCreate
         return await base.CreateOneAsync(id, createObject);
     }
 
-    
+
 
     public override async Task<ProductReadDTO> UpdateOneAsync(Guid id, ProductUpdateDTO updateObject)
     {
@@ -41,13 +41,31 @@ public class ProductService : BaseService<Product, ProductReadDTO, ProductCreate
             }
         }
 
+        if (updateObject?.Title != null && updateObject.Title == "" || updateObject?.Description != null && updateObject.Description == "")
+        {
+            throw CustomException.ProductTitleAndDescriptionShouldBeValidString();
+        }
+
+        if (updateObject?.Price != null && updateObject.Price <= 0)
+        {
+            throw CustomException.PriceCanNotBeZeroOrNegative();
+        }
+
+        if (updateObject?.Inventory != null && updateObject.Inventory <= 0)
+        {
+            throw CustomException.InventaryCanNotBeZeroOrNegative();
+        }
+
         var entity = await _repo.GetByIdAsync(id);
         if (entity is null)
         {
             throw CustomException.NotFoundException("product not found");
         }
-        var record = _mapper.Map<ProductUpdateDTO, Product>(updateObject, entity);
-
+        var record = _mapper.Map<ProductUpdateDTO, Product>(updateObject);
+        if (record is null)
+        {
+            throw CustomException.UnableToMap("Unable to map product entity");
+        }
         var updatedUser = await _repo.UpdateOneAsync(id, record);
         return _mapper.Map<Product, ProductReadDTO>(updatedUser);
     }

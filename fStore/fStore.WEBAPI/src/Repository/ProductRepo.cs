@@ -1,3 +1,4 @@
+using fStore.Business;
 using fStore.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -30,10 +31,56 @@ public class ProductRepo : BaseRepo<Product>, IProductRepo
 
     public override async Task<Product> UpdateOneAsync(Guid id, Product updateObject)
     {
+        try
+        {
+            var product = await _data.FindAsync(id);
 
-        _data.Update(updateObject);
-        await _dbContext.SaveChangesAsync();
-        return updateObject;
+            if (product != null)
+            {
+                if (!string.IsNullOrWhiteSpace(updateObject?.Title) && !string.IsNullOrEmpty(updateObject?.Title))
+                {
+                    product.Title = updateObject.Title;
+                }
+                if (!string.IsNullOrWhiteSpace(updateObject?.Description) && !string.IsNullOrEmpty(updateObject?.Description))
+                {
+                    product.Description = updateObject.Description;
+                }
+
+                if (updateObject?.Price > 0)
+                {
+                    product.Price = updateObject.Price;
+                }
+
+                if (updateObject?.Inventory > 0)
+                {
+                    product.Inventory = updateObject.Inventory;
+                }
+                var newGuid = new Guid();
+                if (updateObject?.CategoryId != null && updateObject?.CategoryId != newGuid)
+                {
+                    product.CategoryId = updateObject.CategoryId;
+                }
+                _data.Update(product);
+                await _dbContext.SaveChangesAsync();
+                return product;
+            }
+            throw CustomException.NotFoundException("Product not found");
+        }
+        catch (CustomException e)
+        {
+            Console.WriteLine(e.Message);
+            throw CustomException.NotFoundException(e.Message);
+        }
+        catch (InvalidOperationException e)
+        {
+            Console.WriteLine(e.Message);
+            throw new InvalidOperationException(e.Message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+            throw new Exception(e.Message);
+        }
     }
 
     public async Task<IEnumerable<Product>> GetProductsByCategory(Guid id)

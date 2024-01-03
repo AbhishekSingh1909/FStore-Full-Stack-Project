@@ -23,6 +23,20 @@ public class CustomException : Exception
     {
         return new CustomException(400, msg);
     }
+    public static CustomException ProductTitleAndDescriptionShouldBeValidString(string msg = "Product title and description should be a Valid string")
+    {
+        return new CustomException(400, msg);
+    }
+
+    public static CustomException PriceCanNotBeZeroOrNegative(string msg = "Price Can't be zero or negative")
+    {
+        return new CustomException(400, msg);
+    }
+
+    public static CustomException InventaryCanNotBeZeroOrNegative(string msg = "Inventory Can't be zero or negative")
+    {
+        return new CustomException(400, msg);
+    }
 
     public static CustomException TokenNotCreated(string msg = "Unable to create token")
     {
